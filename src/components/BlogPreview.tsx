@@ -18,7 +18,7 @@ interface BlogPreviewProps {
 
 export default function BlogPreview({ title, posts }: BlogPreviewProps) {
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-16 bg-muted/30 border-y border-primary/5">
       <div className="container">
         <h2 className="text-3xl md:text-4xl font-bold font-display mb-10 text-center text-primary-foreground animate-on-scroll">{title}</h2>
         
@@ -31,11 +31,14 @@ export default function BlogPreview({ title, posts }: BlogPreviewProps) {
             >
               {post.imageUrl && (
                 <div className="mb-4">
-                  <img 
-                    src={post.imageUrl} 
-                    alt={post.title}
-                    className="w-full h-48 object-cover rounded-sm"
-                  />
+                  <div className="scrapbook-photo w-full" style={{ '--rotate': `${Math.random() > 0.5 ? '' : '-'}${Math.floor(Math.random() * 3)}deg` } as React.CSSProperties}>
+                    <div className="scrapbook-tape"></div>
+                    <img 
+                      src={post.imageUrl} 
+                      alt={post.title}
+                      className="w-full h-48 object-cover rounded-sm"
+                    />
+                  </div>
                 </div>
               )}
               <div className="flex items-center gap-2 mb-3">

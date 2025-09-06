@@ -1,0 +1,208 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buttonVariants } from "@/components/ui/button";
+
+interface Props {
+  title: string;
+  description?: string;
+  author: string;
+  date: string;
+  category: string;
+  imageUrl?: string;
+  ogImage?: URL;
+}
+
+const { title, description, author, date, category, imageUrl, ogImage } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage}>
+  <div class="bg-muted/20 py-10 border-b border-primary/10">
+    <div class="container max-w-4xl mx-auto">
+      <div class="flex items-center space-x-2 mb-2">
+        <a href="/blog" class="text-primary hover:text-primary-foreground transition-colors">
+          Blog
+        </a>
+        <span class="text-muted-foreground">/</span>
+        <a href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="text-primary hover:text-primary-foreground transition-colors">
+          {category}
+        </a>
+      </div>
+      
+      <h1 class="text-3xl md:text-5xl font-bold font-display mb-4 text-primary-foreground">
+        {title}
+      </h1>
+      
+      <div class="flex flex-wrap items-center text-sm text-muted-foreground gap-x-4 gap-y-2 mb-8">
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span>{author}</span>
+        </div>
+        
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <span>{date}</span>
+        </div>
+        
+        <div class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="m7 20-3-3m0 0 3-3m-3 3h13m3-9-3 3m0 0 3 3m-3-3H7"></path></svg>
+          <span>Share</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <main class="py-12">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <!-- Main Content -->
+        <div class="lg:col-span-2">
+          <article class="scrapbook-paper bg-white/95 mb-8">
+            {imageUrl && (
+              <div class="mb-8 -mt-2 -mx-2">
+                <div class="scrapbook-photo w-full" style="--rotate: 0deg;">
+                  <div class="scrapbook-tape"></div>
+                  <img 
+                    src={imageUrl} 
+                    alt={title}
+                    class="w-full h-auto object-cover rounded-sm"
+                  />
+                </div>
+              </div>
+            )}
+            
+            <div class="prose prose-slate max-w-none">
+              <slot />
+            </div>
+          </article>
+          
+          <!-- Author Bio -->
+          <div class="scrapbook-paper bg-accent/5">
+            <div class="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+              <div class="scrapbook-photo" style="--rotate: -2deg;">
+                <div class="scrapbook-tape"></div>
+                <img 
+                  src={author === "Salicia Ford" 
+                    ? "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&auto=format&q=80" 
+                    : author === "Joshua Ford"
+                      ? "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&auto=format&q=80"
+                      : author === "Jackson Ford"
+                        ? "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=300&auto=format&q=80"
+                        : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&q=80"
+                  }
+                  alt={author}
+                  class="w-20 h-20 object-cover rounded-sm"
+                />
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-lg">{author}</h3>
+                <p class="text-muted-foreground mb-3">
+                  {author === "Salicia Ford" 
+                    ? "Patient Advocate & Homeschool Mom" 
+                    : author === "Joshua Ford"
+                      ? "Entrepreneur & Inventor"
+                      : author === "Jackson Ford"
+                        ? "Young Inventor & Entrepreneur"
+                        : "Designer & Aspiring Actress"
+                  }
+                </p>
+                <p class="text-sm mb-3">
+                  {author === "Salicia Ford" 
+                    ? "Salicia shares her journey battling autoimmune diseases while homeschooling and helping families through Anchor and Bloom." 
+                    : author === "Joshua Ford"
+                      ? "Joshua shares insights on entrepreneurship, inventions, and creative projects through Next Mountain Ventures."
+                      : author === "Jackson Ford"
+                        ? "Jackson explores 3D printing, inventions, and youth entrepreneurship through his unique perspective."
+                        : "Finley brings creativity to life through design, acting, and fashion-forward YouTube content."
+                  }
+                </p>
+                <a href={`/${author.split(" ")[0].toLowerCase()}`} class={buttonVariants({ variant: 'outline', size: 'sm' })}>
+                  More from {author.split(" ")[0]}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="space-y-8">
+          <div class="scrapbook-paper bg-white/90">
+            <h3 class="font-display font-bold text-xl mb-4">Latest Posts</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="shrink-0 mt-1">
+                  <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1518607692857-bff9babd9d40?w=150&auto=format&q=80" alt="Blog post" class="h-full w-full object-cover" />
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium text-sm leading-tight mb-1">
+                    <a href="/blog/faith-through-health-challenges" class="hover:text-primary">Finding Strength in Faith Through Health Challenges</a>
+                  </h4>
+                  <p class="text-xs text-muted-foreground">June 12, 2025</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-3">
+                <div class="shrink-0 mt-1">
+                  <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=150&auto=format&q=80" alt="Blog post" class="h-full w-full object-cover" />
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium text-sm leading-tight mb-1">
+                    <a href="/blog/homeschooling-tips-adhd" class="hover:text-primary">Homeschooling Tips for ADHD Children</a>
+                  </h4>
+                  <p class="text-xs text-muted-foreground">June 5, 2025</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-3">
+                <div class="shrink-0 mt-1">
+                  <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=150&auto=format&q=80" alt="Blog post" class="h-full w-full object-cover" />
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium text-sm leading-tight mb-1">
+                    <a href="/blog/3d-printing-young-inventors" class="hover:text-primary">3D Printing Projects for Young Inventors</a>
+                  </h4>
+                  <p class="text-xs text-muted-foreground">May 30, 2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="scrapbook-paper bg-white/90">
+            <h3 class="font-display font-bold text-xl mb-4">Categories</h3>
+            <div class="flex flex-wrap gap-2">
+              <a href="/blog/category/faith-health" class="px-3 py-1.5 bg-primary/10 text-primary-foreground text-sm rounded-md hover:bg-primary/20 transition-colors">
+                Faith & Health
+              </a>
+              <a href="/blog/category/homeschooling" class="px-3 py-1.5 bg-secondary/10 text-secondary-foreground text-sm rounded-md hover:bg-secondary/20 transition-colors">
+                Homeschooling
+              </a>
+              <a href="/blog/category/inventions" class="px-3 py-1.5 bg-accent/10 text-accent-foreground text-sm rounded-md hover:bg-accent/20 transition-colors">
+                Inventions
+              </a>
+              <a href="/blog/category/entrepreneurship" class="px-3 py-1.5 bg-muted text-muted-foreground text-sm rounded-md hover:bg-muted/70 transition-colors">
+                Entrepreneurship
+              </a>
+              <a href="/blog/category/family" class="px-3 py-1.5 bg-primary/10 text-primary-foreground text-sm rounded-md hover:bg-primary/20 transition-colors">
+                Family
+              </a>
+            </div>
+          </div>
+          
+          <div class="scrapbook-paper bg-secondary/5">
+            <h3 class="font-display font-bold text-xl mb-4">Subscribe</h3>
+            <p class="text-sm mb-4">Get the latest posts delivered straight to your inbox.</p>
+            <form class="space-y-3">
+              <input type="email" placeholder="Your email address" class="w-full px-3 py-2 border border-border rounded-md bg-white/50" />
+              <button type="submit" class={buttonVariants({ size: 'sm', class: 'w-full' })}>Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
