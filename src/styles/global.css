@@ -210,27 +210,29 @@
   
   /* Hero photos animations with extra padding to avoid cutoff */
   .hero-section {
-    padding-bottom: 200px; /* Extra padding to prevent cutoff */
+    padding-bottom: 250px; /* Extra padding to prevent cutoff */
+    margin-bottom: 150px; /* Additional margin for safety */
+    overflow: visible !important; /* Make sure nothing is cut off */
   }
 
   .hero-photo-1 {
     transform: translateY(-15px);
-    transition: transform 1.2s ease;
+    transition: transform 1.2s ease, opacity 1.2s ease;
   }
   
   .hero-photo-2 {
     transform: translateY(15px);
-    transition: transform 1.2s ease;
+    transition: transform 1.2s ease, opacity 1.2s ease;
   }
   
   .hero-photo-3 {
     transform: translateY(-10px);
-    transition: transform 1.2s ease;
+    transition: transform 1.2s ease, opacity 1.2s ease;
   }
   
   .hero-photo-4 {
     transform: translateY(10px);
-    transition: transform 1.2s ease;
+    transition: transform 1.2s ease, opacity 1.2s ease;
   }
   
   .hero-photo-1.animate-visible {
@@ -249,18 +251,19 @@
     transform: translateY(-175px);
   }
   
-  /* Family profile animations from sides */
+  /* Family profile animations from sides - full screen entrances */
   .family-profile {
     opacity: 0;
-    transition: opacity 1s ease, transform 1s ease;
+    transition: opacity 1.2s ease, transform 1.2s ease;
+    overflow: hidden;
   }
   
   .family-profile-right {
-    transform: translateX(100%);
+    transform: translateX(100vw); /* Full viewport width from right */
   }
   
   .family-profile-left {
-    transform: translateX(-100%);
+    transform: translateX(-100vw); /* Full viewport width from left */
   }
   
   .family-profile.animate-profile-visible {

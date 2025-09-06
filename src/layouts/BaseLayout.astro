@@ -41,33 +41,43 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
         });
         
         // For hero photos - animate photos based on scroll position
-        const heroObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            const heroPhotos = document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4');
+        let lastScrollY = window.scrollY;
+        const heroPhotos = document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4');
+        
+        // Initialize photos with correct initial state
+        heroPhotos.forEach((photo, index) => {
+          photo.style.transitionDelay = `${index * 0.15}s`;
+          // Initially, photos are not animated
+          if (window.scrollY < 100) {
+            photo.classList.remove('animate-visible');
+          }
+        });
+        
+        // Use scroll event for more precise control
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY;
+          const scrollingDown = scrollY > lastScrollY;
+          const heroSection = document.querySelector('.hero-section');
+          
+          if (heroSection) {
+            const heroSectionBottom = heroSection.offsetTop + heroSection.offsetHeight;
             
-            // When scrolling down (leaving hero section)
-            if (!entry.isIntersecting) {
+            // When scrolling down and past 100px threshold
+            if (scrollingDown && scrollY > 100) {
               heroPhotos.forEach((photo, index) => {
-                // Add slight delay between animations for staggered effect
-                photo.style.transitionDelay = `${index * 0.15}s`;
                 photo.classList.add('animate-visible');
               });
-            } else {
-              // When scrolling back up (returning to hero section)
+            } 
+            // When scrolling up and near the top
+            else if (!scrollingDown && scrollY < 100) {
               heroPhotos.forEach((photo, index) => {
-                // Add slight delay between animations for staggered effect
-                photo.style.transitionDelay = `${index * 0.15}s`;
                 photo.classList.remove('animate-visible');
               });
             }
-          });
-        }, { threshold: 0.8 }); // Adjust threshold for better trigger timing
-        
-        // We only need to observe one element (the hero section) to trigger all photo animations
-        const heroSection = document.querySelector('section:first-of-type');
-        if (heroSection) {
-          heroObserver.observe(heroSection);
-        }
+          }
+          
+          lastScrollY = scrollY;
+        });
         
         // For family profiles in the Our Family Journey section - animate from sides
         const familyProfileObserver = new IntersectionObserver((entries) => {
@@ -76,10 +86,11 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
               entry.target.classList.add('animate-profile-visible');
             }
           });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.15 });
         
-        // Observe each family profile separately
-        document.querySelectorAll('.family-profile').forEach(element => {
+        // Observe each family profile separately with slight delay
+        document.querySelectorAll('.family-profile').forEach((element, index) => {
+          element.style.transitionDelay = `${index * 0.2}s`;
           familyProfileObserver.observe(element);
         });
       });
