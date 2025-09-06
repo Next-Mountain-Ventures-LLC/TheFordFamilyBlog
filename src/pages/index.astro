@@ -1,35 +1,157 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactForm from '@/components/ContactForm';
+import HeroSection from '@/components/HeroSection';
+import FamilyMember from '@/components/FamilyMember';
+import BlogPreview from '@/components/BlogPreview';
+import YouTubeSection from '@/components/YouTubeSection';
 import { buttonVariants } from "@/components/ui/button";
+
+// Sample blog posts data
+const blogPosts = [
+  {
+    title: "Finding Strength in Faith Through Health Challenges",
+    excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
+    date: "June 12, 2025",
+    author: "Celicia Ford",
+    category: "Faith & Health",
+    imageUrl: "https://images.unsplash.com/photo-1518607692857-bff9babd9d40?w=600&auto=format&q=80",
+    slug: "faith-through-health-challenges"
+  },
+  {
+    title: "Homeschooling Tips for ADHD Children",
+    excerpt: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
+    date: "June 5, 2025",
+    author: "Celicia Ford",
+    category: "Homeschooling",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&auto=format&q=80",
+    slug: "homeschooling-tips-adhd"
+  },
+  {
+    title: "3D Printing Projects for Young Inventors",
+    excerpt: "Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids.",
+    date: "May 30, 2025",
+    author: "Jackson Ford",
+    category: "Inventions",
+    imageUrl: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&auto=format&q=80",
+    slug: "3d-printing-young-inventors"
+  }
+];
+
+// Sample YouTube videos data
+const youtubeVideos = [
+  {
+    title: "Building an E-Bike from Scratch - DIY Guide",
+    videoId: "dQw4w9WgXcQ", // This is a placeholder
+    thumbnail: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=600&auto=format&q=80",
+    creator: "Joshua Ford"
+  },
+  {
+    title: "Get Ready With Me - Back to School Edition",
+    videoId: "dQw4w9WgXcQ", // This is a placeholder
+    thumbnail: "https://images.unsplash.com/photo-1627243847738-0b9b66a80f08?w=600&auto=format&q=80",
+    creator: "Finley Ford"
+  },
+  {
+    title: "How I Started My First Business at Age 12",
+    videoId: "dQw4w9WgXcQ", // This is a placeholder
+    thumbnail: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&auto=format&q=80",
+    creator: "Jackson Ford"
+  }
+];
 ---
 
 <BaseLayout
-  title="Example title"
-  description="Example description"
+  title="The Ford Family - Faith, Health, Homeschooling & Entrepreneurship"
+  description="The Ford Family blog sharing our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity."
 >
-  <section class="container grid items-center gap-6 pt-6 pb-8 md:py-10">
-    <div class="flex max-w-[980px] flex-col items-start gap-2">
-      <h1
-        class="text-3xl leading-tight font-extrabold tracking-tighter md:text-4xl"
-      >
-        Example header
-      </h1>
-      <p class="text-muted-foreground max-w-[700px] text-lg">
-        Example introductory text
-      </p>
+  <!-- Hero Section -->
+  <HeroSection client:load />
+  
+  <!-- Family Members Section -->
+  <section id="family" class="py-20 bg-muted/10">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold font-display mb-16 text-center text-primary-foreground animate-on-scroll">
+        Our Family Journey
+      </h2>
+      
+      <div class="space-y-24">
+        <!-- Celicia -->
+        <FamilyMember 
+          client:visible
+          name="Celicia Ford" 
+          role="Patient Advocate & Homeschool Mom" 
+          description="Celicia battles rare autoimmune diseases including Sjogren's syndrome while homeschooling our children and helping families bring order to chaotic lives through Anchor and Bloom." 
+          interests={["Chronic Illness Advocacy", "Homeschooling", "Emotional Regulation", "ADHD Support", "Faith"]} 
+          imageUrl="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&auto=format&q=80" 
+          rotate="-2deg"
+          link="/celicia"
+          direction="left"
+        />
+        
+        <!-- Joshua -->
+        <FamilyMember 
+          client:visible
+          name="Joshua Ford" 
+          role="Entrepreneur & Inventor" 
+          description="Joshua runs Next Mountain Ventures, a creative studio helping entrepreneurs launch and grow. He's passionate about web design, 3D printing, laser cutting, and building e-bikes." 
+          interests={["Entrepreneurship", "Web Design", "Inventions", "Patient Advocacy", "3D Printing"]} 
+          imageUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&q=80" 
+          rotate="2deg"
+          link="/joshua"
+          direction="right"
+        />
+        
+        <!-- Jackson -->
+        <FamilyMember 
+          client:visible
+          name="Jackson Ford" 
+          role="Young Inventor & Entrepreneur" 
+          description="Jackson loves 3D printing and inventing. He sells online 3D products, teaches kids about finances and business, and has his own modeling portfolio." 
+          interests={["3D Printing", "Invention", "Entrepreneurship", "Modeling", "Finance Education"]} 
+          imageUrl="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&auto=format&q=80" 
+          rotate="-2deg"
+          link="/jackson"
+          direction="left"
+        />
+        
+        <!-- Finley -->
+        <FamilyMember 
+          client:visible
+          name="Finley Ford" 
+          role="Designer & Aspiring Actress" 
+          description="Finley is passionate about design and acting. She has her own YouTube channel featuring 'Get Ready With Me' videos with her mother and maintains a modeling portfolio." 
+          interests={["Design", "Acting", "YouTube Content", "Modeling", "Fashion"]} 
+          imageUrl="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&q=80" 
+          rotate="3deg"
+          link="/finley"
+          direction="right"
+        />
+      </div>
     </div>
-    <div class="flex gap-4">
-      <a
-        href="https://ui.shadcn.com"
-        target="_blank"
-        rel="noreferrer"
-        class={buttonVariants()}
-      >
-        Example link
-      </a>
+  </section>
+  
+  <!-- Blog Preview Section -->
+  <BlogPreview client:visible title="Latest Blog Posts" posts={blogPosts} />
+  
+  <!-- YouTube Section -->
+  <YouTubeSection client:visible title="Featured Videos" videos={youtubeVideos} />
+  
+  <!-- Contact Section -->
+  <section class="py-16">
+    <div class="container max-w-4xl mx-auto">
+      <div class="scrapbook-paper">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-primary-foreground animate-on-scroll">
+          Connect With Us
+        </h2>
+        <p class="text-center mb-8 max-w-2xl mx-auto animate-on-scroll">
+          Have questions or want to collaborate? Drop us a message, and we'll get back to you soon!
+        </p>
+        <!-- KEEP ALL FORMS client:load !! DO NOT USE client:visible AS THIS CAUSES HYDRATION ISSUES!!-->
+        <div class="animate-on-scroll">
+          <ContactForm client:load />
+        </div>
+      </div>
     </div>
-    <!-- KEEP ALL FORMS client:load !! DO NOT USE client:visible AS THIS CAUSES HYDRATION ISSUES!!-->
-    <ContactForm client:load />
   </section>
 </BaseLayout>

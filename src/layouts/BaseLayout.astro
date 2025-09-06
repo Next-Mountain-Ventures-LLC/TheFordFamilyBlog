@@ -2,7 +2,7 @@
 import HeadSEO from "@/components/HeadSEO.astro";
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
-import NewWebsiteBanner from "@/components/NewWebsiteBanner.astro";
+import "../styles/fonts.css";
 
 interface Props {
   title?: string | undefined;
@@ -11,20 +11,40 @@ interface Props {
 }
 
 const { title, description, ogImage } = Astro.props;
+const defaultTitle = "The Ford Family";
+const defaultDescription = "Our family blog sharing our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity.";
 ---
 
 <html lang="en">
   <head>
-    <HeadSEO title={title} description={description} ogImage={ogImage} />
+    <HeadSEO 
+      title={title || defaultTitle} 
+      description={description || defaultDescription} 
+      ogImage={ogImage} 
+    />
   </head>
   <body class="bg-background min-h-screen font-sans antialiased">
+    <script is:inline>
+      // Add scroll animation observer
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-visible');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(element => {
+          observer.observe(element);
+        });
+      });
+    </script>
     <div class="relative flex min-h-screen flex-col">
       <Header />
       <main class="flex-auto">
         <slot />
       </main>
-      <!-- DO NOT REMOVE! NewWebsiteBanner MUST ALWAYS BE VISIBLE! -->
-      <NewWebsiteBanner />
       <!-- DO NOT REMOVE - Necessary for making visual edits via new.website! -->
       <script src="https://api.new.website/static/new-website.js"></script>
       <Footer />
