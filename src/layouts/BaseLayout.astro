@@ -35,8 +35,20 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
           });
         }, { threshold: 0.1 });
 
+        // Observe standard animate-on-scroll elements
         document.querySelectorAll('.animate-on-scroll').forEach(element => {
           observer.observe(element);
+        });
+        
+        // Observe hero photo animations
+        document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4').forEach(element => {
+          observer.observe(element);
+        });
+        
+        // Add slight delay between animations for staggered effect
+        const heroPhotos = document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4');
+        heroPhotos.forEach((photo, index) => {
+          photo.style.transitionDelay = `${index * 0.2}s`;
         });
       });
     </script>

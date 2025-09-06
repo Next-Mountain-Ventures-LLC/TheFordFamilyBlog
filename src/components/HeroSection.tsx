@@ -67,27 +67,32 @@ export default function HeroSection() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-          {familyMembers.map((member, index) => (
-            <div key={index} className="flex flex-col items-center">
-              {member.imageUrl && (
-                <div 
-                  className="scrapbook-photo mb-4" 
-                  style={{ '--rotate': member.rotate } as React.CSSProperties}
-                >
+          {familyMembers.map((member, index) => {
+            // Determine which animation class to use based on index
+            const animationClass = `hero-photo-${index + 1}`;
+            
+            return (
+              <div key={index} className="flex flex-col items-center">
+                {member.imageUrl && (
                   <div 
-                    className="scrapbook-tape"
-                    style={{ '--rotate': `-${parseInt(member.rotate || '0deg') * 0.5}deg` } as React.CSSProperties}
-                  ></div>
-                  <img 
-                    src={member.imageUrl} 
-                    alt={`${member.name} - family member`} 
-                    className="w-full h-auto aspect-square object-cover rounded-sm"
-                  />
-                </div>
-              )}
-              <h3 className="text-lg font-semibold font-display text-primary-foreground">{member.name}</h3>
-            </div>
-          ))}
+                    className={`scrapbook-photo mb-4 ${animationClass}`} 
+                    style={{ '--rotate': member.rotate } as React.CSSProperties}
+                  >
+                    <div 
+                      className="scrapbook-tape"
+                      style={{ '--rotate': `-${parseInt(member.rotate || '0deg') * 0.5}deg` } as React.CSSProperties}
+                    ></div>
+                    <img 
+                      src={member.imageUrl} 
+                      alt={`${member.name} - family member`} 
+                      className="w-full h-auto aspect-square object-cover rounded-sm"
+                    />
+                  </div>
+                )}
+                <h3 className="text-lg font-semibold font-display text-primary-foreground">{member.name}</h3>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
