@@ -27,7 +27,8 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
     <script is:inline>
       // Add scroll animation observer
       document.addEventListener('DOMContentLoaded', () => {
-        const observer = new IntersectionObserver((entries) => {
+        // For regular animate-on-scroll elements - standard behavior
+        const standardObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('animate-visible');
@@ -35,21 +36,32 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
           });
         }, { threshold: 0.1 });
 
-        // Observe standard animate-on-scroll elements
         document.querySelectorAll('.animate-on-scroll').forEach(element => {
-          observer.observe(element);
+          standardObserver.observe(element);
         });
         
-        // Observe hero photo animations
-        document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4').forEach(element => {
-          observer.observe(element);
-        });
+        // For hero photos - start in line, then animate to staggered positions
+        // We'll animate when the user scrolls a bit down the page
+        const heroObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            // The key difference - we animate when user scrolls away from the section 
+            // rather than when scrolling to it
+            if (!entry.isIntersecting) {
+              const heroPhotos = document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4');
+              heroPhotos.forEach((photo, index) => {
+                // Add slight delay between animations for staggered effect
+                photo.style.transitionDelay = `${index * 0.15}s`;
+                photo.classList.add('animate-visible');
+              });
+            }
+          });
+        }, { threshold: 0.9 }); // Higher threshold to trigger sooner
         
-        // Add slight delay between animations for staggered effect
-        const heroPhotos = document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4');
-        heroPhotos.forEach((photo, index) => {
-          photo.style.transitionDelay = `${index * 0.2}s`;
-        });
+        // We only need to observe one element (the hero section) to trigger all photo animations
+        const heroSection = document.querySelector('section:first-of-type');
+        if (heroSection) {
+          heroObserver.observe(heroSection);
+        }
       });
     </script>
     <div class="relative flex min-h-screen flex-col">
