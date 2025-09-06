@@ -33,7 +33,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden hero-section">
       {/* Decorative elements for scrapbook feel */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full -z-10"></div>
       <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full -z-10"></div>

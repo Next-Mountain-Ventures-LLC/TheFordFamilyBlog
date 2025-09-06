@@ -208,6 +208,11 @@
     transform: translate(0);
   }
   
+  /* Hero photos animations with extra padding to avoid cutoff */
+  .hero-section {
+    padding-bottom: 200px; /* Extra padding to prevent cutoff */
+  }
+
   .hero-photo-1 {
     transform: translateY(-15px);
     transition: transform 1.2s ease;
@@ -242,5 +247,24 @@
   
   .hero-photo-4.animate-visible {
     transform: translateY(-175px);
+  }
+  
+  /* Family profile animations from sides */
+  .family-profile {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .family-profile-right {
+    transform: translateX(100%);
+  }
+  
+  .family-profile-left {
+    transform: translateX(-100%);
+  }
+  
+  .family-profile.animate-profile-visible {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
