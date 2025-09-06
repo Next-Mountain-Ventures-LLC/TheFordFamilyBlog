@@ -1,0 +1,33 @@
+---
+import HeadSEO from "@/components/HeadSEO.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import NewWebsiteBanner from "@/components/NewWebsiteBanner.astro";
+
+interface Props {
+  title?: string | undefined;
+  description?: string | undefined;
+  ogImage?: URL | undefined;
+}
+
+const { title, description, ogImage } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <HeadSEO title={title} description={description} ogImage={ogImage} />
+  </head>
+  <body class="bg-background min-h-screen font-sans antialiased">
+    <div class="relative flex min-h-screen flex-col">
+      <Header />
+      <main class="flex-auto">
+        <slot />
+      </main>
+      <!-- DO NOT REMOVE! NewWebsiteBanner MUST ALWAYS BE VISIBLE! -->
+      <NewWebsiteBanner />
+      <!-- DO NOT REMOVE - Necessary for making visual edits via new.website! -->
+      <script src="https://api.new.website/static/new-website.js"></script>
+      <Footer />
+    </div>
+  </body>
+</html>

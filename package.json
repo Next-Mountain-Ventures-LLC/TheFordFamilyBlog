@@ -1,0 +1,42 @@
+{
+  "name": "@area44/astro-shadcn-ui-template",
+  "version": "25.01.27",
+  "description": "An Astro template for building apps.",
+  "author": {
+    "name": "AREA44"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "start": "astro dev",
+    "format": "biome format --write ."
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/vite": "^4.1.6",
+    "astro": "^5.5.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.507.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.3",
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.1.6",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.13.11",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "shadcn": "^2.5.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2",
+    "vercel": "^41.4.1"
+  }
+}

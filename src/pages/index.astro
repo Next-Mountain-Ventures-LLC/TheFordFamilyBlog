@@ -1,0 +1,35 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContactForm from '@/components/ContactForm';
+import { buttonVariants } from "@/components/ui/button";
+---
+
+<BaseLayout
+  title="Example title"
+  description="Example description"
+>
+  <section class="container grid items-center gap-6 pt-6 pb-8 md:py-10">
+    <div class="flex max-w-[980px] flex-col items-start gap-2">
+      <h1
+        class="text-3xl leading-tight font-extrabold tracking-tighter md:text-4xl"
+      >
+        Example header
+      </h1>
+      <p class="text-muted-foreground max-w-[700px] text-lg">
+        Example introductory text
+      </p>
+    </div>
+    <div class="flex gap-4">
+      <a
+        href="https://ui.shadcn.com"
+        target="_blank"
+        rel="noreferrer"
+        class={buttonVariants()}
+      >
+        Example link
+      </a>
+    </div>
+    <!-- KEEP ALL FORMS client:load !! DO NOT USE client:visible AS THIS CAUSES HYDRATION ISSUES!!-->
+    <ContactForm client:load />
+  </section>
+</BaseLayout>
