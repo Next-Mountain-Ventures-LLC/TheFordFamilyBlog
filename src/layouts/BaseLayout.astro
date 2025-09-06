@@ -27,66 +27,114 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
     <script is:inline>
       // Add scroll animation observer
       document.addEventListener('DOMContentLoaded', () => {
-        // For regular animate-on-scroll elements - standard behavior
-        const standardObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('animate-visible');
+        // Track scroll-based animations
+        let lastScrollY = window.scrollY;
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        
+        // Initialize elements - start hidden/offset
+        animatedElements.forEach((element, index) => {
+          element.style.transitionDelay = `${index * 0.1}s`;
+        });
+        
+        // Calculate when elements should be visible based on scroll position
+        function updateElementVisibility() {
+          const scrollY = window.scrollY;
+          const windowHeight = window.innerHeight;
+          
+          animatedElements.forEach((element) => {
+            const rect = element.getBoundingClientRect();
+            const elementTop = rect.top + scrollY;
+            const elementHeight = rect.height;
+            
+            // Calculate how far the element is from the viewport center (as percentage)
+            const distanceFromCenter = (elementTop - scrollY - windowHeight/2 + elementHeight/2) / (windowHeight/2);
+            
+            // Apply transform and opacity based on distance from center
+            if (Math.abs(distanceFromCenter) < 1) {
+              // Element is close to viewport center, calculate animation progress
+              const progress = 1 - Math.abs(distanceFromCenter);
+              
+              // Apply animation with transform and opacity
+              if (element.classList.contains('animate-left')) {
+                element.style.transform = `translateX(${-300 * (1 - progress)}px)`;
+              } else if (element.classList.contains('animate-right')) {
+                element.style.transform = `translateX(${300 * (1 - progress)}px)`;
+              }
+              
+              // Adjust opacity based on progress
+              element.style.opacity = 0.85 + (progress * 0.15);
+            } else {
+              // Element is far from viewport center, apply full offset
+              if (element.classList.contains('animate-left')) {
+                element.style.transform = 'translateX(-300px)';
+              } else if (element.classList.contains('animate-right')) {
+                element.style.transform = 'translateX(300px)';
+              }
+              
+              element.style.opacity = '0.85';
             }
           });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.animate-on-scroll').forEach(element => {
-          standardObserver.observe(element);
-        });
+        }
         
-        // For hero photos - animate photos based on scroll position
-        let lastScrollY = window.scrollY;
+        // Run initially and on scroll
+        updateElementVisibility();
+        window.addEventListener('scroll', updateElementVisibility);
+        window.addEventListener('resize', updateElementVisibility);
+        
+        // For hero photos - use scroll-based animation
         const heroPhotos = document.querySelectorAll('.hero-photo-1, .hero-photo-2, .hero-photo-3, .hero-photo-4');
+        const maxHeroDistance = 175; // Maximum distance for hero photos
         
-        // Initialize photos with correct initial state
+        // Initialize photos with correct delays
         heroPhotos.forEach((photo, index) => {
           photo.style.transitionDelay = `${index * 0.15}s`;
-          // Initially, photos are not animated
-          if (window.scrollY < 100) {
-            photo.classList.remove('animate-visible');
-          }
         });
         
-        // Use scroll event for more precise control
-        window.addEventListener('scroll', () => {
+        // Update hero photo positions based on scroll
+        function updateHeroPhotos() {
           const scrollY = window.scrollY;
-          const scrollingDown = scrollY > lastScrollY;
           const heroSection = document.querySelector('.hero-section');
           
           if (heroSection) {
-            const heroSectionBottom = heroSection.offsetTop + heroSection.offsetHeight;
+            // Calculate how far we've scrolled through the hero section (as a percentage)
+            const heroHeight = heroSection.offsetHeight;
+            const scrollProgress = Math.min(1, Math.max(0, scrollY / (heroHeight * 0.7)));
             
-            // When scrolling down and past 100px threshold
-            if (scrollingDown && scrollY > 100) {
-              heroPhotos.forEach((photo, index) => {
-                photo.classList.add('animate-visible');
-              });
-            } 
-            // When scrolling up and near the top
-            else if (!scrollingDown && scrollY < 100) {
-              heroPhotos.forEach((photo, index) => {
-                photo.classList.remove('animate-visible');
+            // Apply animations to each hero photo based on scroll progress
+            if (scrollProgress > 0) {
+              // Photo 1 - down
+              const photo1 = document.querySelector('.hero-photo-1');
+              if (photo1) photo1.style.transform = `translateY(${maxHeroDistance * scrollProgress}px)`;
+              
+              // Photo 2 - up
+              const photo2 = document.querySelector('.hero-photo-2');
+              if (photo2) photo2.style.transform = `translateY(${-maxHeroDistance * scrollProgress}px)`;
+              
+              // Photo 3 - down
+              const photo3 = document.querySelector('.hero-photo-3');
+              if (photo3) photo3.style.transform = `translateY(${maxHeroDistance * scrollProgress}px)`;
+              
+              // Photo 4 - up
+              const photo4 = document.querySelector('.hero-photo-4');
+              if (photo4) photo4.style.transform = `translateY(${-maxHeroDistance * scrollProgress}px)`;
+            } else {
+              // Reset positions when at the top
+              heroPhotos.forEach(photo => {
+                if (photo.classList.contains('hero-photo-1')) photo.style.transform = 'translateY(-15px)';
+                else if (photo.classList.contains('hero-photo-2')) photo.style.transform = 'translateY(15px)';
+                else if (photo.classList.contains('hero-photo-3')) photo.style.transform = 'translateY(-10px)';
+                else if (photo.classList.contains('hero-photo-4')) photo.style.transform = 'translateY(10px)';
               });
             }
           }
-          
-          lastScrollY = scrollY;
-        });
+        }
         
-        // Make sure all family profiles are visible immediately
-        document.querySelectorAll('.family-profile').forEach((element) => {
-          // Force visibility
-          element.style.opacity = '1';
-          element.style.transform = 'translateX(0)';
-          element.style.visibility = 'visible';
-          element.style.display = 'block';
-        });
+        // Run initially and on scroll
+        updateHeroPhotos();
+        window.addEventListener('scroll', updateHeroPhotos);
+        window.addEventListener('resize', updateHeroPhotos);
+        
+        // Family profiles are now handled by the scroll animation system
       });
     </script>
     <div class="relative flex min-h-screen flex-col">

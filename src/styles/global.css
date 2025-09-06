@@ -183,16 +183,17 @@
   }
   
   .animate-on-scroll {
-    opacity: 0.97;
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0.85; /* More transparency for a more visible fade effect */
+    transition: opacity 1s ease, transform 1s ease;
+    will-change: transform, opacity; /* Optimize for animations */
   }
   
   .animate-on-scroll.animate-left {
-    transform: translateX(-40px);
+    transform: translateX(-300px); /* Increase distance to 300px */
   }
   
   .animate-on-scroll.animate-right {
-    transform: translateX(40px);
+    transform: translateX(300px); /* Increase distance to 300px */
   }
   
   .animate-up {
@@ -251,17 +252,9 @@
     transform: translateY(-175px);
   }
   
-  /* Make sure family profiles are visible */
+  /* Allow family profiles to animate properly */
   .family-profile {
-    opacity: 1; /* Start visible by default */
-    transform: translateX(0) !important; /* Force position to be normal */
-    transition: transform 0.5s ease;
-    margin-bottom: 2rem;
-  }
-  
-  /* Disable the offscreen positioning that was causing profiles to disappear */
-  .family-profile-right,
-  .family-profile-left {
-    transform: translateX(0) !important;
+    margin-bottom: 4rem;
+    overflow: visible;
   }
 }
