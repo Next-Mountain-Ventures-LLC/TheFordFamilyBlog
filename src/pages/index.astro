@@ -86,64 +86,56 @@ const youtubeVideos = [
       
       <div class="space-y-24">
         <!-- Salicia -->
-        <div class="family-profile family-profile-right">
-          <FamilyMember 
-            client:visible
-            name="Salicia Ford" 
-            role="Patient Advocate & Homeschool Mom" 
-            description="Salicia battles rare autoimmune diseases including Sjogren's syndrome while homeschooling our children and helping families bring order to chaotic lives through Anchor and Bloom." 
-            interests={["Chronic Illness Advocacy", "Homeschooling", "Emotional Regulation", "ADHD Support", "Faith"]} 
-            imageUrl="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&auto=format&q=80" 
-            rotate="-2deg"
-            link="/salicia"
-            direction="left"
-          />
-        </div>
+        <FamilyMember 
+          client:load
+          name="Salicia Ford" 
+          role="Patient Advocate & Homeschool Mom" 
+          description="Salicia battles rare autoimmune diseases including Sjogren's syndrome while homeschooling our children and helping families bring order to chaotic lives through Anchor and Bloom." 
+          interests={["Chronic Illness Advocacy", "Homeschooling", "Emotional Regulation", "ADHD Support", "Faith"]} 
+          imageUrl="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&auto=format&q=80" 
+          rotate="-2deg"
+          link="/salicia"
+          direction="left"
+        />
         
         <!-- Joshua -->
-        <div class="family-profile family-profile-left">
-          <FamilyMember 
-            client:visible
-            name="Joshua Ford" 
-            role="Entrepreneur & Inventor" 
-            description="Joshua runs Next Mountain Ventures, a creative studio helping entrepreneurs launch and grow. He's passionate about web design, 3D printing, laser cutting, and building e-bikes." 
-            interests={["Entrepreneurship", "Web Design", "Inventions", "Patient Advocacy", "3D Printing"]} 
-            imageUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&q=80" 
-            rotate="2deg"
-            link="/joshua"
-            direction="right"
-          />
-        </div>
+        <FamilyMember 
+          client:load
+          name="Joshua Ford" 
+          role="Entrepreneur & Inventor" 
+          description="Joshua runs Next Mountain Ventures, a creative studio helping entrepreneurs launch and grow. He's passionate about web design, 3D printing, laser cutting, and building e-bikes." 
+          interests={["Entrepreneurship", "Web Design", "Inventions", "Patient Advocacy", "3D Printing"]} 
+          imageUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&q=80" 
+          rotate="2deg"
+          link="/joshua"
+          direction="right"
+        />
         
         <!-- Jackson -->
-        <div class="family-profile family-profile-right">
-          <FamilyMember 
-            client:visible
-            name="Jackson Ford" 
-            role="Young Inventor & Entrepreneur" 
-            description="Jackson loves 3D printing and inventing. He sells online 3D products, teaches kids about finances and business, and has his own modeling portfolio." 
-            interests={["3D Printing", "Invention", "Entrepreneurship", "Modeling", "Finance Education"]} 
-            imageUrl="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&auto=format&q=80" 
-            rotate="-2deg"
-            link="/jackson"
-            direction="left"
-          />
-        </div>
+        <FamilyMember 
+          client:load
+          name="Jackson Ford" 
+          role="Young Inventor & Entrepreneur" 
+          description="Jackson loves 3D printing and inventing. He sells online 3D products, teaches kids about finances and business, and has his own modeling portfolio." 
+          interests={["3D Printing", "Invention", "Entrepreneurship", "Modeling", "Finance Education"]} 
+          imageUrl="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&auto=format&q=80" 
+          rotate="-2deg"
+          link="/jackson"
+          direction="left"
+        />
         
         <!-- Finley -->
-        <div class="family-profile family-profile-left">
-          <FamilyMember 
-            client:visible
-            name="Finley Ford" 
-            role="Designer & Aspiring Actress" 
-            description="Finley is passionate about design and acting. She has her own YouTube channel featuring 'Get Ready With Me' videos with her mother and maintains a modeling portfolio." 
-            interests={["Design", "Acting", "YouTube Content", "Modeling", "Fashion"]} 
-            imageUrl="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&q=80" 
-            rotate="3deg"
-            link="/finley"
-            direction="right"
-          />
-        </div>
+        <FamilyMember 
+          client:load
+          name="Finley Ford" 
+          role="Designer & Aspiring Actress" 
+          description="Finley is passionate about design and acting. She has her own YouTube channel featuring 'Get Ready With Me' videos with her mother and maintains a modeling portfolio." 
+          interests={["Design", "Acting", "YouTube Content", "Modeling", "Fashion"]} 
+          imageUrl="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&q=80" 
+          rotate="3deg"
+          link="/finley"
+          direction="right"
+        />
       </div>
     </div>
   </section>

@@ -251,23 +251,17 @@
     transform: translateY(-175px);
   }
   
-  /* Family profile animations from sides - full screen entrances */
+  /* Make sure family profiles are visible */
   .family-profile {
-    opacity: 0;
-    transition: opacity 1.2s ease, transform 1.2s ease;
-    overflow: hidden;
+    opacity: 1; /* Start visible by default */
+    transform: translateX(0) !important; /* Force position to be normal */
+    transition: transform 0.5s ease;
+    margin-bottom: 2rem;
   }
   
-  .family-profile-right {
-    transform: translateX(100vw); /* Full viewport width from right */
-  }
-  
+  /* Disable the offscreen positioning that was causing profiles to disappear */
+  .family-profile-right,
   .family-profile-left {
-    transform: translateX(-100vw); /* Full viewport width from left */
-  }
-  
-  .family-profile.animate-profile-visible {
-    opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) !important;
   }
 }

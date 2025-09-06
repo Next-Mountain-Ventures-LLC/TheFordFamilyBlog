@@ -79,19 +79,13 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
           lastScrollY = scrollY;
         });
         
-        // For family profiles in the Our Family Journey section - animate from sides
-        const familyProfileObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('animate-profile-visible');
-            }
-          });
-        }, { threshold: 0.15 });
-        
-        // Observe each family profile separately with slight delay
-        document.querySelectorAll('.family-profile').forEach((element, index) => {
-          element.style.transitionDelay = `${index * 0.2}s`;
-          familyProfileObserver.observe(element);
+        // Make sure all family profiles are visible immediately
+        document.querySelectorAll('.family-profile').forEach((element) => {
+          // Force visibility
+          element.style.opacity = '1';
+          element.style.transform = 'translateX(0)';
+          element.style.visibility = 'visible';
+          element.style.display = 'block';
         });
       });
     </script>

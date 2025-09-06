@@ -43,7 +43,7 @@ export default function HeroSection() {
         <div className="text-center mb-16">
           <h1 className="text-5xl md:text-7xl font-bold font-display mb-6 animate-on-scroll">
             <span className="text-primary-foreground">The Ford Family</span>
-            <span className="text-accent-foreground">.life</span>
+            <span className="text-accent-foreground text-4xl md:text-6xl">.life</span>
           </h1>
           <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll">
             Our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity.
