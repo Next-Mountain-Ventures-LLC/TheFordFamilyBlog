@@ -16,7 +16,7 @@ export default function HeroSection() {
       rotate: "-3deg"
     },
     {
-      name: "Celicia Ford",
+      name: "Salicia Ford",
       imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&q=80", 
       rotate: "2deg"
     },

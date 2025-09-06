@@ -52,7 +52,7 @@ export default function FamilyMember({
         </div>
         
         <a href={link} className={buttonVariants({ variant: 'default', size: 'sm' })}>
-          Learn More
+          See Blog
         </a>
       </div>
     </div>
