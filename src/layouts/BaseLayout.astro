@@ -134,7 +134,8 @@ const defaultDescription = "Our family blog sharing our journey through faith, h
         window.addEventListener('scroll', updateHeroPhotos);
         window.addEventListener('resize', updateHeroPhotos);
         
-        // Family profiles are now handled by the scroll animation system
+        // Family profiles are now handled by CSS animations directly, not scroll-based
+        // Ensure they're visible immediately regardless of scroll position
       });
     </script>
     <div class="relative flex min-h-screen flex-col">
