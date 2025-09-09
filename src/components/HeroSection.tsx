@@ -13,54 +13,43 @@ export default function HeroSection() {
     {
       name: "Joshua Ford",
       imageUrl: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&auto=format&q=80", 
-      rotate: "-2deg"
+      rotate: "-3deg"
     },
     {
       name: "Salicia Ford",
       imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&q=80", 
-      rotate: "1deg"
+      rotate: "2deg"
     },
     {
       name: "Jackson Ford",
       imageUrl: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&auto=format&q=80", 
-      rotate: "-1deg"
+      rotate: "-2deg"
     },
     {
       name: "Finley Ford",
       imageUrl: "https://images.unsplash.com/photo-1517677129300-07b130802f46?w=400&auto=format&q=80", 
-      rotate: "2deg"
+      rotate: "3deg"
     }
   ];
 
   return (
-    <section className="py-28 pb-36 relative overflow-hidden hero-section">
-      {/* Subtle decorative elements */}
-      <div className="absolute top-20 right-20 w-64 h-64 bg-accent/5 rounded-full -z-10"></div>
-      <div className="absolute bottom-20 left-20 w-80 h-80 bg-primary/5 rounded-full -z-10"></div>
-      <div className="absolute top-1/3 left-1/4 w-1 h-20 bg-primary/20 -z-10"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-1 h-20 bg-secondary/20 -z-10"></div>
-      
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 opacity-5 -z-10" 
-           style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E")' }}>
-      </div>
-      
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-24">
-          <div className="mb-1 text-xs uppercase tracking-widest text-primary font-sans font-light animate-on-scroll">Welcome to</div>
-          <h1 className="text-5xl md:text-7xl font-light font-display mb-8 animate-on-scroll">
-            <span className="text-foreground">The Ford <span className="text-primary font-normal">Family</span></span>
-            <span className="text-accent font-light text-4xl md:text-5xl">.life</span>
+    <section className="py-20 relative overflow-hidden hero-section">
+      {/* Decorative elements for scrapbook feel */}
+      <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full -z-10"></div>
+      <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full -z-10"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-accent/5 rounded-full -z-10"></div>
+
+      <div className="container mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-7xl font-bold font-display mb-6 animate-on-scroll">
+            <span className="text-primary-foreground">The Ford Family</span>
+            <span className="text-accent-foreground text-4xl md:text-6xl">.life</span>
           </h1>
-          
-          <div className="w-24 h-px bg-primary/30 mx-auto mb-8 animate-on-scroll"></div>
-          
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-12 font-light leading-relaxed animate-on-scroll text-muted-foreground">
+          <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll">
             Our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity.
           </p>
-          
-          <div className="flex flex-wrap justify-center gap-6 animate-on-scroll">
-            <a href="#family" className={buttonVariants({ size: 'lg', variant: 'default' })}>
+          <div className="flex flex-wrap justify-center gap-4 animate-on-scroll">
+            <a href="#family" className={buttonVariants({ size: 'lg' })}>
               Meet Our Family
             </a>
             <a 
@@ -77,7 +66,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           {familyMembers.map((member, index) => {
             // Determine which animation class to use based on index
             const animationClass = `hero-photo-${index + 1}`;
@@ -86,7 +75,7 @@ export default function HeroSection() {
               <div key={index} className="flex flex-col items-center">
                 {member.imageUrl && (
                   <div 
-                    className={`scrapbook-photo mb-6 ${animationClass}`} 
+                    className={`scrapbook-photo mb-4 ${animationClass}`} 
                     style={{ '--rotate': member.rotate } as React.CSSProperties}
                   >
                     <div 
@@ -100,8 +89,7 @@ export default function HeroSection() {
                     />
                   </div>
                 )}
-                <h3 className="text-base font-normal tracking-wide font-display text-foreground">{member.name}</h3>
-                <div className="w-12 h-px bg-primary/30 mt-2"></div>
+                <h3 className="text-lg font-semibold font-display text-primary-foreground">{member.name}</h3>
               </div>
             );
           })}

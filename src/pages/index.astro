@@ -69,23 +69,19 @@ const youtubeVideos = [
   <HeroSection client:load />
   
   <!-- Family Members Section -->
-  <section id="family" class="py-32 px-8 bg-muted/5 border-y border-border/20 overflow-hidden">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-20">
-        <div class="mb-1 text-xs uppercase tracking-widest text-primary font-sans font-light animate-on-scroll">Who We Are</div>
-        <h2 class="text-3xl md:text-4xl font-normal font-display mb-6 animate-on-scroll">
-          About Our Family
-        </h2>
-        <div class="w-16 h-px bg-primary/30 mx-auto mb-6 animate-on-scroll"></div>
-        
-        <div class="max-w-3xl mx-auto">
-          <p class="text-muted-foreground font-light leading-relaxed mb-6 animate-on-scroll">
-            The Ford family journey is about navigating life's challenges together through faith, supporting each other through health battles, homeschooling our children, and pursuing entrepreneurial dreams that align with our values.
-          </p>
-          <p class="text-muted-foreground font-light leading-relaxed animate-on-scroll">
-            Each of us brings our unique gifts and passions to our family story, creating a tapestry of creativity, resilience, faith, and love that we're excited to share with you through our blog and videos.
-          </p>
-        </div>
+  <section id="family" class="py-32 px-8 bg-muted/10 overflow-hidden">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-primary-foreground animate-on-scroll">
+        About Our Family
+      </h2>
+      
+      <div class="max-w-3xl mx-auto mb-16 text-center">
+        <p class="text-lg mb-4 animate-on-scroll">
+          The Ford family journey is about navigating life's challenges together through faith, supporting each other through health battles, homeschooling our children, and pursuing entrepreneurial dreams that align with our values.
+        </p>
+        <p class="mb-8 animate-on-scroll">
+          Each of us brings our unique gifts and passions to our family story, creating a tapestry of creativity, resilience, faith, and love that we're excited to share with you through our blog and videos.
+        </p>
       </div>
       
       <div class="space-y-32 my-20 overflow-visible">
@@ -151,6 +147,20 @@ const youtubeVideos = [
   <YouTubeSection client:visible title="Featured Videos" videos={youtubeVideos} />
   
   <!-- Contact Section -->
-  <!-- KEEP ALL FORMS client:load !! DO NOT USE client:visible AS THIS CAUSES HYDRATION ISSUES!!-->
-  <ContactForm client:load />
+  <section class="py-16">
+    <div class="container max-w-4xl mx-auto">
+      <div class="scrapbook-paper">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-primary-foreground animate-on-scroll">
+          Connect With Us
+        </h2>
+        <p class="text-center mb-8 max-w-2xl mx-auto animate-on-scroll">
+          Have questions or want to collaborate? Drop us a message, and we'll get back to you soon!
+        </p>
+        <!-- KEEP ALL FORMS client:load !! DO NOT USE client:visible AS THIS CAUSES HYDRATION ISSUES!!-->
+        <div class="animate-on-scroll">
+          <ContactForm client:load />
+        </div>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

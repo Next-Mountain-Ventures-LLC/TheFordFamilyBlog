@@ -34,9 +34,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif,
+  --font-sans: 'Lato', ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-display: 'Cormorant Garamond', serif;
+  --font-display: 'Playfair Display', serif;
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -95,44 +95,44 @@
 
 @layer base {
   :root {
-    /* Elegant cream background with rich text for luxury feel */
-    --background: 30 30% 98%;
-    --foreground: 22 40% 12%;
+    /* White background with soft colors for scrapbook aesthetic */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 22 40% 12%;
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 22 40% 12%;
+    --popover-foreground: 240 10% 3.9%;
     
-    /* Rich amber primary color */
-    --primary: 22 70% 50%;
-    --primary-foreground: 22 30% 95%;
+    /* Soft blue primary color */
+    --primary: 210 100% 70%;
+    --primary-foreground: 210 50% 20%;
     
-    /* Deep burgundy secondary color */
-    --secondary: 345 80% 30%;
-    --secondary-foreground: 345 50% 95%;
+    /* Soft pink secondary color */
+    --secondary: 335 80% 85%;
+    --secondary-foreground: 335 80% 25%;
     
-    /* Sophisticated muted tones */
-    --muted: 30 10% 92%;
-    --muted-foreground: 22 15% 40%;
+    /* Muted gray tones */
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
     
-    /* Gold accent color */
-    --accent: 35 80% 55%;
-    --accent-foreground: 35 50% 15%;
+    /* Soft green accent color */
+    --accent: 130 50% 80%;
+    --accent-foreground: 130 50% 25%;
     
     /* Utility colors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 30 15% 85%;
-    --input: 30 15% 85%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
     --ring: var(--primary);
-    --radius: 0.25rem;
+    --radius: 0.5rem;
     
     /* Chart colors */
-    --chart-1: 22 70% 50%;
-    --chart-2: 345 80% 30%;
-    --chart-3: 35 80% 55%;
-    --chart-4: 200 35% 40%;
-    --chart-5: 275 40% 40%;
+    --chart-1: 210 100% 70%;
+    --chart-2: 335 80% 85%;
+    --chart-3: 130 50% 80%;
+    --chart-4: 45 100% 75%;
+    --chart-5: 275 80% 80%;
   }
 }
 
@@ -155,69 +155,53 @@
     font-family: var(--font-display);
   }
   
-  /* Luxury scrapbook-style elements */
+  /* Scrapbook-style elements */
   .scrapbook-paper {
-    @apply bg-white shadow-sm p-8 relative border border-border/30;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-    position: relative;
-  }
-  
-  .scrapbook-paper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-    opacity: 0.5;
+    @apply bg-white shadow-md p-6 rounded-md relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .scrapbook-photo {
     @apply relative inline-block;
-    padding: 12px;
+    padding: 8px;
     background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transform: rotate(var(--rotate, 0deg));
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
   }
   
   .scrapbook-photo:hover {
-    transform: rotate(0deg) scale(1.01);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.03);
+    transform: rotate(0deg) scale(1.02);
     z-index: 10;
   }
   
   .scrapbook-tape {
-    @apply absolute w-12 h-2;
-    background: linear-gradient(90deg, rgba(var(--color-accent), 0.2), rgba(var(--color-accent), 0.5), rgba(var(--color-accent), 0.2));
-    top: -5px;
+    @apply absolute w-16 h-4 bg-secondary opacity-50;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%) rotate(var(--rotate, 0deg));
-    opacity: 0.7;
   }
   
   .animate-on-scroll {
-    opacity: 0.85; 
-    transition: opacity 1.2s cubic-bezier(0.215, 0.61, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-    will-change: transform, opacity;
+    opacity: 0.85; /* More transparency for a more visible fade effect */
+    transition: opacity 1s ease, transform 1s ease;
+    will-change: transform, opacity; /* Optimize for animations */
   }
   
   .animate-on-scroll.animate-left {
-    transform: translateX(-200px); /* More subtle distance for elegance */
+    transform: translateX(-300px); /* Increase distance to 300px */
   }
   
   .animate-on-scroll.animate-right {
-    transform: translateX(200px); /* More subtle distance for elegance */
+    transform: translateX(300px); /* Increase distance to 300px */
   }
   
   .animate-up {
-    transform: translateY(200px);
+    transform: translateY(300px);
   }
   
   .animate-down {
-    transform: translateY(-200px);
+    transform: translateY(-300px);
   }
   
   .animate-on-scroll.animate-visible {

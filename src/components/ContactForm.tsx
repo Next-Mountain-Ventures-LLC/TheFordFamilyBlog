@@ -40,92 +40,73 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="py-24 bg-muted/5 border-t border-border/20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="mb-1 text-xs uppercase tracking-widest text-primary font-sans font-light">Get in Touch</div>
-            <h2 className="text-3xl md:text-4xl font-normal font-display mb-6">Connect With Us</h2>
-            <div className="w-16 h-px bg-primary/30 mx-auto mb-6"></div>
-            <p className="text-muted-foreground font-light">
-              Have a question or just want to say hello? We'd love to hear from you!
-            </p>
-          </div>
-          
-          <div className="scrapbook-paper">
-            <form onSubmit={handleSubmit} className="space-y-8" data-form-type="utility">
-              <div>
-                <label htmlFor="name" className="block text-sm font-light uppercase tracking-wide mb-2 text-muted-foreground">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-border/30 bg-background/50 focus:outline-none focus:border-primary/50 transition-colors duration-300"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-light uppercase tracking-wide mb-2 text-muted-foreground">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-border/30 bg-background/50 focus:outline-none focus:border-primary/50 transition-colors duration-300"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-light uppercase tracking-wide mb-2 text-muted-foreground">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 border border-border/30 bg-background/50 focus:outline-none focus:border-primary/50 transition-colors duration-300"
-                />
-              </div>
-
-              <input name="form_name" type="hidden" value={formData.form_name} />
-              
-              <div className="pt-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="text-sm uppercase tracking-widest font-light w-full text-primary-foreground bg-primary hover:bg-primary/90 transition-colors duration-300 px-8 py-3 flex justify-center items-center"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </button>
-              </div>
-
-              {submitStatus === "success" && (
-                <div className="mt-4 p-4 border border-green-300 text-green-800 bg-green-50/50">
-                  Form submitted successfully! We'll be in touch soon.
-                </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div className="mt-4 p-4 border border-red-300 text-red-800 bg-red-50/50">
-                  There was an error submitting the form. Please try again.
-                </div>
-              )}
-            </form>
-          </div>
-        </div>
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
       </div>
-    </section>
+
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleInputChange}
+          required
+          rows={4}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+      </div>
+
+      <input name="form_name" type="hidden" value={formData.form_name} />
+      
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full"
+      >
+        {isSubmitting ? "Submitting..." : "Submit"}
+      </Button>
+
+      {submitStatus === "success" && (
+        <div className="p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+          Form submitted successfully!
+        </div>
+      )}
+
+      {submitStatus === "error" && (
+        <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          There was an error submitting the form. Please try again.
+        </div>
+      )}
+    </form>
   );
 }
