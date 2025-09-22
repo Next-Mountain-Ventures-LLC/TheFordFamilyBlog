@@ -103,21 +103,21 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     
-    /* Soft blue primary color */
-    --primary: 210 100% 70%;
-    --primary-foreground: 210 50% 20%;
+    /* Darker blue primary color with better contrast */
+    --primary: 210 100% 45%; /* Darkened for better contrast */
+    --primary-foreground: 210 50% 98%;
     
-    /* Soft pink secondary color */
-    --secondary: 335 80% 85%;
-    --secondary-foreground: 335 80% 25%;
+    /* Deeper pink secondary color */
+    --secondary: 335 80% 65%; /* Darkened for better contrast */
+    --secondary-foreground: 335 80% 98%;
     
     /* Muted gray tones */
     --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted-foreground: 240 3.8% 40%; /* Darkened for better contrast */
     
-    /* Soft green accent color */
-    --accent: 130 50% 80%;
-    --accent-foreground: 130 50% 25%;
+    /* Deeper green accent color */
+    --accent: 130 60% 45%; /* Darkened for better contrast */
+    --accent-foreground: 130 50% 98%;
     
     /* Utility colors */
     --destructive: 0 84.2% 60.2%;
@@ -127,12 +127,12 @@
     --ring: var(--primary);
     --radius: 0.5rem;
     
-    /* Chart colors */
-    --chart-1: 210 100% 70%;
-    --chart-2: 335 80% 85%;
-    --chart-3: 130 50% 80%;
-    --chart-4: 45 100% 75%;
-    --chart-5: 275 80% 80%;
+    /* Chart colors - adjusted for better contrast */
+    --chart-1: 210 100% 45%;
+    --chart-2: 335 80% 65%;
+    --chart-3: 130 60% 45%;
+    --chart-4: 45 100% 50%;
+    --chart-5: 275 80% 60%;
   }
 }
 
@@ -207,6 +207,16 @@
   .animate-on-scroll.animate-visible {
     opacity: 1;
     transform: translate(0);
+  }
+
+  /* Accessibility improvements */
+  .text-primary {
+    font-weight: 500; /* Make primary text at least medium weight for better readability */
+  }
+
+  .text-xs.text-primary,
+  .text-sm.text-primary {
+    font-weight: 600; /* Smaller text in primary color needs to be bolder */
   }
   
   /* Special animation class for family bios that doesn't rely on scroll position */

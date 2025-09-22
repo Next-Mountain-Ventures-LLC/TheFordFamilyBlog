@@ -18,7 +18,7 @@ export default function YouTubeSection({ title, videos }: YouTubeSectionProps) {
     <section className="py-24 bg-muted/5 border-t border-b border-border/20">
       <div className="container px-4">
         <div className="text-center mb-16">
-          <div className="mb-1 text-xs uppercase tracking-widest text-primary font-sans font-light animate-on-scroll">Recommended Viewing</div>
+          <div className="mb-1 text-xs uppercase tracking-widest text-primary font-sans font-medium animate-on-scroll">Recommended Viewing</div>
           <h2 className="text-3xl md:text-4xl font-normal font-display mb-6 animate-on-scroll">
             {title}
           </h2>
@@ -55,14 +55,14 @@ export default function YouTubeSection({ title, videos }: YouTubeSectionProps) {
                 </div>
               </div>
               
-              <div className="text-xs uppercase tracking-widest text-primary font-light mb-2">{video.creator}</div>
+              <div className="text-xs uppercase tracking-widest text-primary font-medium mb-2">{video.creator}</div>
               <h3 className="text-lg font-display font-normal mb-3 line-clamp-2 group-hover:text-primary transition-colors duration-300">{video.title}</h3>
               <div className="w-10 h-px bg-primary/20 mb-3"></div>
               <a 
                 href={`https://www.youtube.com/watch?v=${video.videoId}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm uppercase tracking-wide font-light text-primary group-hover:text-primary-foreground transition-colors duration-300 inline-flex items-center"
+                className="text-sm uppercase tracking-wide font-medium text-primary group-hover:text-primary-foreground transition-colors duration-300 inline-flex items-center"
               >
                 Watch Video
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="ml-2 transition-transform duration-300 group-hover:translate-x-1">
@@ -80,7 +80,7 @@ export default function YouTubeSection({ title, videos }: YouTubeSectionProps) {
             href="https://www.youtube.com/@TheDiaryOfACEO" 
             target="_blank" 
             rel="noreferrer"
-            className="text-sm uppercase tracking-widest font-light text-primary hover:text-primary-foreground transition-colors duration-300 inline-flex items-center border border-primary/30 px-8 py-3 hover:bg-primary/10"
+            className="text-sm uppercase tracking-widest font-medium text-primary hover:text-primary-foreground transition-colors duration-300 inline-flex items-center border border-primary/30 px-8 py-3 hover:bg-primary/10 bg-white"
           >
             Visit The Diary Of A CEO Channel
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="ml-2">

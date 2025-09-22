@@ -46,8 +46,8 @@ export default function FamilyMember({
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
         
         <div className="relative">
-          <h2 className="text-2xl md:text-3xl font-display font-normal mb-2 text-foreground">
-            <span className="text-primary">{name.split(' ')[0]}</span> {name.split(' ').slice(1).join(' ')}
+          <h2 className="text-2xl md:text-3xl font-display mb-2 text-foreground">
+            <span className="text-primary font-semibold">{name.split(' ')[0]}</span> {name.split(' ').slice(1).join(' ')}
           </h2>
           <p className="text-base uppercase tracking-wide font-light text-muted-foreground mb-6">{role}</p>
           
