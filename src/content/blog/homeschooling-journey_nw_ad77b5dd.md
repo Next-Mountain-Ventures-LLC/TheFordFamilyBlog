@@ -1,5 +1,5 @@
 ---
-title: Our Homeschooling Journey: Finding Connection Through Learning Together
+title: "Our Homeschooling Journey: Finding Connection Through Learning Together"
 description: Discover how our family's homeschooling adventure began and the unexpected blessings we've found along the way.
 date: July 18, 2025
 author: Salicia Ford
