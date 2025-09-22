@@ -1,11 +1,11 @@
 ---
-title: 3D Printing Projects for Young Inventors
-description: Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids.
-date: May 30, 2025
-author: Jackson Ford
-category: Inventions
-imageUrl: https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&auto=format&q=80
-slug: 3d-printing-young-inventors
+title: "3D Printing Projects for Young Inventors"
+description: "Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids."
+date: "May 30, 2025"
+author: "Jackson Ford"
+category: "Inventions"
+imageUrl: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&auto=format&q=80"
+slug: "3d-printing-young-inventors"
 ---
 
 Hi, I'm Jackson! When I got my first 3D printer for my 10th birthday, I had no idea how much it would change my life. What started as a cool way to make toys has turned into a passion for invention, a small business selling my designs, and a way to help others. Today, I want to share some of my favorite beginner-friendly 3D printing projects that are perfect for young inventors.

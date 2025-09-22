@@ -1,11 +1,11 @@
 ---
-title: Homeschooling Tips for ADHD Children
-description: Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.
-date: June 5, 2025
-author: Salicia Ford
-category: Homeschooling
-imageUrl: https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&q=80
-slug: homeschooling-tips-adhd
+title: "Homeschooling Tips for ADHD Children"
+description: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD."
+date: "June 5, 2025"
+author: "Salicia Ford"
+category: "Homeschooling"
+imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&q=80"
+slug: "homeschooling-tips-adhd"
 ---
 
 Homeschooling a child with ADHD presents unique challenges and remarkable opportunities. As a homeschooling mother of two, with one child who has ADHD, I've discovered that the right approach can transform what might be seen as obstacles into pathways for exceptional learning and growth.
