@@ -1,1 +1,11 @@
-<p>--- title: "When You Feel Funky: What to do..." description: "Let us help you feel like a new man again." date: "September 18, 2025" author: "Joshua Ford" category: "Wellness" imageUrl: "https://images.unsplash.com/photo-1586442454519-44e70bd51f82?w=800&amp;auto=format&amp;fit=crop&amp;q=80" slug: "when-you-feel-funky" --- This is where we help you do stuff.</p>
+---
+title: "When You Feel Funky: What to do..."
+description: "Let us help you feel like a new man again."
+date: "September 18, 2025"
+author: "Joshua Ford"
+category: "Wellness"
+imageUrl: "https://images.unsplash.com/photo-1586442454519-44e70bd51f82?w=800&auto=format&fit=crop&q=80"
+slug: "when-you-feel-funky"
+---
+
+This is where we help you do stuff.
