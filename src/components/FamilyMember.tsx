@@ -22,14 +22,8 @@ export default function FamilyMember({
   link,
   direction = 'left'
 }: FamilyMemberProps) {
-  // Calculate a staggered delay based on the first letter of the name for a natural effect
-  const delayValue = (name.charCodeAt(0) % 4) * 0.1; // Creates a 0, 0.1, 0.2, or 0.3s delay
-  
   return (
-    <div 
-      className={`flex flex-col md:flex-row gap-12 items-center family-bio bio-${direction}`}
-      style={{ animationDelay: `${delayValue}s` } as React.CSSProperties}
-    >
+    <div className={`flex flex-col md:flex-row gap-8 items-center animate-on-scroll animate-${direction}`}>
       {imageUrl && (
         <div className="scrapbook-photo" style={{ '--rotate': rotate } as React.CSSProperties}>
           <div className="scrapbook-tape" style={{ '--rotate': `-${parseInt(rotate) * 0.5}deg` } as React.CSSProperties}></div>
@@ -41,35 +35,25 @@ export default function FamilyMember({
         </div>
       )}
       
-      <div className="scrapbook-paper flex-1 relative overflow-hidden">
-        {/* Subtle accent line */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+      <div className="scrapbook-paper flex-1">
+        <h2 className="text-2xl md:text-3xl font-display font-bold mb-2 text-primary-foreground">{name}</h2>
+        <p className="text-lg italic text-secondary-foreground mb-4">{role}</p>
+        <p className="mb-4">{description}</p>
         
-        <div className="relative">
-          <h2 className="text-2xl md:text-3xl font-display mb-2 text-foreground">
-            <span className="text-primary font-semibold">{name.split(' ')[0]}</span> {name.split(' ').slice(1).join(' ')}
-          </h2>
-          <p className="text-base uppercase tracking-wide font-light text-muted-foreground mb-6">{role}</p>
-          
-          <div className="w-16 h-px bg-primary/20 mb-6"></div>
-          
-          <p className="mb-6 font-light leading-relaxed">{description}</p>
-          
-          <div className="flex flex-wrap gap-2 mb-6">
-            {interests.map((interest, index) => (
-              <span 
-                key={index}
-                className="px-4 py-1.5 text-xs font-light tracking-wide uppercase border border-border/50 text-muted-foreground"
-              >
-                {interest}
-              </span>
-            ))}
-          </div>
-          
-          <a href={link} className={buttonVariants({ variant: 'default', size: 'sm' })}>
-            See Blog
-          </a>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {interests.map((interest, index) => (
+            <span 
+              key={index}
+              className="px-3 py-1 text-xs rounded-full bg-accent/20 text-accent-foreground"
+            >
+              {interest}
+            </span>
+          ))}
         </div>
+        
+        <a href={link} className={buttonVariants({ variant: 'default', size: 'sm' })}>
+          See Blog
+        </a>
       </div>
     </div>
   );

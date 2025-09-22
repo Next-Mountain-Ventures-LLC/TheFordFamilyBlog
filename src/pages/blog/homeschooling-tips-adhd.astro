@@ -1,28 +1,14 @@
 ---
 import BlogLayout from "@/layouts/BlogLayout.astro";
-import { getCollection } from 'astro:content';
-
-// Get the blog post from content collection
-const allPosts = await getCollection('blog');
-const homeschoolingTipsPost = allPosts.find((post) => {
-  return post.slug.startsWith('homeschooling-tips-adhd');
-});
-
-// Check if post exists
-if (!homeschoolingTipsPost) {
-  throw new Error('Blog post not found');
-}
-
-const { Content } = await homeschoolingTipsPost.render();
 
 const post = {
-  title: homeschoolingTipsPost.data.title,
-  description: homeschoolingTipsPost.data.description,
-  date: homeschoolingTipsPost.data.date,
-  author: homeschoolingTipsPost.data.author,
-  category: homeschoolingTipsPost.data.category,
-  imageUrl: homeschoolingTipsPost.data.imageUrl,
-  slug: homeschoolingTipsPost.slug.replace(/_nw_.*$/, '') // Remove the signature from slug for URL
+  title: "Homeschooling Tips for ADHD Children",
+  description: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
+  date: "June 5, 2025",
+  author: "Salicia Ford",
+  category: "Homeschooling",
+  imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&q=80",
+  slug: "homeschooling-tips-adhd"
 };
 ---
 
@@ -34,5 +20,96 @@ const post = {
   category={post.category}
   imageUrl={post.imageUrl}
 >
-  <Content />
+  <p>Homeschooling a child with ADHD presents unique challenges and remarkable opportunities. As a homeschooling mother of two, with one child who has ADHD, I've discovered that the right approach can transform what might be seen as obstacles into pathways for exceptional learning and growth.</p>
+  
+  <h2>Understanding ADHD in the Learning Context</h2>
+  
+  <p>ADHD isn't just about difficulty focusing—it's a different way of processing information and interacting with the world. Children with ADHD often have incredible strengths: creativity, hyperfocus on topics that interest them, out-of-the-box thinking, and energy that can fuel amazing projects when properly channeled.</p>
+  
+  <p>The traditional classroom setting, with its emphasis on sitting still for long periods and processing information in specific ways, often doesn't serve these children well. Homeschooling provides the flexibility to create an environment that works with their natural tendencies rather than against them.</p>
+  
+  <h2>Creating a Supportive Learning Environment</h2>
+  
+  <p>The physical setup of your learning space can make a tremendous difference. Here are some adjustments that have worked for our family:</p>
+  
+  <ul>
+    <li><strong>Movement-friendly spaces</strong> — Allowing for fidgeting, standing, or even moving around during lessons</li>
+    <li><strong>Reduced visual distractions</strong> — Clean, organized spaces with minimal visual clutter</li>
+    <li><strong>Multiple learning stations</strong> — Different areas for different types of activities</li>
+    <li><strong>Fidget tools</strong> — Having appropriate fidget items that help with focus rather than distract</li>
+    <li><strong>Nature access</strong> — Ensuring regular outdoor time and the ability to learn outdoors when possible</li>
+  </ul>
+  
+  <h2>Structuring the Homeschool Day</h2>
+  
+  <p>Structure provides security, but rigid scheduling can be counterproductive. We've found success with a balanced approach:</p>
+  
+  <h3>The Block System</h3>
+  
+  <p>Rather than scheduling our day in 30-minute increments, we use a block system that focuses on categories of learning rather than strict time periods. For example:</p>
+  
+  <ul>
+    <li><strong>Morning Power Block</strong> — For subjects requiring the most focus (usually math and language arts)</li>
+    <li><strong>Project Block</strong> — Hands-on learning that allows movement and creativity</li>
+    <li><strong>Interest-Led Block</strong> — Time for diving deep into topics of personal interest</li>
+    <li><strong>Movement Block</strong> — Dedicated time for physical activity</li>
+    <li><strong>Quiet Block</strong> — Reading, reflection, and lower-energy activities</li>
+  </ul>
+  
+  <p>The blocks can vary in length depending on energy levels and interest, but the sequence remains predictable, providing both structure and flexibility.</p>
+  
+  <h2>Teaching Strategies That Work</h2>
+  
+  <p>Our most successful learning happens when we incorporate these approaches:</p>
+  
+  <h3>Multi-Sensory Learning</h3>
+  
+  <p>Information is more likely to stick when it engages multiple senses. We combine visual, auditory, and kinesthetic learning whenever possible. For example, learning multiplication through:</p>
+  
+  <ul>
+    <li>Visual patterns and arrays</li>
+    <li>Rhythmic chants and songs</li>
+    <li>Physical movement (jumping or clapping the patterns)</li>
+    <li>Manipulatives for hands-on interaction with the concept</li>
+  </ul>
+  
+  <h3>Chunking Information</h3>
+  
+  <p>Breaking lessons into smaller, manageable chunks with clear transitions helps maintain focus. We use visual timers and clear signals for transitions between activities.</p>
+  
+  <h3>Interest-Based Learning</h3>
+  
+  <p>Whenever possible, we connect learning to existing interests. When Jackson became interested in 3D printing, we incorporated:</p>
+  
+  <ul>
+    <li>Math through design measurements and scaling</li>
+    <li>Science through understanding materials and properties</li>
+    <li>Reading through technical manuals and instructions</li>
+    <li>Writing through documenting projects and processes</li>
+  </ul>
+  
+  <h2>Emotional Regulation: The Foundation for Learning</h2>
+  
+  <p>Perhaps the most important element of successful homeschooling with ADHD is supporting emotional regulation. Children with ADHD often experience emotions intensely and can become easily frustrated by challenges.</p>
+  
+  <p>We've implemented a "feelings corner" with tools for recognizing and managing emotions. We practice identifying emotional states and have a menu of strategies for different situations. This emotional regulation work isn't separate from academics—it's the foundation that makes academic learning possible.</p>
+  
+  <h2>Templates and Resources</h2>
+  
+  <p>Through our Anchor and Bloom initiative, we've created several templates that have helped our family and many others. These include:</p>
+  
+  <ul>
+    <li>Visual schedule templates that use images rather than just text</li>
+    <li>Project planning worksheets that break big ideas into manageable steps</li>
+    <li>Emotional regulation cards with specific strategies for different situations</li>
+    <li>Interest-mapping templates to connect curriculum to personal passions</li>
+  </ul>
+  
+  <h2>The Bigger Picture</h2>
+  
+  <p>Homeschooling a child with ADHD isn't just about academic achievement—it's about helping them understand their unique brain wiring and how to leverage their strengths while developing strategies for challenges. The skills they develop through this process—self-awareness, adaptive coping strategies, and creative problem-solving—will serve them throughout life.</p>
+  
+  <p>Our approach isn't about changing who our children are but about helping them become the best version of themselves—embracing their energy, creativity, and unique perspectives while giving them tools to navigate a world that isn't always designed for their way of thinking.</p>
+  
+  <p>If you're on this journey too, I hope these strategies give you some new approaches to try. Remember that what works will be unique to your child, and discovering that together is part of the homeschooling adventure.</p>
 </BlogLayout>

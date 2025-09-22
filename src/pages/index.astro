@@ -10,15 +10,6 @@ import { buttonVariants } from "@/components/ui/button";
 // Blog posts data - linked to their corresponding blog pages
 const blogPosts = [
   {
-    title: "Our Homeschooling Journey: Finding Connection Through Learning Together",
-    excerpt: "Discover how our family's homeschooling adventure began and the unexpected blessings we've found along the way.",
-    date: "July 18, 2025",
-    author: "Salicia Ford",
-    category: "Homeschooling",
-    imageUrl: "https://images.unsplash.com/photo-1586442454519-44e70bd51f82?w=600&auto=format&fit=crop&q=80",
-    slug: "homeschooling-journey"
-  },
-  {
     title: "Finding Strength in Faith Through Health Challenges",
     excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
     date: "June 12, 2025",
@@ -47,25 +38,25 @@ const blogPosts = [
   }
 ];
 
-// Real YouTube videos data from The Diary of A CEO channel
+// Sample YouTube videos data
 const youtubeVideos = [
   {
-    title: "Matthew McConaughey: The Silent Crisis No One Is Talking About!",
-    videoId: "vz9pA2rp_v4",
-    thumbnail: `https://i.ytimg.com/vi/vz9pA2rp_v4/maxresdefault.jpg`,
-    creator: "The Diary Of A CEO"
+    title: "Building an E-Bike from Scratch - DIY Guide",
+    videoId: "dQw4w9WgXcQ", // This is a placeholder
+    thumbnail: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=600&auto=format&q=80",
+    creator: "Joshua Ford"
   },
   {
-    title: "Ray Dalio: We're Heading Into Very, Very Dark Times!",
-    videoId: "TISMidxdZoc",
-    thumbnail: `https://i.ytimg.com/vi/TISMidxdZoc/maxresdefault.jpg`,
-    creator: "The Diary Of A CEO"
+    title: "Get Ready With Me - Back to School Edition",
+    videoId: "dQw4w9WgXcQ", // This is a placeholder
+    thumbnail: "https://images.unsplash.com/photo-1627243847738-0b9b66a80f08?w=600&auto=format&q=80",
+    creator: "Finley Ford"
   },
   {
-    title: "The Sugar Doctor: The Simple Diet That Prevents 80% of Disease!",
-    videoId: "8m5Pc0ScJwY",
-    thumbnail: `https://i.ytimg.com/vi/8m5Pc0ScJwY/maxresdefault.jpg`,
-    creator: "The Diary Of A CEO"
+    title: "How I Started My First Business at Age 12",
+    videoId: "dQw4w9WgXcQ", // This is a placeholder
+    thumbnail: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&auto=format&q=80",
+    creator: "Jackson Ford"
   }
 ];
 ---
@@ -77,22 +68,8 @@ const youtubeVideos = [
   <!-- Hero Section -->
   <HeroSection client:load />
   
-  <!-- External Site Iframe Section -->
-  <section class="w-full">
-    <iframe 
-      src="https://twistelementortest.mystagingwebsite.com/test/" 
-      title="Twist Elementor Test" 
-      class="w-full border-0"
-      height="800" 
-      loading="lazy"
-      scrolling="no"
-      frameborder="0"
-      style="width: 100vw; max-width: 100%;"
-    ></iframe>
-  </section>
-  
   <!-- Family Members Section -->
-  <section id="family" class="py-32 px-8 bg-muted/10 overflow-hidden">
+  <section id="family" class="py-20 bg-muted/10">
     <div class="container mx-auto">
       <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-primary-foreground animate-on-scroll">
         About Our Family
@@ -107,7 +84,7 @@ const youtubeVideos = [
         </p>
       </div>
       
-      <div class="space-y-32 my-20 overflow-visible">
+      <div class="space-y-24">
         <!-- Salicia -->
         <FamilyMember 
           client:load
@@ -167,7 +144,7 @@ const youtubeVideos = [
   <BlogPreview client:visible title="Latest Blog Posts" posts={blogPosts} />
   
   <!-- YouTube Section -->
-  <YouTubeSection client:visible title="Recommended Viewing" videos={youtubeVideos} />
+  <YouTubeSection client:visible title="Featured Videos" videos={youtubeVideos} />
   
   <!-- Contact Section -->
   <section class="py-16">

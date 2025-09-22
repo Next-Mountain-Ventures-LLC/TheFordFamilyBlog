@@ -2,25 +2,8 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
 
-// Import necessary components
-import { getCollection } from 'astro:content';
-
-// Get blog posts from content collection
-const allBlogPosts = await getCollection('blog');
-
-// Transform content collection entries into blog post objects
-const contentBlogPosts = allBlogPosts.map(entry => ({
-  title: entry.data.title,
-  excerpt: entry.data.description,
-  date: entry.data.date,
-  author: entry.data.author,
-  category: entry.data.category,
-  imageUrl: entry.data.imageUrl,
-  slug: entry.slug
-}));
-
-// Additional blog posts data for entries not yet in content collection
-const additionalBlogPosts = [
+// Blog posts data (in a real site this would come from a CMS or file system)
+const blogPosts = [
   {
     title: "Finding Strength in Faith Through Health Challenges",
     excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
@@ -29,6 +12,24 @@ const additionalBlogPosts = [
     category: "Faith & Health",
     imageUrl: "https://images.unsplash.com/photo-1518607692857-bff9babd9d40?w=800&auto=format&q=80",
     slug: "faith-through-health-challenges"
+  },
+  {
+    title: "Homeschooling Tips for ADHD Children",
+    excerpt: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
+    date: "June 5, 2025",
+    author: "Salicia Ford",
+    category: "Homeschooling",
+    imageUrl: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&q=80",
+    slug: "homeschooling-tips-adhd"
+  },
+  {
+    title: "3D Printing Projects for Young Inventors",
+    excerpt: "Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids.",
+    date: "May 30, 2025",
+    author: "Jackson Ford",
+    category: "Inventions",
+    imageUrl: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&auto=format&q=80",
+    slug: "3d-printing-young-inventors"
   },
   {
     title: "Navigating Healthcare Systems as a Chronic Illness Patient",
@@ -76,14 +77,6 @@ const additionalBlogPosts = [
     slug: "fashion-tips-young-creators"
   }
 ];
-
-// Combine and sort all blog posts by date (newest first)
-const blogPosts = [...contentBlogPosts, ...additionalBlogPosts].sort((a, b) => {
-  // Convert string dates to Date objects for comparison
-  const dateA = new Date(a.date);
-  const dateB = new Date(b.date);
-  return dateB - dateA;
-});
 
 // Organize posts by featured and regular
 const featuredPost = blogPosts[0];

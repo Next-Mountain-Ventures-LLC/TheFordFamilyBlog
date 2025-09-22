@@ -1,28 +1,14 @@
 ---
 import BlogLayout from "@/layouts/BlogLayout.astro";
-import { getCollection } from 'astro:content';
-
-// Get the blog post from content collection
-const allPosts = await getCollection('blog');
-const printingInventorsPost = allPosts.find((post) => {
-  return post.slug.startsWith('3d-printing-young-inventors');
-});
-
-// Check if post exists
-if (!printingInventorsPost) {
-  throw new Error('Blog post not found');
-}
-
-const { Content } = await printingInventorsPost.render();
 
 const post = {
-  title: printingInventorsPost.data.title,
-  description: printingInventorsPost.data.description,
-  date: printingInventorsPost.data.date,
-  author: printingInventorsPost.data.author,
-  category: printingInventorsPost.data.category,
-  imageUrl: printingInventorsPost.data.imageUrl,
-  slug: printingInventorsPost.slug.replace(/_nw_.*$/, '') // Remove the signature from slug for URL
+  title: "3D Printing Projects for Young Inventors",
+  description: "Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids.",
+  date: "May 30, 2025",
+  author: "Jackson Ford",
+  category: "Inventions",
+  imageUrl: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&auto=format&q=80",
+  slug: "3d-printing-young-inventors"
 };
 ---
 
@@ -34,5 +20,101 @@ const post = {
   category={post.category}
   imageUrl={post.imageUrl}
 >
-  <Content />
+  <p>Hi, I'm Jackson! When I got my first 3D printer for my 10th birthday, I had no idea how much it would change my life. What started as a cool way to make toys has turned into a passion for invention, a small business selling my designs, and a way to help others. Today, I want to share some of my favorite beginner-friendly 3D printing projects that are perfect for young inventors.</p>
+  
+  <h2>Why 3D Printing is Perfect for Kids</h2>
+  
+  <p>3D printing is amazing because it lets you turn ideas in your head into real objects you can hold. It's like having a mini-factory in your room! The best part is that you learn so much while having fun:</p>
+  
+  <ul>
+    <li>Design thinking - planning something before you make it</li>
+    <li>Problem-solving - figuring out why things don't work and fixing them</li>
+    <li>Patience - some prints take hours, and that's okay!</li>
+    <li>Creativity - there are no limits to what you can design</li>
+    <li>Basic engineering - understanding how parts fit together</li>
+  </ul>
+  
+  <p>I started with simple projects and worked my way up to more complex ones. Here are some of my favorites that taught me important skills along the way.</p>
+  
+  <h2>Project 1: Customized Name Plate</h2>
+  
+  <p>This was one of my first projects, and it's perfect for beginners. A personalized name plate for your desk or door is simple to design but feels really special when you make it yourself.</p>
+  
+  <h3>What You'll Learn:</h3>
+  <ul>
+    <li>Basic 3D design using TinkerCAD (a free, web-based design program)</li>
+    <li>How to add and combine basic shapes</li>
+    <li>How to add and customize text</li>
+    <li>Basic slicing settings for your printer</li>
+  </ul>
+  
+  <h3>Invention Challenge:</h3>
+  <p>Once you've mastered the basic name plate, try adding a useful feature to it! I added a small tray for paper clips and a phone stand to mine. What could you add to make your name plate solve a problem?</p>
+  
+  <h2>Project 2: Marble Run System</h2>
+  
+  <p>This is one of my favorite projects because you can start simple and keep adding to it over time. A marble run teaches you about gravity, momentum, and modular design.</p>
+  
+  <h3>What You'll Learn:</h3>
+  <ul>
+    <li>How to design pieces that connect together</li>
+    <li>Basic physics concepts like potential and kinetic energy</li>
+    <li>Planning a larger project in smaller, manageable parts</li>
+    <li>Testing and iterative design (making small improvements with each version)</li>
+  </ul>
+  
+  <h3>Invention Challenge:</h3>
+  <p>Design a special marble run piece that does something unique—maybe a piece that makes the marble jump, split into multiple paths, or make a sound as it passes through.</p>
+  
+  <h2>Project 3: Mechanical Claw</h2>
+  
+  <p>This was the project where I really started to understand engineering. A mechanical claw that can pick up small objects teaches you about linkages, joints, and mechanical advantage.</p>
+  
+  <h3>What You'll Learn:</h3>
+  <ul>
+    <li>How simple machines work together in a system</li>
+    <li>Designing moving parts that fit together</li>
+    <li>Understanding tolerance (how much space to leave between parts)</li>
+    <li>How to design parts that will be assembled after printing</li>
+  </ul>
+  
+  <h3>Invention Challenge:</h3>
+  <p>Adapt your claw design to solve a specific problem. I designed a special claw to help my mom pick up things when her hands hurt from her autoimmune condition. What problem could your claw solve?</p>
+  
+  <h2>Project 4: Wind-Powered Car</h2>
+  
+  <p>This project combines 3D printing with other materials to create a car powered by the wind. It's a great introduction to combining 3D printed parts with other elements like dowels, rubber bands, or recycled materials.</p>
+  
+  <h3>What You'll Learn:</h3>
+  <ul>
+    <li>How to design parts that interface with non-printed materials</li>
+    <li>Basic principles of aerodynamics</li>
+    <li>Converting one form of energy to another</li>
+    <li>The design-test-refine process that real engineers use</li>
+  </ul>
+  
+  <h3>Invention Challenge:</h3>
+  <p>Try different sail designs and wheel configurations to see which combination goes the fastest or can carry the most weight.</p>
+  
+  <h2>Tips for Young Inventors</h2>
+  
+  <p>After a few years of 3D printing, here's my advice for other kids who want to get started:</p>
+  
+  <ol>
+    <li><strong>Start simple</strong> - Don't try to make complex things right away</li>
+    <li><strong>Expect failures</strong> - I've had more failed prints than successful ones, and that's how I learned!</li>
+    <li><strong>Keep a design notebook</strong> - Write down what works and what doesn't so you remember for next time</li>
+    <li><strong>Find a community</strong> - Online forums, local makerspaces, or school clubs can help when you get stuck</li>
+    <li><strong>Design with purpose</strong> - My favorite prints are ones that solve real problems</li>
+  </ol>
+  
+  <h2>How 3D Printing Changed My Life</h2>
+  
+  <p>3D printing started as a hobby but has become much more. I now sell some of my designs online, and I've used the money to buy more equipment and materials. I've also started teaching other kids at our local library's makerspace.</p>
+  
+  <p>The most rewarding part has been designing adaptive tools. When my mom was diagnosed with an autoimmune disease that affects her joints, I started designing tools to help her on days when her hands hurt. Now I'm working with other families to create custom solutions for their specific needs.</p>
+  
+  <p>If you're just getting started with 3D printing, remember that every expert started as a beginner. Don't be afraid to make mistakes—they're just stepping stones to becoming a better inventor!</p>
+  
+  <p>Have you tried 3D printing? I'd love to hear about your projects in the comments below!</p>
 </BlogLayout>

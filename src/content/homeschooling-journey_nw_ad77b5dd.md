@@ -1,1 +1,0 @@
-<p>--- title: "When You Feel Funky: What to do..." description: let us help you feel like a new man again. date: September 18, 2025 author: Joshua Ford category: Homeschooling imageUrl: https://images.unsplash.com/photo-1586442454519-44e70bd51f82?w=800&amp;auto=format&amp;fit=crop&amp;q=80 slug: homeschooling-journey --- This is where we help you.</p>
