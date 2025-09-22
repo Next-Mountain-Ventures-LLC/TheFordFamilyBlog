@@ -1,0 +1,165 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BlogCarousel from "@/components/BlogCarousel";
+import DigitalProductsStore from "@/components/DigitalProductsStore";
+import AnchorBloomSection from "@/components/AnchorBloomSection";
+
+// Get Salicia's blog posts
+let saliciaPosts = [];
+try {
+  const allBlogPosts = await getCollection('blog');
+  saliciaPosts = allBlogPosts
+    .filter(post => post.data.author.includes('Salicia'))
+    .map(entry => ({
+      title: entry.data.title,
+      excerpt: entry.data.description,
+      date: entry.data.date,
+      category: entry.data.category,
+      imageUrl: entry.data.imageUrl,
+      slug: entry.slug
+    }))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+} catch (error) {
+  console.error('Error loading blog posts:', error);
+  // Continue with empty array
+}
+
+// Additional posts not in content collection
+const additionalPosts = [
+  {
+    title: "Finding Strength in Faith Through Health Challenges",
+    excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
+    date: "June 12, 2025",
+    category: "Faith & Health",
+    imageUrl: "https://images.unsplash.com/photo-1518607692857-bff9babd9d40?w=800&auto=format&q=80",
+    slug: "faith-through-health-challenges"
+  },
+  {
+    title: "Navigating Healthcare Systems as a Chronic Illness Patient",
+    excerpt: "Tips and advice for advocating for yourself in complex medical systems when dealing with chronic conditions.",
+    date: "May 25, 2025", 
+    category: "Faith & Health",
+    imageUrl: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&q=80",
+    slug: "navigating-healthcare-systems"
+  }
+];
+
+// Combine and deduplicate based on slug
+const seenSlugs = new Set(saliciaPosts.map(post => post.slug));
+const morePosts = additionalPosts.filter(post => !seenSlugs.has(post.slug));
+const allSaliciaPosts = [...saliciaPosts, ...morePosts];
+
+// Digital products data
+const digitalProducts = [
+  {
+    title: "Homeschool Planning Bundle",
+    description: "A comprehensive set of planners, templates, and checklists to organize your homeschool year.",
+    price: "$27",
+    imageUrl: "https://images.unsplash.com/photo-1553729784-e91953dec042?w=800&auto=format&q=80",
+    featured: true
+  },
+  {
+    title: "ADHD Learning Strategies Guide",
+    description: "Practical techniques and activities to help children with ADHD thrive in their education.",
+    price: "$19",
+    imageUrl: "https://images.unsplash.com/photo-1585432959322-4db52d6956fb?w=800&auto=format&q=80"
+  },
+  {
+    title: "Emotional Regulation Cards",
+    description: "Printable cards to help children identify and manage their emotions effectively.",
+    price: "$15",
+    imageUrl: "https://images.unsplash.com/photo-1617791160588-241658c0f566?w=800&auto=format&q=80"
+  },
+  {
+    title: "Faith-Based Curriculum Supplements",
+    description: "Weekly devotionals and activities that integrate faith into your homeschool routine.",
+    price: "$22",
+    imageUrl: "https://images.unsplash.com/photo-1544207916-df3908b63749?w=800&auto=format&q=80"
+  }
+];
+---
+
+<BaseLayout
+  title="Salicia Ford - Patient Advocate & Homeschool Mom | The Ford Family"
+  description="Meet Salicia Ford, a homeschooling mom and patient advocate who helps families bring order to chaotic lives through Anchor and Bloom."
+>
+  <!-- Hero Section -->
+  <section class="relative py-20 overflow-hidden bg-gradient-to-b from-secondary/10 to-background border-b border-border">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div class="order-2 lg:order-1 animate-fade-in">
+          <h1 class="text-4xl md:text-6xl font-bold font-display mb-4 text-primary-foreground">
+            Salicia Ford
+          </h1>
+          <p class="text-lg text-muted-foreground mb-6 italic">
+            Patient Advocate & Homeschool Mom
+          </p>
+          <div class="prose prose-lg dark:prose-invert mb-8 max-w-none">
+            <p>
+              Navigating life with rare autoimmune diseases while homeschooling our children 
+              has taught me resilience, patience, and how to find joy in difficult circumstances.
+            </p>
+            <p>
+              Through my journey, I've developed systems and resources to bring order to chaos, 
+              which I now share with other families through Anchor and Bloom.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a 
+              href="#products"
+              class={buttonVariants({ size: "lg" })}
+            >
+              Browse Resources
+            </a>
+            <a 
+              href="#anchor-bloom"
+              class={buttonVariants({ variant: "outline", size: "lg" })}
+            >
+              Learn About Anchor and Bloom
+            </a>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 flex justify-center">
+          <div class="scrapbook-photo" style="--rotate: -2deg">
+            <div class="scrapbook-tape"></div>
+            <img 
+              src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&auto=format&q=80" 
+              alt="Salicia Ford" 
+              class="rounded-sm max-w-sm w-full shadow-lg object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Carousel Section -->
+  <section id="posts" class="py-16 bg-muted/10">
+    <div class="container mx-auto">
+      <BlogCarousel 
+        client:visible
+        title="Salicia's Articles"
+        description="Insights and advice from my journey through homeschooling, chronic illness, and faith."
+        posts={allSaliciaPosts}
+      />
+    </div>
+  </section>
+
+  <!-- Digital Products Section -->
+  <section id="products" class="py-16">
+    <DigitalProductsStore 
+      client:visible
+      title="Homeschooling Resources"
+      description="Digital products designed to bring structure, joy, and effectiveness to your homeschool journey."
+      products={digitalProducts}
+    />
+  </section>
+
+  <!-- Anchor and Bloom Section -->
+  <section id="anchor-bloom" class="py-16 bg-primary/5">
+    <AnchorBloomSection client:visible />
+  </section>
+</BaseLayout>
