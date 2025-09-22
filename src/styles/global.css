@@ -105,11 +105,11 @@
     
     /* Darker blue primary color with better contrast */
     --primary: 210 100% 45%; /* Darkened for better contrast */
-    --primary-foreground: 210 50% 98%;
+    --primary-foreground: 240 10% 3.9%; /* Dark gray for maximum contrast */
     
     /* Deeper pink secondary color */
     --secondary: 335 80% 65%; /* Darkened for better contrast */
-    --secondary-foreground: 335 80% 98%;
+    --secondary-foreground: 240 10% 3.9%; /* Dark gray for maximum contrast */
     
     /* Muted gray tones */
     --muted: 240 4.8% 95.9%;
@@ -117,7 +117,7 @@
     
     /* Deeper green accent color */
     --accent: 130 60% 45%; /* Darkened for better contrast */
-    --accent-foreground: 130 50% 98%;
+    --accent-foreground: 240 10% 3.9%; /* Dark gray for maximum contrast */
     
     /* Utility colors */
     --destructive: 0 84.2% 60.2%;
