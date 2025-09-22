@@ -1,0 +1,74 @@
+[
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:34:58.570Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:34:58.675Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:34:58.716Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:34:58.717Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:34:58.717Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:34:58.717Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-09-22T14:35:46.645Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:35:46.646Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1690148887529-7b5cfe58c3b0?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a woman in a red dress and a blue jacket\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1589739280536-f0b6f2947bb8?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"woman in blue jacket and red skirt standing beside train station during daytime\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1697020004298-7fd68c58f249?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a woman in a trench coat posing for a picture\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1698648438550-9a3a9a292fd4?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a woman in a red dress and a white hat\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1572108055708-778eb430f00c?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"pink peaked lapel sleeveless blazer and pink flower\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1690148887529-7b5cfe58c3b0?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a woman in a red dress and a blue jacket\"},{\"url\":\"https://images.unsplash.com/photo-1589739280536-f0b6f2947bb8?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"woman in blue jacket and red skirt standing beside train station during daytime\"},{\"url\":\"https://images.unsplash.com/photo-1697020004298-7fd68c58f249?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a woman in a trench coat posing for a picture\"},{\"url\":\"https://images.unsplash.com/photo-1698648438550-9a3a9a292fd4?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a woman in a red dress and a white hat\"},{\"url\":\"https://images.unsplash.com/photo-1572108055708-778eb430f00c?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"pink peaked lapel sleeveless blazer and pink flower\"}]}}",
+    "timestamp": "2025-09-22T14:35:48.761Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-09-22T14:35:52.198Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T14:35:52.198Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1638604587609-fbb8469f4234?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a closet filled with lots of different types of shirts\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1719552979950-f35958f97ebe?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"A rack of clothing hanging on a wall\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1551488831-3ed9278737db?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"woman in green jacket\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1616873494438-b34c014bcb6a?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"woman in red sweater and white pants\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1753161022911-53d8bf22f186?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Woman browses clothing racks at a retail store.\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1638604587609-fbb8469f4234?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a closet filled with lots of different types of shirts\"},{\"url\":\"https://images.unsplash.com/photo-1719552979950-f35958f97ebe?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"A rack of clothing hanging on a wall\"},{\"url\":\"https://images.unsplash.com/photo-1551488831-3ed9278737db?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"woman in green jacket\"},{\"url\":\"https://images.unsplash.com/photo-1616873494438-b34c014bcb6a?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"woman in red sweater and white pants\"},{\"url\":\"https://images.unsplash.com/photo-1753161022911-53d8bf22f186?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"Woman browses clothing racks at a retail store.\"}]}}",
+    "timestamp": "2025-09-22T14:35:54.208Z",
+    "sessionId": "6fe6e6a3-39e3-468f-b1ed-c1e054042548",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  }
+]
