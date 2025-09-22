@@ -3,6 +3,8 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactForm from '@/components/ContactForm';
 import HeroSection from '@/components/HeroSection';
 import FamilyMember from '@/components/FamilyMember';
+import { Image } from 'astro:assets';
+import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
 import BlogPreview from '@/components/BlogPreview';
 import YouTubeSection from '@/components/YouTubeSection';
 import { buttonVariants } from "@/components/ui/button";
@@ -105,7 +107,7 @@ const youtubeVideos = [
           role="Entrepreneur & Inventor" 
           description="Joshua runs Next Mountain Ventures, a creative studio helping entrepreneurs launch and grow. He's passionate about web design, 3D printing, laser cutting, and building e-bikes." 
           interests={["Entrepreneurship", "Web Design", "Inventions", "Patient Advocacy", "3D Printing"]} 
-          imageUrl="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&q=80" 
+          imageUrl={joshuaImage.src}
           rotate="2deg"
           link="/blog"
           direction="right"

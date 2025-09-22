@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
+import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
 
 interface Props {
   title: string;
@@ -84,7 +85,7 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
                   src={author === "Salicia Ford" 
                     ? "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=300&auto=format&q=80" 
                     : author === "Joshua Ford"
-                      ? "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&auto=format&q=80"
+                      ? joshuaImage.src
                       : author === "Jackson Ford"
                         ? "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=300&auto=format&q=80"
                         : "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&q=80"

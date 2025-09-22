@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
+import { Image } from 'astro:assets';
+import joshuaImage from '../../assets/joshua_ford_nw_9daac639.jpeg';
 
 // Blog posts data (in a real site this would come from a CMS or file system)
 const blogPosts = [
@@ -46,7 +48,7 @@ const blogPosts = [
     date: "May 18, 2025",
     author: "Joshua Ford",
     category: "Inventions",
-    imageUrl: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=800&auto=format&q=80", 
+    imageUrl: joshuaImage.src, 
     slug: "building-first-ebike"
   },
   {
@@ -55,7 +57,7 @@ const blogPosts = [
     date: "May 10, 2025",
     author: "Joshua Ford",
     category: "Entrepreneurship",
-    imageUrl: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=800&auto=format&q=80",
+    imageUrl: joshuaImage.src,
     slug: "teenage-business-journey"
   },
   {

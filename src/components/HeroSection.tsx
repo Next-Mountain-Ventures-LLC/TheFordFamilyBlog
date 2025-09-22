@@ -1,5 +1,6 @@
 import React from 'react';
 import { buttonVariants } from './ui/button';
+import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
 
 interface FamilyMemberThumbnail {
   name: string;
@@ -12,7 +13,7 @@ export default function HeroSection() {
   const familyMembers: FamilyMemberThumbnail[] = [
     {
       name: "Joshua Ford",
-      imageUrl: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400&auto=format&q=80", 
+      imageUrl: joshuaImage.src,
       rotate: "-3deg"
     },
     {
