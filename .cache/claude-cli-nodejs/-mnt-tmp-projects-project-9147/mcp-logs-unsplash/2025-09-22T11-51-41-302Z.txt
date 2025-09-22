@@ -1,0 +1,56 @@
+[
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:51:41.513Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:51:41.642Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:51:41.663Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:51:41.664Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:51:41.664Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:51:41.664Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-09-22T11:52:28.941Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-22T11:52:28.941Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1586442454519-44e70bd51f82?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"girl in white long sleeve shirt reading book\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1586442454519-44e70bd51f82?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"girl in white long sleeve shirt reading book\"}]}}",
+    "timestamp": "2025-09-22T11:52:30.819Z",
+    "sessionId": "03ee5ac4-254b-4a10-a19f-c0a208ffc59f",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  }
+]
