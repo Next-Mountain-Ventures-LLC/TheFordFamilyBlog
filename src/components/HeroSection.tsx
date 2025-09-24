@@ -1,6 +1,6 @@
 import React from 'react';
 import { buttonVariants } from './ui/button';
-import joshuaImage from '../assets/img_9071_nw_c2f17e0f.jpg';
+import joshuaImage from '../assets/joshua-profile-image_nw_f4ad0330.jpg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
