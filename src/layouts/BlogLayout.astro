@@ -62,13 +62,13 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
         <div class="lg:col-span-2">
           <article class="scrapbook-paper bg-white/95 mb-8">
             {imageUrl && (
-              <div class="mb-8 -mt-2 -mx-2">
+              <div class="mb-6 -mt-2 -mx-2">
                 <div class="scrapbook-photo w-full" style="--rotate: 0deg;">
                   <div class="scrapbook-tape"></div>
                   <img 
                     src={imageUrl} 
                     alt={title}
-                    class="w-full h-auto object-cover rounded-sm"
+                    class="w-full h-48 sm:h-64 object-cover rounded-sm"
                   />
                 </div>
               </div>
