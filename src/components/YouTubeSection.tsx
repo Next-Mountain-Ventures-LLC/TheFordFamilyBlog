@@ -22,7 +22,7 @@ export default function YouTubeSection({ title, videos }: YouTubeSectionProps) {
             {title}
           </h2>
           <a 
-            href="https://www.youtube.com/" 
+            href="https://www.youtube.com/@TheFordFamilyLife" 
             target="_blank" 
             rel="noreferrer"
             className={buttonVariants({ variant: 'outline' }) + " mt-4 md:mt-0 animate-on-scroll"}
