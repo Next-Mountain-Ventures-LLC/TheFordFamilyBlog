@@ -1,0 +1,74 @@
+[
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:11.038Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:11.144Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:11.195Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:11.196Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:11.196Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:11.196Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-09-24T14:39:35.139Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:35.139Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1612192279155-f7fab0a4f377?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"man in black and brown backpack walking on street during daytime\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1758513359826-52e0ba88057f?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Family with two babies sitting on white backdrop\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1680122678876-23775f5c1ff6?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a woman sitting in the passenger seat of a car\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1680122248071-5c5e065093cf?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a woman leaning out the window of a car\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1603367563698-67012943fd67?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"man in white t-shirt carrying girl in pink dress\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1612192279155-f7fab0a4f377?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"man in black and brown backpack walking on street during daytime\"},{\"url\":\"https://images.unsplash.com/photo-1758513359826-52e0ba88057f?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"Family with two babies sitting on white backdrop\"},{\"url\":\"https://images.unsplash.com/photo-1680122678876-23775f5c1ff6?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"a woman sitting in the passenger seat of a car\"},{\"url\":\"https://images.unsplash.com/photo-1680122248071-5c5e065093cf?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"a woman leaning out the window of a car\"},{\"url\":\"https://images.unsplash.com/photo-1603367563698-67012943fd67?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"man in white t-shirt carrying girl in pink dress\"}]}}",
+    "timestamp": "2025-09-24T14:39:38.274Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-09-24T14:39:41.604Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-09-24T14:39:41.604Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1591711696773-c4b7fe4d3d74?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"silhouette of man jumping on the field during night time\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1758691031818-02a1e7d90aff?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Elderly couple smiling while sitting on a couch.\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1758612897396-6a017bb89f37?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Grandfather and grandson taking a selfie together\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1758523669372-f3676b3c2497?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Couple taking a selfie with a tablet\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1596510915124-38eaa5517966?w=1200&h=600&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"man in black and white striped long sleeve shirt holding baby in white shirt on beach\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1591711696773-c4b7fe4d3d74?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"silhouette of man jumping on the field during night time\"},{\"url\":\"https://images.unsplash.com/photo-1758691031818-02a1e7d90aff?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"Elderly couple smiling while sitting on a couch.\"},{\"url\":\"https://images.unsplash.com/photo-1758612897396-6a017bb89f37?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"Grandfather and grandson taking a selfie together\"},{\"url\":\"https://images.unsplash.com/photo-1758523669372-f3676b3c2497?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"Couple taking a selfie with a tablet\"},{\"url\":\"https://images.unsplash.com/photo-1596510915124-38eaa5517966?w=1200&h=600&auto=format&fit=crop&q=80\",\"description\":\"man in black and white striped long sleeve shirt holding baby in white shirt on beach\"}]}}",
+    "timestamp": "2025-09-24T14:39:44.480Z",
+    "sessionId": "b91fb45e-5f23-4ffc-aa8f-08cc865b43ab",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  }
+]

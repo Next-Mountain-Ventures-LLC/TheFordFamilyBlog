@@ -38,6 +38,16 @@ export default function HeroSection() {
 
   return (
     <section className="py-20 relative overflow-hidden hero-section">
+      {/* Background image and overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-background/80 -z-10"></div>
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-20 -z-20"
+        style={{ 
+          backgroundImage: "url('https://images.unsplash.com/photo-1596510915124-38eaa5517966?w=1200&h=600&auto=format&fit=crop&q=80')",
+          backgroundPosition: "center 30%"
+        }}
+      ></div>
+
       {/* Decorative elements for scrapbook feel */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-primary/10 rounded-full -z-10"></div>
       <div className="absolute bottom-10 left-10 w-24 h-24 bg-secondary/10 rounded-full -z-10"></div>
@@ -45,11 +55,11 @@ export default function HeroSection() {
 
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold font-display mb-6 animate-on-scroll">
+          <h1 className="text-5xl md:text-7xl font-bold font-display mb-6 animate-on-scroll drop-shadow-md">
             <span className="text-primary-foreground">The Ford Family</span>
             <span className="text-accent-foreground text-4xl md:text-6xl">.life</span>
           </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll">
+          <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll text-foreground/90 drop-shadow-sm">
             Our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity.
           </p>
           <div className="flex flex-wrap justify-center gap-4 animate-on-scroll">
