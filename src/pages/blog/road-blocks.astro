@@ -1,0 +1,84 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { Image } from 'astro:assets';
+import joshuaImage from '../../assets/joshua_ford_nw_9daac639.jpeg';
+
+const post = {
+  title: "Road Blocks: Navigating the Entrepreneurial Journey",
+  description: "Insights on overcoming common obstacles entrepreneurs face while building their businesses.",
+  date: "September 24, 2025",
+  author: "Joshua Ford",
+  category: "Entrepreneurship",
+  imageUrl: joshuaImage.src,
+  slug: "road-blocks"
+};
+---
+
+<BlogLayout
+  title={post.title}
+  description={post.description}
+  author={post.author}
+  date={post.date}
+  category={post.category}
+  imageUrl={post.imageUrl}
+>
+  <p>Every entrepreneur knows that the path to success is rarely a straight line. In my years of building businesses and helping others launch their own ventures through Next Mountain Ventures, I've encountered countless roadblocks that have tested my resolve, creativity, and commitment.</p>
+  
+  <h2>Identifying Common Entrepreneurial Roadblocks</h2>
+  
+  <p>While every business journey is unique, certain challenges appear with surprising regularity. Recognizing these common obstacles can help you prepare for them before they derail your progress:</p>
+  
+  <ul>
+    <li><strong>Funding constraints</strong> — Limited capital to fuel growth and development</li>
+    <li><strong>Market timing</strong> — Launching too early or too late relative to market readiness</li>
+    <li><strong>Team alignment</strong> — Finding partners and employees who share your vision and values</li>
+    <li><strong>Scaling challenges</strong> — Systems that work at startup phase often break during growth</li>
+    <li><strong>Work-life integration</strong> — Balancing business demands with family responsibilities</li>
+  </ul>
+  
+  <h2>The Family Factor: Unique Challenges for Parent Entrepreneurs</h2>
+  
+  <p>As a parent entrepreneur, I've faced an additional layer of complexity. When our family navigates health challenges alongside business demands, the traditional entrepreneurship playbook often falls short. What I've learned is that these apparent constraints can actually become competitive advantages when properly leveraged.</p>
+  
+  <blockquote>
+    <p>Road blocks don't exist to stop you; they exist to make you prove how badly you want to proceed.</p>
+  </blockquote>
+  
+  <h2>Three Strategies for Navigating Roadblocks</h2>
+  
+  <h3>1. Reframe Obstacles as Design Constraints</h3>
+  
+  <p>When faced with a seemingly immovable obstacle, I've found success by changing my perspective. Instead of seeing roadblocks as failures or setbacks, treat them as design parameters that force creative solutions.</p>
+  
+  <p>For example, when limited funding prevented me from hiring a full development team for a client project, we pivoted to a modular approach that allowed us to build incrementally while generating revenue to fund future phases. This constraint ultimately produced a more thoughtful, user-focused product than our original all-at-once approach.</p>
+  
+  <h3>2. Build Resilient Systems, Not Perfect Plans</h3>
+  
+  <p>Early in my entrepreneurial journey, I believed detailed planning was the key to avoiding roadblocks. Experience has taught me that even the most thorough plans encounter unexpected challenges. The better approach is building systems and teams that can adapt when—not if—roadblocks appear.</p>
+  
+  <p>This means developing:</p>
+  <ul>
+    <li>Financial buffers that provide runway when revenue fluctuates</li>
+    <li>Cross-trained team members who can cover critical functions</li>
+    <li>Modular processes that can be adjusted without complete overhauls</li>
+    <li>Communication systems that surface problems before they become crises</li>
+  </ul>
+  
+  <h3>3. Leverage Community Intelligence</h3>
+  
+  <p>Perhaps the most powerful strategy I've discovered is tapping into community wisdom. No roadblock you encounter is entirely unique—someone in your extended network has likely faced something similar and found a path forward.</p>
+  
+  <p>Building and nurturing a strong network of fellow entrepreneurs, mentors, and advisors creates an invaluable resource when obstacles arise. This isn't just about having people to ask for help; it's about gaining access to diverse perspectives that reveal solutions you might never consider from your singular vantage point.</p>
+  
+  <h2>Turning Roadblocks into Milestones</h2>
+  
+  <p>Looking back on my entrepreneurial journey, I can now see that the most significant roadblocks eventually became defining milestones. The funding challenge that seemed insurmountable led to a more capital-efficient business model. The key team member's departure forced us to document processes that ultimately made the company more scalable.</p>
+  
+  <p>The roadblocks themselves become part of your company's story and culture—evidence of resilience rather than just obstacles overcome.</p>
+  
+  <h2>Moving Forward</h2>
+  
+  <p>Whatever roadblocks you're currently facing in your entrepreneurial journey, remember that they're not just challenges to overcome but opportunities to strengthen your business in unexpected ways. The path may not be what you initially envisioned, but the detours often lead to more interesting destinations.</p>
+  
+  <p>I'd love to hear about the roadblocks you've encountered and how they've shaped your business journey. Share your experiences in the comments or reach out directly if you're looking for specific guidance on navigating your current challenges.</p>
+</BlogLayout>
