@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
 import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
+import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 
 interface Props {
   title: string;
@@ -83,7 +84,7 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
                 <div class="scrapbook-tape"></div>
                 <img 
                   src={author === "Salicia Ford" 
-                    ? "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=300&auto=format&q=80"
+                    ? saliciaImage.src
                     : author === "Joshua Ford"
                       ? joshuaImage.src
                       : author === "Jackson Ford"
@@ -132,7 +133,7 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
               <div class="flex items-start gap-3">
                 <div class="shrink-0 mt-1">
                   <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1518607692857-bff9babd9d40?w=150&auto=format&q=80" alt="Blog post" class="h-full w-full object-cover" />
+                    <img src={saliciaImage.src} alt="Blog post" class="h-full w-full object-cover" />
                   </div>
                 </div>
                 <div>
@@ -146,7 +147,7 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
               <div class="flex items-start gap-3">
                 <div class="shrink-0 mt-1">
                   <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=150&auto=format&q=80" alt="Blog post" class="h-full w-full object-cover" />
+                    <img src={saliciaImage.src} alt="Blog post" class="h-full w-full object-cover" />
                   </div>
                 </div>
                 <div>

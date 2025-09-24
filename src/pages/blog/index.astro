@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
 import { Image } from 'astro:assets';
 import joshuaImage from '../../assets/joshua_ford_nw_9daac639.jpeg';
+import saliciaImage from '../../assets/salicias-profile_nw_7fb06e56.jpg';
 
 // Blog posts data (in a real site this would come from a CMS or file system)
 const blogPosts = [
@@ -21,7 +22,7 @@ const blogPosts = [
     date: "June 12, 2025",
     author: "Salicia Ford",
     category: "Faith & Health",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=800&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "faith-through-health-challenges"
   },
   {
@@ -30,7 +31,7 @@ const blogPosts = [
     date: "June 5, 2025",
     author: "Salicia Ford",
     category: "Homeschooling",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=800&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "homeschooling-tips-adhd"
   },
   {
@@ -48,7 +49,7 @@ const blogPosts = [
     date: "May 25, 2025",
     author: "Salicia Ford",
     category: "Faith & Health",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=800&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "navigating-healthcare-systems"
   },
   {

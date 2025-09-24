@@ -5,6 +5,7 @@ import HeroSection from '@/components/HeroSection';
 import FamilyMember from '@/components/FamilyMember';
 import { Image } from 'astro:assets';
 import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
+import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import BlogPreview from '@/components/BlogPreview';
 import YouTubeSection from '@/components/YouTubeSection';
 import { buttonVariants } from "@/components/ui/button";
@@ -26,7 +27,7 @@ const blogPosts = [
     date: "June 12, 2025",
     author: "Salicia Ford",
     category: "Faith & Health",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=600&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "faith-through-health-challenges"
   },
   {
@@ -35,7 +36,7 @@ const blogPosts = [
     date: "June 5, 2025",
     author: "Salicia Ford",
     category: "Homeschooling",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=600&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "homeschooling-tips-adhd"
   }
 ];
@@ -94,7 +95,7 @@ const youtubeVideos = [
           role="Patient Advocate & Homeschool Mom" 
           description="Salicia battles rare autoimmune diseases including Sjogren's syndrome while homeschooling our children and helping families bring order to chaotic lives through Anchor and Bloom." 
           interests={["Chronic Illness Advocacy", "Homeschooling", "Emotional Regulation", "ADHD Support", "Faith"]} 
-          imageUrl="https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=600&auto=format&q=80"
+          imageUrl={saliciaImage.src}
           rotate="-2deg"
           link="/blog"
           direction="left"

@@ -6,6 +6,7 @@ import { getCollection } from 'astro:content';
 import BlogCarousel from "@/components/BlogCarousel";
 import DigitalProductsStore from "@/components/DigitalProductsStore";
 import AnchorBloomSection from "@/components/AnchorBloomSection";
+import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 
 // Get Salicia's blog posts
 let saliciaPosts = [];
@@ -34,7 +35,7 @@ const additionalPosts = [
     excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
     date: "June 12, 2025",
     category: "Faith & Health",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=800&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "faith-through-health-challenges"
   },
   {
@@ -42,7 +43,7 @@ const additionalPosts = [
     excerpt: "Tips and advice for advocating for yourself in complex medical systems when dealing with chronic conditions.",
     date: "May 25, 2025", 
     category: "Faith & Health",
-    imageUrl: "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=800&auto=format&q=80",
+    imageUrl: saliciaImage.src,
     slug: "navigating-healthcare-systems"
   }
 ];
@@ -126,7 +127,7 @@ const digitalProducts = [
           <div class="scrapbook-photo" style="--rotate: -2deg">
             <div class="scrapbook-tape"></div>
             <img 
-              src="https://images.unsplash.com/photo-1581065178047-8ee15951ede6?w=600&auto=format&q=80" 
+              src={saliciaImage.src} 
               alt="Salicia Ford" 
               class="rounded-sm max-w-sm w-full shadow-lg object-cover"
             />
