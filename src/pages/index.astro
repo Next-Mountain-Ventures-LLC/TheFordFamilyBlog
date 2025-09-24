@@ -6,6 +6,7 @@ import FamilyMember from '@/components/FamilyMember';
 import { Image } from 'astro:assets';
 import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
+import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import BlogPreview from '@/components/BlogPreview';
 import YouTubeSection from '@/components/YouTubeSection';
 import { buttonVariants } from "@/components/ui/button";
@@ -121,7 +122,7 @@ const youtubeVideos = [
           role="Young Inventor & Entrepreneur" 
           description="Jackson loves 3D printing and inventing. He sells online 3D products, teaches kids about finances and business, and has his own modeling portfolio." 
           interests={["3D Printing", "Invention", "Entrepreneurship", "Modeling", "Finance Education"]} 
-          imageUrl="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&auto=format&q=80" 
+          imageUrl={jacksonImage.src} 
           rotate="-2deg"
           link="/blog/3d-printing-young-inventors"
           direction="left"

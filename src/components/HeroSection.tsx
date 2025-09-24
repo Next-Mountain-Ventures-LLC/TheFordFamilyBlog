@@ -2,6 +2,7 @@ import React from 'react';
 import { buttonVariants } from './ui/button';
 import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
+import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 
 interface FamilyMemberThumbnail {
   name: string;
@@ -24,7 +25,7 @@ export default function HeroSection() {
     },
     {
       name: "Jackson Ford",
-      imageUrl: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&auto=format&q=80", 
+      imageUrl: jacksonImage.src, 
       rotate: "-2deg"
     },
     {
