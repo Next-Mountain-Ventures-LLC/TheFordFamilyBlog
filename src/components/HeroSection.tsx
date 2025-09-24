@@ -3,6 +3,7 @@ import { buttonVariants } from './ui/button';
 import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
+import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
 
 interface FamilyMemberThumbnail {
   name: string;
@@ -30,7 +31,7 @@ export default function HeroSection() {
     },
     {
       name: "Finley Ford",
-      imageUrl: "https://images.unsplash.com/photo-1517677129300-07b130802f46?w=400&auto=format&q=80", 
+      imageUrl: finleyImage.src, 
       rotate: "3deg"
     }
   ];
