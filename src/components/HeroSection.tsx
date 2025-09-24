@@ -1,6 +1,7 @@
 import React from 'react';
 import { buttonVariants } from './ui/button';
 import joshuaImage from '../assets/joshua_ford_nw_9daac639.jpeg';
+import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 
 interface FamilyMemberThumbnail {
   name: string;
@@ -18,7 +19,7 @@ export default function HeroSection() {
     },
     {
       name: "Salicia Ford",
-      imageUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&q=80", 
+      imageUrl: saliciaImage.src, 
       rotate: "2deg"
     },
     {
