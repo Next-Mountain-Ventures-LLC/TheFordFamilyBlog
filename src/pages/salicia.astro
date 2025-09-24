@@ -88,48 +88,54 @@ const digitalProducts = [
   description="Meet Salicia Ford, a homeschooling mom and patient advocate who helps families bring order to chaotic lives through Anchor and Bloom."
 >
   <!-- Hero Section -->
-  <section class="relative py-20 overflow-hidden bg-gradient-to-b from-secondary/10 to-background border-b border-border">
+  <section class="relative py-24 overflow-hidden bg-gradient-to-b from-primary/5 via-secondary/10 to-background border-b border-border">
+    <div class="absolute inset-0 bg-pattern opacity-5"></div>
     <div class="container mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div class="order-2 lg:order-1 animate-fade-in">
-          <h1 class="text-4xl md:text-6xl font-bold font-display mb-4 text-primary-foreground">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 animate-fade-in z-10">
+          <div class="inline-block bg-primary/10 px-4 py-1 rounded-full text-primary-foreground text-sm font-medium mb-6">
+            Founder of Anchor and Bloom
+          </div>
+          <h1 class="text-4xl md:text-6xl font-bold font-display mb-6 text-primary-foreground leading-tight">
             Salicia Ford
           </h1>
-          <p class="text-lg text-muted-foreground mb-6 italic">
-            Patient Advocate & Homeschool Mom
+          <p class="text-xl text-muted-foreground mb-6 font-medium">
+            Patient Advocate, Homeschool Expert & Family Systems Specialist
           </p>
           <div class="prose prose-lg dark:prose-invert mb-8 max-w-none">
-            <p>
-              Navigating life with rare autoimmune diseases while homeschooling our children 
-              has taught me resilience, patience, and how to find joy in difficult circumstances.
+            <p class="text-lg">
+              Transforming challenges into strengths, I help families navigate life's complexities with grace and purpose. 
+              As someone living with autoimmune conditions while homeschooling and running a business, I've discovered
+              powerful systems that bring order to chaos.
             </p>
-            <p>
-              Through my journey, I've developed systems and resources to bring order to chaos, 
-              which I now share with other families through Anchor and Bloom.
+            <p class="text-lg">
+              My mission is to empower families facing similar journeys with practical resources, supportive community, and 
+              faith-centered approaches that cultivate resilience, creativity, and joy despite difficult circumstances.
             </p>
           </div>
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap gap-4 mt-8">
             <a 
               href="#products"
-              class={buttonVariants({ size: "lg" })}
+              class={buttonVariants({ size: "lg", className: "shadow-md hover:shadow-lg transition-all" })}
             >
-              Browse Resources
+              Explore Resources
             </a>
             <a 
               href="#anchor-bloom"
-              class={buttonVariants({ variant: "outline", size: "lg" })}
+              class={buttonVariants({ variant: "outline", size: "lg", className: "backdrop-blur-sm bg-white/30" })}
             >
-              Learn About Anchor and Bloom
+              About Anchor and Bloom
             </a>
           </div>
         </div>
-        <div class="order-1 lg:order-2 flex justify-center">
-          <div class="scrapbook-photo" style="--rotate: -2deg">
+        <div class="order-1 lg:order-2 flex justify-center relative z-10">
+          <div class="absolute w-64 h-64 rounded-full bg-primary/20 blur-3xl -z-10 opacity-50 animate-pulse"></div>
+          <div class="scrapbook-photo" style="--rotate: -1deg">
             <div class="scrapbook-tape"></div>
             <img 
               src={saliciaImage.src} 
               alt="Salicia Ford" 
-              class="rounded-sm max-w-sm w-full shadow-lg object-cover"
+              class="rounded-sm max-w-sm w-full shadow-xl object-cover hover:scale-[1.01] transition-all duration-300"
             />
           </div>
         </div>
