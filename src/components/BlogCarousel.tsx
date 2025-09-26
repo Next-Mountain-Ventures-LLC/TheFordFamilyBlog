@@ -2,12 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { buttonVariants } from './ui/button';
 
 interface BlogPost {
+  id?: number;
   title: string;
   excerpt: string;
   date: string;
   category: string;
   imageUrl: string;
   slug: string;
+  author?: string;
+  content?: string;
 }
 
 interface BlogCarouselProps {

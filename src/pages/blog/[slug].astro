@@ -1,0 +1,81 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { getPostBySlug, getPosts } from '@/lib/wordpress';
+
+// Enable server-side rendering for dynamic routes
+export const prerender = false;
+
+// Get the current slug from the URL
+const { slug } = Astro.params;
+
+// Fetch the post data from WordPress API
+const post = await getPostBySlug(slug as string).catch(() => null);
+
+// If post not found, redirect to the 404 page
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+// Generate the SEO-friendly metadata
+const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
+---
+
+<BlogLayout
+  title={post.title}
+  description={post.excerpt}
+  author={post.author}
+  date={post.date}
+  category={post.category}
+  imageUrl={post.imageUrl}
+  ogImage={ogImage}
+>
+  <!-- Use set:html to render the HTML content from WordPress -->
+  <article set:html={post.content} />
+</BlogLayout>
+
+<style>
+  /* Additional styles for WordPress content */
+  :global(article img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.25rem;
+    margin: 1.5rem 0;
+  }
+  
+  :global(article h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+  }
+  
+  :global(article h3) {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+  }
+  
+  :global(article p) {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+  
+  :global(article ul, article ol) {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  :global(article li) {
+    margin-bottom: 0.5rem;
+  }
+  
+  :global(article blockquote) {
+    border-left: 4px solid #e2e8f0;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+</style>

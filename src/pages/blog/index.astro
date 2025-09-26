@@ -5,91 +5,114 @@ import { Image } from 'astro:assets';
 import joshuaImage from '../../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../../assets/jackson_ford_nw_10531fa1.jpg';
+import { getPosts } from '@/lib/wordpress';
 
-// Blog posts data (in a real site this would come from a CMS or file system)
-const blogPosts = [
-  {
-    title: "Road Blocks: Navigating the Entrepreneurial Journey",
-    excerpt: "Insights on overcoming common obstacles entrepreneurs face while building their businesses.",
-    date: "September 24, 2025",
-    author: "Joshua Ford",
-    category: "Entrepreneurship",
-    imageUrl: joshuaImage.src,
-    slug: "road-blocks"
-  },
-  {
-    title: "Finding Strength in Faith Through Health Challenges",
-    excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
-    date: "June 12, 2025",
-    author: "Salicia Ford",
-    category: "Faith & Health",
-    imageUrl: saliciaImage.src,
-    slug: "faith-through-health-challenges"
-  },
-  {
-    title: "Homeschooling Tips for ADHD Children",
-    excerpt: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
-    date: "June 5, 2025",
-    author: "Salicia Ford",
-    category: "Homeschooling",
-    imageUrl: saliciaImage.src,
-    slug: "homeschooling-tips-adhd"
-  },
-  {
-    title: "3D Printing Projects for Young Inventors",
-    excerpt: "Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids.",
-    date: "May 30, 2025",
-    author: "Jackson Ford",
-    category: "Inventions",
-    imageUrl: jacksonImage.src,
-    slug: "3d-printing-young-inventors"
-  },
-  {
-    title: "Navigating Healthcare Systems as a Chronic Illness Patient",
-    excerpt: "Tips and advice for advocating for yourself in complex medical systems when dealing with chronic conditions.",
-    date: "May 25, 2025",
-    author: "Salicia Ford",
-    category: "Faith & Health",
-    imageUrl: saliciaImage.src,
-    slug: "navigating-healthcare-systems"
-  },
-  {
-    title: "Building Your First E-Bike: A Family Project",
-    excerpt: "How our family bonded while creating a custom electric bicycle, with step-by-step guidance for your own build.",
-    date: "May 18, 2025",
-    author: "Joshua Ford",
-    category: "Inventions",
-    imageUrl: joshuaImage.src, 
-    slug: "building-first-ebike"
-  },
-  {
-    title: "Starting a Business as a Teenager: Jackson's Journey",
-    excerpt: "My son shares his experience launching a 3D printing business at 12 and the lessons he's learned along the way.",
-    date: "May 10, 2025",
-    author: "Joshua Ford",
-    category: "Entrepreneurship",
-    imageUrl: joshuaImage.src,
-    slug: "teenage-business-journey"
-  },
-  {
-    title: "Creating Your First YouTube Channel as a Family",
-    excerpt: "How we started our family YouTube presence and tips for creating content that reflects your values.",
-    date: "May 3, 2025",
-    author: "Finley Ford",
-    category: "Family",
-    imageUrl: "https://images.unsplash.com/photo-1626763847023-b8ff4c3a8a5b?w=800&auto=format&q=80",
-    slug: "family-youtube-channel"
-  },
-  {
-    title: "Finley's Fashion Tips for Young Creators",
-    excerpt: "My daughter shares her approach to developing a personal style that expresses creativity and individuality.",
-    date: "April 28, 2025",
-    author: "Finley Ford",
-    category: "Design",
-    imageUrl: "https://images.unsplash.com/photo-1638604587609-fbb8469f4234?w=800&auto=format&q=80",
-    slug: "fashion-tips-young-creators"
-  }
-];
+// Fetch blog posts from WordPress API
+const blogPosts = await getPosts(20).catch(error => {
+  console.error('Error fetching WordPress posts:', error);
+  // Fallback data in case API fails
+  return [
+    {
+      id: 1,
+      title: "Road Blocks: Navigating the Entrepreneurial Journey",
+      excerpt: "Insights on overcoming common obstacles entrepreneurs face while building their businesses.",
+      date: "September 24, 2025",
+      author: "Joshua Ford",
+      category: "Entrepreneurship",
+      imageUrl: joshuaImage.src,
+      slug: "road-blocks",
+      content: ""
+    },
+    {
+      id: 2,
+      title: "Finding Strength in Faith Through Health Challenges",
+      excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
+      date: "June 12, 2025",
+      author: "Salicia Ford",
+      category: "Faith & Health",
+      imageUrl: saliciaImage.src,
+      slug: "faith-through-health-challenges",
+      content: ""
+    },
+    {
+      id: 3,
+      title: "Homeschooling Tips for ADHD Children",
+      excerpt: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
+      date: "June 5, 2025",
+      author: "Salicia Ford",
+      category: "Homeschooling",
+      imageUrl: saliciaImage.src,
+      slug: "homeschooling-tips-adhd",
+      content: ""
+    },
+    {
+      id: 4,
+      title: "3D Printing Projects for Young Inventors",
+      excerpt: "Jackson shares his favorite beginner-friendly 3D printing projects that teach engineering concepts to kids.",
+      date: "May 30, 2025",
+      author: "Jackson Ford",
+      category: "Inventions",
+      imageUrl: jacksonImage.src,
+      slug: "3d-printing-young-inventors",
+      content: ""
+    },
+    {
+      id: 5,
+      title: "Navigating Healthcare Systems as a Chronic Illness Patient",
+      excerpt: "Tips and advice for advocating for yourself in complex medical systems when dealing with chronic conditions.",
+      date: "May 25, 2025",
+      author: "Salicia Ford",
+      category: "Faith & Health",
+      imageUrl: saliciaImage.src,
+      slug: "navigating-healthcare-systems",
+      content: ""
+    },
+    {
+      id: 6,
+      title: "Building Your First E-Bike: A Family Project",
+      excerpt: "How our family bonded while creating a custom electric bicycle, with step-by-step guidance for your own build.",
+      date: "May 18, 2025",
+      author: "Joshua Ford",
+      category: "Inventions",
+      imageUrl: joshuaImage.src,
+      slug: "building-first-ebike",
+      content: ""
+    },
+    {
+      id: 7,
+      title: "Starting a Business as a Teenager: Jackson's Journey",
+      excerpt: "My son shares his experience launching a 3D printing business at 12 and the lessons he's learned along the way.",
+      date: "May 10, 2025",
+      author: "Joshua Ford",
+      category: "Entrepreneurship",
+      imageUrl: joshuaImage.src,
+      slug: "teenage-business-journey",
+      content: ""
+    },
+    {
+      id: 8,
+      title: "Creating Your First YouTube Channel as a Family",
+      excerpt: "How we started our family YouTube presence and tips for creating content that reflects your values.",
+      date: "May 3, 2025",
+      author: "Finley Ford",
+      category: "Family",
+      imageUrl: "https://images.unsplash.com/photo-1626763847023-b8ff4c3a8a5b?w=800&auto=format&q=80",
+      slug: "family-youtube-channel",
+      content: ""
+    },
+    {
+      id: 9,
+      title: "Finley's Fashion Tips for Young Creators",
+      excerpt: "My daughter shares her approach to developing a personal style that expresses creativity and individuality.",
+      date: "April 28, 2025",
+      author: "Finley Ford",
+      category: "Design",
+      imageUrl: "https://images.unsplash.com/photo-1638604587609-fbb8469f4234?w=800&auto=format&q=80",
+      slug: "fashion-tips-young-creators",
+      content: ""
+    }
+  ];
+});
 
 // Organize posts by featured and regular
 const featuredPost = blogPosts[0];
