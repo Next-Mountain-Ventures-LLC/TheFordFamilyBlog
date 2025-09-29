@@ -12,11 +12,14 @@ interface Props {
   author: string;
   date: string;
   category: string;
+  categorySlug?: string;
   imageUrl?: string;
   ogImage?: URL;
+  tags?: Array<{id: number, name: string, slug: string}>;
+  authorSlug?: string;
 }
 
-const { title, description, author, date, category, imageUrl, ogImage } = Astro.props;
+const { title, description, author, date, category, categorySlug, imageUrl, ogImage, tags, authorSlug } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage}>
@@ -27,7 +30,7 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
           Blog
         </a>
         <span class="text-muted-foreground">/</span>
-        <a href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`} class="text-primary hover:text-primary-foreground transition-colors">
+        <a href={`/blog/category/${categorySlug || category.toLowerCase().replace(/\s+/g, '-')}`} class="text-primary hover:text-primary-foreground transition-colors">
           {category}
         </a>
       </div>
@@ -39,7 +42,12 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
       <div class="flex flex-wrap items-center text-sm text-muted-foreground gap-x-4 gap-y-2 mb-8">
         <div class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          <span>{author}</span>
+          <a 
+            href={authorSlug ? `/blog/author/${authorSlug}` : `#`}
+            class="hover:text-primary transition-colors"
+          >
+            {author}
+          </a>
         </div>
         
         <div class="flex items-center">
@@ -77,6 +85,22 @@ const { title, description, author, date, category, imageUrl, ogImage } = Astro.
             <div class="prose prose-slate max-w-none">
               <slot />
             </div>
+            
+            {tags && tags.length > 0 && (
+              <div class="mt-8 pt-6 border-t border-border">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-sm font-medium">Tags:</span>
+                  {tags.map(tag => (
+                    <a 
+                      href={`/blog/tag/${tag.slug}`}
+                      class="inline-block px-3 py-1 bg-muted text-muted-foreground text-xs rounded-full hover:bg-muted/80 transition-colors"
+                    >
+                      #{tag.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </article>
           
           <!-- Author Bio -->

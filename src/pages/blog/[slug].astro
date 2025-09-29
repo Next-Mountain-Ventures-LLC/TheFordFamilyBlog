@@ -34,10 +34,13 @@ const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
   title={post.title}
   description={post.excerpt}
   author={post.author}
+  authorSlug={post.authorSlug}
   date={post.date}
   category={post.category}
+  categorySlug={post.categorySlug}
   imageUrl={post.imageUrl}
   ogImage={ogImage}
+  tags={post.tags}
 >
   <!-- Use set:html to render the HTML content from WordPress -->
   <article set:html={post.content} />

@@ -53,7 +53,12 @@ export interface BlogPost {
   content: string;
   date: string;
   author: string;
+  authorId?: number;
+  authorSlug?: string;
   category: string;
+  categoryId?: number;
+  categorySlug?: string;
+  tags?: Array<{id: number, name: string, slug: string}>;
   imageUrl: string;
   slug: string;
 }
@@ -76,11 +81,24 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
   
   console.log(`Featured image for post ${post.slug}:`, imageUrl);
 
-  // Get the first category name
-  const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Uncategorized';
+  // Get category data
+  const categoryData = post._embedded?.['wp:term']?.[0]?.[0];
+  const category = categoryData?.name || 'Uncategorized';
+  const categoryId = categoryData?.id;
+  const categorySlug = categoryData?.slug;
 
-  // Get the author name
-  const author = post._embedded?.author?.[0]?.name || 'Ford Family';
+  // Get tags data
+  const tags = post._embedded?.['wp:term']?.[1]?.map(tag => ({
+    id: tag.id,
+    name: tag.name,
+    slug: tag.slug
+  })) || [];
+
+  // Get author data
+  const authorData = post._embedded?.author?.[0];
+  const author = authorData?.name || 'Ford Family';
+  const authorId = authorData?.id || post.author;
+  const authorSlug = authorData?.slug;
 
   // Format the date
   const dateObj = new Date(post.date);
@@ -109,7 +127,12 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
     content: post.content.rendered,
     date: formattedDate,
     author: author,
+    authorId: authorId,
+    authorSlug: authorSlug,
     category: category,
+    categoryId: categoryId,
+    categorySlug: categorySlug,
+    tags: tags,
     imageUrl: imageUrl,
     slug: post.slug,
   };
@@ -260,5 +283,315 @@ export async function getFeaturedPosts(limit = 3): Promise<BlogPost[]> {
     console.error('Error fetching featured WordPress posts:', error);
     // Fallback to regular posts
     return getPosts(limit);
+  }
+}
+
+/**
+ * WordPress Category interface
+ */
+export interface WordPressCategory {
+  id: number;
+  count: number;
+  description: string;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: string;
+  parent: number;
+}
+
+/**
+ * Fetches all categories from WordPress API
+ */
+export async function getCategories(): Promise<WordPressCategory[]> {
+  try {
+    console.log(`Fetching categories from: ${API_URL}/categories?per_page=100`);
+    
+    const response = await fetch(
+      `${API_URL}/categories?per_page=100`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK: Status ${response.status}`);
+      throw new Error(`Failed to fetch categories: ${response.status}`);
+    }
+
+    const categories: WordPressCategory[] = await response.json();
+    console.log(`Successfully fetched ${categories.length} categories`);
+    return categories;
+  } catch (error) {
+    console.error('Error fetching WordPress categories:', error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches a single category by slug
+ */
+export async function getCategoryBySlug(slug: string): Promise<WordPressCategory | null> {
+  try {
+    console.log(`Fetching category with slug '${slug}' from: ${API_URL}/categories?slug=${slug}`);
+    
+    const response = await fetch(
+      `${API_URL}/categories?slug=${slug}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK for category slug ${slug}: Status ${response.status}`);
+      throw new Error(`Failed to fetch category: ${response.status}`);
+    }
+
+    const categories: WordPressCategory[] = await response.json();
+    
+    if (categories.length === 0) {
+      return null;
+    }
+    
+    return categories[0];
+  } catch (error) {
+    console.error(`Error fetching WordPress category by slug ${slug}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * WordPress Author interface
+ */
+export interface WordPressAuthor {
+  id: number;
+  name: string;
+  url: string;
+  description: string;
+  link: string;
+  slug: string;
+  avatar_urls: {
+    [size: string]: string;
+  };
+}
+
+/**
+ * Fetches all authors from WordPress API
+ */
+export async function getAuthors(): Promise<WordPressAuthor[]> {
+  try {
+    console.log(`Fetching authors from: ${API_URL}/users?per_page=100`);
+    
+    const response = await fetch(
+      `${API_URL}/users?per_page=100`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK: Status ${response.status}`);
+      throw new Error(`Failed to fetch authors: ${response.status}`);
+    }
+
+    const authors: WordPressAuthor[] = await response.json();
+    console.log(`Successfully fetched ${authors.length} authors`);
+    return authors;
+  } catch (error) {
+    console.error('Error fetching WordPress authors:', error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches a single author by slug
+ */
+export async function getAuthorBySlug(slug: string): Promise<WordPressAuthor | null> {
+  try {
+    console.log(`Fetching author with slug '${slug}' from: ${API_URL}/users?slug=${slug}`);
+    
+    const response = await fetch(
+      `${API_URL}/users?slug=${slug}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK for author slug ${slug}: Status ${response.status}`);
+      throw new Error(`Failed to fetch author: ${response.status}`);
+    }
+
+    const authors: WordPressAuthor[] = await response.json();
+    
+    if (authors.length === 0) {
+      return null;
+    }
+    
+    return authors[0];
+  } catch (error) {
+    console.error(`Error fetching WordPress author by slug ${slug}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches posts by author ID
+ */
+export async function getPostsByAuthor(authorId: number, limit = 10): Promise<BlogPost[]> {
+  try {
+    console.log(`Fetching posts by author ID ${authorId} from: ${API_URL}/posts?_embed&author=${authorId}&per_page=${limit}`);
+    
+    const response = await fetch(
+      `${API_URL}/posts?_embed&author=${authorId}&per_page=${limit}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK for author ID ${authorId}: Status ${response.status}`);
+      throw new Error(`Failed to fetch posts by author: ${response.status}`);
+    }
+
+    const posts: WordPressPost[] = await response.json();
+    console.log(`Successfully fetched ${posts.length} posts by author ID ${authorId}`);
+    return posts.map(transformWordPressPost);
+  } catch (error) {
+    console.error(`Error fetching WordPress posts by author ID ${authorId}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * WordPress Tag interface
+ */
+export interface WordPressTag {
+  id: number;
+  count: number;
+  description: string;
+  link: string;
+  name: string;
+  slug: string;
+  taxonomy: string;
+}
+
+/**
+ * Fetches all tags from WordPress API
+ */
+export async function getTags(): Promise<WordPressTag[]> {
+  try {
+    console.log(`Fetching tags from: ${API_URL}/tags?per_page=100`);
+    
+    const response = await fetch(
+      `${API_URL}/tags?per_page=100`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK: Status ${response.status}`);
+      throw new Error(`Failed to fetch tags: ${response.status}`);
+    }
+
+    const tags: WordPressTag[] = await response.json();
+    console.log(`Successfully fetched ${tags.length} tags`);
+    return tags;
+  } catch (error) {
+    console.error('Error fetching WordPress tags:', error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches a single tag by slug
+ */
+export async function getTagBySlug(slug: string): Promise<WordPressTag | null> {
+  try {
+    console.log(`Fetching tag with slug '${slug}' from: ${API_URL}/tags?slug=${slug}`);
+    
+    const response = await fetch(
+      `${API_URL}/tags?slug=${slug}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK for tag slug ${slug}: Status ${response.status}`);
+      throw new Error(`Failed to fetch tag: ${response.status}`);
+    }
+
+    const tags: WordPressTag[] = await response.json();
+    
+    if (tags.length === 0) {
+      return null;
+    }
+    
+    return tags[0];
+  } catch (error) {
+    console.error(`Error fetching WordPress tag by slug ${slug}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Fetches posts by tag ID
+ */
+export async function getPostsByTag(tagId: number, limit = 10): Promise<BlogPost[]> {
+  try {
+    console.log(`Fetching posts by tag ID ${tagId} from: ${API_URL}/posts?_embed&tags=${tagId}&per_page=${limit}`);
+    
+    const response = await fetch(
+      `${API_URL}/posts?_embed&tags=${tagId}&per_page=${limit}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`API response not OK for tag ID ${tagId}: Status ${response.status}`);
+      throw new Error(`Failed to fetch posts by tag: ${response.status}`);
+    }
+
+    const posts: WordPressPost[] = await response.json();
+    console.log(`Successfully fetched ${posts.length} posts by tag ID ${tagId}`);
+    return posts.map(transformWordPressPost);
+  } catch (error) {
+    console.error(`Error fetching WordPress posts by tag ID ${tagId}:`, error);
+    throw error;
   }
 }

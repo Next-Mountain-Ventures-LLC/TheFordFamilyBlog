@@ -5,7 +5,71 @@ import { Image } from 'astro:assets';
 import joshuaImage from '../../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../../assets/jackson_ford_nw_10531fa1.jpg';
-import { getPosts } from '@/lib/wordpress';
+import { getPosts, getCategories, WordPressCategory } from '@/lib/wordpress';
+
+// Fallback category data
+const fallbackCategories: WordPressCategory[] = [
+  {
+    id: 1,
+    name: "Uncategorized",
+    slug: "uncategorized",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 1,
+    parent: 0
+  },
+  {
+    id: 2,
+    name: "Entrepreneurship",
+    slug: "entrepreneurship",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 2,
+    parent: 0
+  },
+  {
+    id: 3,
+    name: "Faith & Health",
+    slug: "faith-health",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 2,
+    parent: 0
+  },
+  {
+    id: 4,
+    name: "Homeschooling",
+    slug: "homeschooling",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 1,
+    parent: 0
+  },
+  {
+    id: 5,
+    name: "Inventions",
+    slug: "inventions",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 2,
+    parent: 0
+  },
+  {
+    id: 6,
+    name: "Family",
+    slug: "family",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 1,
+    parent: 0
+  }
+];
 
 // Fallback blog post data
 const fallbackPosts = [
@@ -121,12 +185,23 @@ try {
   console.log("Using fallback blog post data for blog index");
 }
 
+// Fetch categories from WordPress API
+let wpCategories = fallbackCategories;
+try {
+  console.log("Attempting to fetch WordPress categories...");
+  wpCategories = await getCategories();
+  console.log(`Successfully fetched ${wpCategories.length} WordPress categories`);
+} catch (error) {
+  console.error('Error fetching WordPress categories:', error);
+  console.log("Using fallback category data");
+}
+
+// Filter out categories with no posts
+const activeCategories = wpCategories.filter(category => category.count > 0);
+
 // Organize posts by featured and regular
 const featuredPost = blogPosts[0];
 const regularPosts = blogPosts.slice(1);
-
-// Get unique categories
-const categories = [...new Set(blogPosts.map(post => post.category))];
 ---
 
 <BaseLayout 
@@ -142,12 +217,12 @@ const categories = [...new Set(blogPosts.map(post => post.category))];
         Stories, insights, and inspiration from our journey through faith, health challenges, homeschooling, and entrepreneurship.
       </p>
       <div class="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto">
-        {categories.map((category) => (
+        {activeCategories.map((category) => (
           <a 
-            href={`/blog/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
+            href={`/blog/category/${category.slug}`}
             class="px-4 py-2 bg-white/80 hover:bg-white shadow-sm rounded-full text-sm transition-colors"
           >
-            {category}
+            {category.name}
           </a>
         ))}
       </div>
@@ -170,9 +245,12 @@ const categories = [...new Set(blogPosts.map(post => post.category))];
             </div>
             <div class="p-8">
               <div class="mb-3">
-                <span class="px-3 py-1 bg-primary/10 text-primary-foreground text-xs rounded-full">
+                <a 
+                  href={featuredPost.categorySlug ? `/blog/category/${featuredPost.categorySlug}` : '#'} 
+                  class="inline-block px-3 py-1 bg-primary/10 text-primary-foreground text-xs rounded-full hover:bg-primary/20 transition-colors"
+                >
                   {featuredPost.category}
-                </span>
+                </a>
               </div>
               <h3 class="text-2xl font-bold font-display mb-3">
                 <a href={`/blog/${featuredPost.slug}`} class="hover:text-primary transition-colors">
@@ -185,7 +263,12 @@ const categories = [...new Set(blogPosts.map(post => post.category))];
               <div class="flex items-center text-sm mb-4">
                 <div class="flex items-center mr-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                  <span>{featuredPost.author}</span>
+                  <a 
+                    href={featuredPost.authorSlug ? `/blog/author/${featuredPost.authorSlug}` : '#'}
+                    class="hover:text-primary transition-colors"
+                  >
+                    {featuredPost.author}
+                  </a>
                 </div>
                 <div class="flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -219,9 +302,12 @@ const categories = [...new Set(blogPosts.map(post => post.category))];
               </div>
             </div>
             <div class="mb-3">
-              <span class="px-3 py-1 bg-primary/10 text-primary-foreground text-xs rounded-full">
+              <a 
+                href={post.categorySlug ? `/blog/category/${post.categorySlug}` : '#'} 
+                class="inline-block px-3 py-1 bg-primary/10 text-primary-foreground text-xs rounded-full hover:bg-primary/20 transition-colors"
+              >
                 {post.category}
-              </span>
+              </a>
             </div>
             <h3 class="text-xl font-bold font-display mb-2 leading-tight">
               <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
@@ -232,7 +318,12 @@ const categories = [...new Set(blogPosts.map(post => post.category))];
               {post.excerpt}
             </p>
             <div class="flex justify-between items-center text-xs text-muted-foreground mb-4">
-              <span>{post.author}</span>
+              <a 
+                href={post.authorSlug ? `/blog/author/${post.authorSlug}` : '#'}
+                class="hover:text-primary transition-colors"
+              >
+                {post.author}
+              </a>
               <span>{post.date}</span>
             </div>
             <a 
