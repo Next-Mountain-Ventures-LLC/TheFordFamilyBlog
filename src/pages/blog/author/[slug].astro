@@ -5,7 +5,7 @@ import { Image } from 'astro:assets';
 import joshuaImage from '../../../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../../../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../../../assets/jackson_ford_nw_10531fa1.jpg';
-import { getPostsByAuthor, getAuthorBySlug, getAuthors } from '@/lib/wordpress';
+import { getPostsByAuthor, getAuthorBySlug, getAuthors, getAuthorFullName } from '@/lib/wordpress';
 
 // Enable server-side rendering for dynamic routes
 export const prerender = false;
@@ -43,15 +43,20 @@ const familyImages: Record<string, string> = {
   'Joshua Ford': joshuaImage.src,
   'Salicia Ford': saliciaImage.src,
   'Jackson Ford': jacksonImage.src,
+  'Finley Ford': ''
 };
 
 // Use family image if available, otherwise use avatar
-const authorImage = familyImages[author.name] || avatarUrl;
+// Get the display name using our mapping function
+const displayName = getAuthorFullName(author.name);
+
+// Use family image if available, otherwise use avatar
+const authorImage = familyImages[displayName] || avatarUrl;
 ---
 
 <BaseLayout 
-  title={`${author.name} - The Ford Family Blog`}
-  description={author.description || `Articles by ${author.name} from The Ford Family Blog.`}
+  title={`${displayName} - The Ford Family Blog`}
+  description={author.description || `Articles by ${displayName} from The Ford Family Blog.`}
 >
   <div class="bg-muted/20 py-16 border-b border-primary/10">
     <div class="container mx-auto">
@@ -68,7 +73,7 @@ const authorImage = familyImages[author.name] || avatarUrl;
         )}
         <div class="flex-1 text-center md:text-left">
           <h1 class="text-4xl font-bold font-display mb-3 text-primary-foreground">
-            {author.name}
+            {displayName}
           </h1>
           {author.description && (
             <p class="text-lg text-muted-foreground mb-4 max-w-2xl">
@@ -103,7 +108,7 @@ const authorImage = familyImages[author.name] || avatarUrl;
   <main class="py-16">
     <div class="container mx-auto">
       <h2 class="text-2xl font-bold font-display mb-8 text-primary-foreground">
-        Posts by {author.name}
+        Posts by {displayName}
       </h2>
       
       {authorPosts.length > 0 ? (

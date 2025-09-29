@@ -5,6 +5,7 @@ import joshuaImage from '../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
+import { getAuthorFullName } from '../lib/wordpress';
 
 interface Props {
   title: string;
@@ -19,7 +20,10 @@ interface Props {
   authorSlug?: string;
 }
 
-const { title, description, author, date, category, categorySlug, imageUrl, ogImage, tags, authorSlug } = Astro.props;
+const { title, description, author: rawAuthor, date, category, categorySlug, imageUrl, ogImage, tags, authorSlug } = Astro.props;
+
+// Map email usernames to full names if needed
+const author = getAuthorFullName(rawAuthor);
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage}>
@@ -117,7 +121,7 @@ const { title, description, author, date, category, categorySlug, imageUrl, ogIm
                         ? jacksonImage.src
                         : author === "Finley Ford"
                           ? finleyImage.src
-                          : finleyImage.src
+                          : "https://secure.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
                   }
                   alt={author}
                   class="w-20 h-20 object-cover rounded-sm"

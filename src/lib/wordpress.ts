@@ -66,6 +66,31 @@ export interface BlogPost {
 /**
  * Transforms a WordPress post to our blog post format
  */
+/**
+ * Maps email-based author identifiers to their full names
+ */
+export function getAuthorFullName(authorName: string): string {
+  // Map of email usernames to full names
+  const authorMap: Record<string, string> = {
+    'salicia': 'Salicia Ford',
+    'joshua': 'Joshua Ford',
+    'jackson': 'Jackson Ford',
+    'finley': 'Finley Ford'
+  };
+
+  // Check if the author name contains an email pattern
+  if (authorName.includes('@thefordfamily.life')) {
+    // Extract username from the email
+    const username = authorName.split('@')[0].toLowerCase();
+    return authorMap[username] || authorName; // Return mapped name or original if not found
+  }
+
+  return authorName; // Return original name if not an email
+}
+
+/**
+ * Transforms a WordPress post to our blog post format
+ */
 export function transformWordPressPost(post: WordPressPost): BlogPost {
   // Get the featured image URL if available
   let imageUrl = 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=800&auto=format&q=80';
@@ -96,7 +121,9 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
 
   // Get author data
   const authorData = post._embedded?.author?.[0];
-  const author = authorData?.name || 'Ford Family';
+  let author = authorData?.name || 'Ford Family';
+  // Apply author mapping for emails
+  author = getAuthorFullName(author);
   const authorId = authorData?.id || post.author;
   const authorSlug = authorData?.slug;
 
