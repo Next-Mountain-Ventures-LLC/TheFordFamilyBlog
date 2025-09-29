@@ -9,10 +9,20 @@ export const prerender = false;
 const { slug } = Astro.params;
 
 // Fetch the post data from WordPress API
-const post = await getPostBySlug(slug as string).catch(() => null);
+let post = null;
+try {
+  console.log(`Attempting to fetch post with slug: ${slug}`);
+  post = await getPostBySlug(slug as string);
+  console.log(`Successfully fetched post: ${post?.title}`);
+} catch (error) {
+  console.error(`Error fetching post with slug ${slug}:`, error);
+  // Post not found in WordPress API, check for local content
+  // Here we could add additional logic to load local content if needed
+}
 
 // If post not found, redirect to the 404 page
 if (!post) {
+  console.log(`Post with slug ${slug} not found, redirecting to 404`);
   return Astro.redirect('/404');
 }
 

@@ -16,9 +16,19 @@ export interface WordPressPost {
   };
   slug: string;
   featured_media: number;
+  jetpack_featured_media_url?: string;
   _embedded?: {
     'wp:featuredmedia'?: Array<{
-      source_url: string;
+      source_url?: string;
+      media_details?: {
+        sizes?: {
+          thumbnail?: { source_url?: string };
+          medium?: { source_url?: string };
+          large?: { source_url?: string };
+          full?: { source_url?: string };
+          [key: string]: { source_url?: string } | undefined;
+        };
+      };
     }>;
     'wp:term'?: Array<Array<{
       id: number;
@@ -29,6 +39,7 @@ export interface WordPressPost {
       id: number;
       name: string;
     }>;
+    replies?: Array<Array<any>>;
   };
   categories: number[];
   tags: number[];
@@ -52,8 +63,18 @@ export interface BlogPost {
  */
 export function transformWordPressPost(post: WordPressPost): BlogPost {
   // Get the featured image URL if available
-  const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
-    'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=800&auto=format&q=80';
+  let imageUrl = 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=800&auto=format&q=80';
+  
+  // Check different paths where the image might be found in the WordPress response
+  if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
+    imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+  } else if (post._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.large?.source_url) {
+    imageUrl = post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
+  } else if (post.jetpack_featured_media_url) {
+    imageUrl = post.jetpack_featured_media_url;
+  }
+  
+  console.log(`Featured image for post ${post.slug}:`, imageUrl);
 
   // Get the first category name
   const category = post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Uncategorized';
@@ -99,19 +120,30 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
  */
 export async function getPosts(limit = 10): Promise<BlogPost[]> {
   try {
+    console.log(`Fetching posts from: ${API_URL}/posts?_embed&per_page=${limit}`);
+    
     const response = await fetch(
-      `${API_URL}/posts?_embed&per_page=${limit}`
+      `${API_URL}/posts?_embed&per_page=${limit}`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
     );
 
     if (!response.ok) {
+      console.error(`API response not OK: Status ${response.status}`);
       throw new Error(`Failed to fetch posts: ${response.status}`);
     }
 
     const posts: WordPressPost[] = await response.json();
+    console.log(`Successfully fetched ${posts.length} posts`);
     return posts.map(transformWordPressPost);
   } catch (error) {
     console.error('Error fetching WordPress posts:', error);
-    return [];
+    throw error; // Rethrow so we can handle the error in the component
   }
 }
 
@@ -120,15 +152,26 @@ export async function getPosts(limit = 10): Promise<BlogPost[]> {
  */
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
+    console.log(`Fetching post with slug '${slug}' from: ${API_URL}/posts?slug=${slug}&_embed`);
+    
     const response = await fetch(
-      `${API_URL}/posts?slug=${slug}&_embed`
+      `${API_URL}/posts?slug=${slug}&_embed`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store'
+      }
     );
 
     if (!response.ok) {
+      console.error(`API response not OK for slug ${slug}: Status ${response.status}`);
       throw new Error(`Failed to fetch post: ${response.status}`);
     }
 
     const posts: WordPressPost[] = await response.json();
+    console.log(`API response for slug ${slug}:`, posts.length ? 'Post found' : 'No posts found');
     
     if (posts.length === 0) {
       return null;
@@ -137,7 +180,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     return transformWordPressPost(posts[0]);
   } catch (error) {
     console.error(`Error fetching WordPress post by slug ${slug}:`, error);
-    return null;
+    throw error; // Rethrow so we can handle the error in the component
   }
 }
 

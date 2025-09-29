@@ -13,46 +13,53 @@ import YouTubeSection from '@/components/YouTubeSection';
 import { buttonVariants } from "@/components/ui/button";
 import { getPosts } from '@/lib/wordpress';
 
+// Fallback blog posts data
+const fallbackPosts = [
+  {
+    id: 1,
+    title: "Road Blocks: Navigating the Entrepreneurial Journey",
+    excerpt: "Insights on overcoming common obstacles entrepreneurs face while building their businesses.",
+    date: "September 24, 2025",
+    author: "Joshua Ford",
+    category: "Entrepreneurship",
+    imageUrl: joshuaImage.src,
+    slug: "road-blocks",
+    content: ""
+  },
+  {
+    id: 2,
+    title: "Finding Strength in Faith Through Health Challenges",
+    excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
+    date: "June 12, 2025",
+    author: "Salicia Ford",
+    category: "Faith & Health",
+    imageUrl: saliciaImage.src,
+    slug: "faith-through-health-challenges",
+    content: ""
+  },
+  {
+    id: 3,
+    title: "Homeschooling Tips for ADHD Children",
+    excerpt: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
+    date: "June 5, 2025",
+    author: "Salicia Ford",
+    category: "Homeschooling",
+    imageUrl: saliciaImage.src,
+    slug: "homeschooling-tips-adhd",
+    content: ""
+  }
+];
+
 // Fetch blog posts from WordPress API
-const blogPosts = await getPosts(3).catch(error => {
+let blogPosts = fallbackPosts;
+try {
+  console.log("Attempting to fetch WordPress posts...");
+  blogPosts = await getPosts(3);
+  console.log("Successfully fetched WordPress posts:", blogPosts);
+} catch (error) {
   console.error('Error fetching WordPress posts:', error);
-  // Fallback data in case API fails
-  return [
-    {
-      id: 1,
-      title: "Road Blocks: Navigating the Entrepreneurial Journey",
-      excerpt: "Insights on overcoming common obstacles entrepreneurs face while building their businesses.",
-      date: "September 24, 2025",
-      author: "Joshua Ford",
-      category: "Entrepreneurship",
-      imageUrl: joshuaImage.src,
-      slug: "road-blocks",
-      content: ""
-    },
-    {
-      id: 2,
-      title: "Finding Strength in Faith Through Health Challenges",
-      excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
-      date: "June 12, 2025",
-      author: "Salicia Ford",
-      category: "Faith & Health",
-      imageUrl: saliciaImage.src,
-      slug: "faith-through-health-challenges",
-      content: ""
-    },
-    {
-      id: 3,
-      title: "Homeschooling Tips for ADHD Children",
-      excerpt: "Practical strategies and templates for creating a successful homeschooling environment for children with ADHD.",
-      date: "June 5, 2025",
-      author: "Salicia Ford",
-      category: "Homeschooling",
-      imageUrl: saliciaImage.src,
-      slug: "homeschooling-tips-adhd",
-      content: ""
-    }
-  ];
-});
+  console.log("Using fallback blog post data instead");
+}
 
 // Sample YouTube videos data
 const youtubeVideos = [
