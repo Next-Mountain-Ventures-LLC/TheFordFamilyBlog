@@ -59,7 +59,7 @@ export interface BlogPost {
   categoryId?: number;
   categorySlug?: string;
   tags?: Array<{id: number, name: string, slug: string}>;
-  imageUrl: string;
+  imageUrl?: string;
   slug: string;
 }
 
@@ -92,8 +92,8 @@ export function getAuthorFullName(authorName: string): string {
  * Transforms a WordPress post to our blog post format
  */
 export function transformWordPressPost(post: WordPressPost): BlogPost {
-  // Get the featured image URL if available
-  let imageUrl = 'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=800&auto=format&q=80';
+  // Get the featured image URL if available from WordPress
+  let imageUrl: string | null = null;
   
   // Check different paths where the image might be found in the WordPress response
   if (post._embedded?.['wp:featuredmedia']?.[0]?.source_url) {
@@ -102,6 +102,13 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
     imageUrl = post._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url;
   } else if (post.jetpack_featured_media_url) {
     imageUrl = post.jetpack_featured_media_url;
+  }
+  
+  // Only log if we found an image
+  if (imageUrl) {
+    console.log(`Featured image for post ${post.slug}:`, imageUrl);
+  } else {
+    console.log(`No featured image found for post ${post.slug}`);
   }
   
   console.log(`Featured image for post ${post.slug}:`, imageUrl);
@@ -147,7 +154,7 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
   };
 
   // Create formatted blog post
-  return {
+  const blogPost: BlogPost = {
     id: post.id,
     title: post.title.rendered,
     excerpt: stripHtml(post.excerpt.rendered),
@@ -160,9 +167,15 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
     categoryId: categoryId,
     categorySlug: categorySlug,
     tags: tags,
-    imageUrl: imageUrl,
     slug: post.slug,
   };
+  
+  // Only add imageUrl if we have a valid image from WordPress
+  if (imageUrl) {
+    blogPost.imageUrl = imageUrl;
+  }
+  
+  return blogPost;
 }
 
 /**

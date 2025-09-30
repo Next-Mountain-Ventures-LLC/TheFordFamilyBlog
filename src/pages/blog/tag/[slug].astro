@@ -80,16 +80,18 @@ try {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {tagPosts.map((post) => (
             <article class="scrapbook-paper bg-white/90">
-              <div class="mb-4">
-                <div class="scrapbook-photo w-full" style={`--rotate: ${Math.random() > 0.5 ? "" : "-"}${Math.floor(Math.random() * 3)}deg;`}>
-                  <div class="scrapbook-tape"></div>
-                  <img 
-                    src={post.imageUrl} 
-                    alt={post.title}
-                    class="w-full h-48 object-cover rounded-sm"
-                  />
+              {post.imageUrl && (
+                <div class="mb-4">
+                  <div class="scrapbook-photo w-full" style={`--rotate: ${Math.random() > 0.5 ? "" : "-"}${Math.floor(Math.random() * 3)}deg;`}>
+                    <div class="scrapbook-tape"></div>
+                    <img 
+                      src={post.imageUrl} 
+                      alt={post.title}
+                      class="w-full h-48 object-cover rounded-sm"
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
               <div class="mb-3">
                 <a 
                   href={post.categorySlug ? `/blog/category/${post.categorySlug}` : '#'} 
