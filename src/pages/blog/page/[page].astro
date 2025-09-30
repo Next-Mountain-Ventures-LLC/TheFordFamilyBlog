@@ -1,0 +1,252 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { getPosts, getCategories, WordPressCategory } from '@/lib/wordpress';
+
+// Enable server-side rendering for dynamic routes
+export const prerender = false;
+
+// Get the current page from the URL
+const { page } = Astro.params;
+const currentPage = parseInt(page as string) || 1;
+
+// If the page is not a valid number or less than 1, redirect to blog index
+if (isNaN(currentPage) || currentPage < 1) {
+  return Astro.redirect('/blog');
+}
+
+// Fallback category data
+const fallbackCategories: WordPressCategory[] = [
+  {
+    id: 1,
+    name: "Uncategorized",
+    slug: "uncategorized",
+    description: "",
+    link: "",
+    taxonomy: "category",
+    count: 1,
+    parent: 0
+  },
+  // Add other fallback categories as needed
+];
+
+// Fetch blog posts from WordPress API
+let blogPosts = [];
+try {
+  console.log("Attempting to fetch WordPress posts for blog pagination...");
+  blogPosts = await getPosts(100); // Get more posts to enable pagination
+  console.log("Successfully fetched WordPress posts for blog pagination:", blogPosts.length);
+} catch (error) {
+  console.error('Error fetching WordPress posts for blog pagination:', error);
+  console.log("Using empty post list for blog pagination");
+}
+
+// Fetch categories from WordPress API
+let wpCategories = fallbackCategories;
+try {
+  console.log("Attempting to fetch WordPress categories...");
+  wpCategories = await getCategories();
+  console.log(`Successfully fetched ${wpCategories.length} WordPress categories`);
+} catch (error) {
+  console.error('Error fetching WordPress categories:', error);
+  console.log("Using fallback category data");
+}
+
+// Filter out categories with no posts
+const activeCategories = wpCategories.filter(category => category.count > 0);
+
+// Calculate pagination variables
+const postsPerPage = 9; // Number of posts per page (excluding featured post)
+const totalPosts = blogPosts.length;
+const totalPages = Math.max(1, Math.ceil(totalPosts / postsPerPage));
+
+// If the requested page is beyond the available pages, redirect to the last page
+if (currentPage > totalPages) {
+  return Astro.redirect(`/blog/page/${totalPages}`);
+}
+
+// For page 1, we want to use the featured post layout on the main blog page
+if (currentPage === 1) {
+  return Astro.redirect('/blog');
+}
+
+// Get current page of posts
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+const currentPagePosts = blogPosts.slice(startIndex, endIndex);
+---
+
+<BaseLayout 
+  title={`Blog - Page ${currentPage} - The Ford Family`} 
+  description="Explore our family's journey through faith, health challenges, homeschooling, entrepreneurship, and creativity."
+>
+  <div class="bg-muted/20 py-16 border-b border-primary/10">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl font-bold font-display mb-4 text-primary-foreground">
+        Our Family Blog
+      </h1>
+      <p class="text-xl max-w-2xl mx-auto text-muted-foreground mb-8">
+        Stories, insights, and inspiration from our journey through faith, health challenges, homeschooling, and entrepreneurship.
+      </p>
+      <div class="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto">
+        {activeCategories.map((category) => (
+          <a 
+            href={`/blog/category/${category.slug}`}
+            class="px-4 py-2 bg-white/80 hover:bg-white shadow-sm rounded-full text-sm transition-colors"
+          >
+            {category.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <main class="py-16">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-bold font-display mb-6 text-primary-foreground">Page {currentPage}</h2>
+      
+      <!-- Blog Posts -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {currentPagePosts.map((post) => (
+          <article class="scrapbook-paper bg-white/90">
+            {post.imageUrl && (
+              <div class="mb-4">
+                <div class="scrapbook-photo w-full" style={`--rotate: ${Math.random() > 0.5 ? "" : "-"}${Math.floor(Math.random() * 3)}deg;`}>
+                  <div class="scrapbook-tape"></div>
+                  <img 
+                    src={post.imageUrl} 
+                    alt={post.title}
+                    class="w-full h-48 object-cover rounded-sm"
+                  />
+                </div>
+              </div>
+            )}
+            <div class="mb-3">
+              <a 
+                href={post.categorySlug ? `/blog/category/${post.categorySlug}` : '#'} 
+                class="inline-block px-3 py-1 bg-primary/10 text-primary-foreground text-xs rounded-full hover:bg-primary/20 transition-colors"
+              >
+                {post.category}
+              </a>
+            </div>
+            <h3 class="text-xl font-bold font-display mb-2 leading-tight">
+              <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
+                {post.title}
+              </a>
+            </h3>
+            <p class="text-muted-foreground text-sm mb-4 line-clamp-3">
+              {post.excerpt}
+            </p>
+            <div class="flex justify-between items-center text-xs text-muted-foreground mb-4">
+              <a 
+                href={post.authorSlug ? `/blog/author/${post.authorSlug}` : '#'}
+                class="hover:text-primary transition-colors"
+              >
+                {post.author}
+              </a>
+              <span>{post.date}</span>
+            </div>
+            <a 
+              href={`/blog/${post.slug}`} 
+              class={buttonVariants({ variant: "outline", size: "sm" })}
+            >
+              Read Post
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      {totalPages > 1 && (
+        <div class="flex justify-center mt-12">
+          <nav class="flex items-center space-x-2">
+            <!-- Previous page button -->
+            <a
+              href={currentPage > 1 ? (currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`) : '#'}
+              class={currentPage > 1 
+                ? "w-10 h-10 flex items-center justify-center rounded-md border border-input hover:bg-accent hover:text-accent-foreground" 
+                : "w-10 h-10 flex items-center justify-center rounded-md border border-input opacity-50 cursor-not-allowed"}
+              aria-disabled={currentPage === 1}
+            >
+              <span class="sr-only">Previous page</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </a>
+            
+            <!-- Page 1 -->
+            <a
+              href="/blog"
+              class={currentPage === 1 
+                ? "w-10 h-10 flex items-center justify-center rounded-md bg-primary text-primary-foreground" 
+                : "w-10 h-10 flex items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"}
+            >
+              1
+            </a>
+            
+            <!-- Show ellipsis if current page is more than 2 away from page 1 -->
+            {currentPage > 3 && (
+              <span class="w-10 h-10 flex items-center justify-center">...</span>
+            )}
+            
+            <!-- Show previous page if not page 1 -->
+            {currentPage > 1 && currentPage - 1 > 1 && (
+              <a
+                href={`/blog/page/${currentPage - 1}`}
+                class="w-10 h-10 flex items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+              >
+                {currentPage - 1}
+              </a>
+            )}
+            
+            <!-- Current page (if not page 1) -->
+            {currentPage > 1 && (
+              <a
+                href="#"
+                class="w-10 h-10 flex items-center justify-center rounded-md bg-primary text-primary-foreground"
+                aria-current="page"
+              >
+                {currentPage}
+              </a>
+            )}
+            
+            <!-- Next page if not last page -->
+            {currentPage < totalPages && (
+              <a
+                href={`/blog/page/${currentPage + 1}`}
+                class="w-10 h-10 flex items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+              >
+                {currentPage + 1}
+              </a>
+            )}
+            
+            <!-- Show ellipsis if current page is more than 2 away from last page -->
+            {currentPage < totalPages - 2 && (
+              <span class="w-10 h-10 flex items-center justify-center">...</span>
+            )}
+            
+            <!-- Last page if not current and not adjacent to current -->
+            {totalPages > 1 && currentPage !== totalPages && currentPage !== totalPages - 1 && (
+              <a
+                href={`/blog/page/${totalPages}`}
+                class="w-10 h-10 flex items-center justify-center rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+              >
+                {totalPages}
+              </a>
+            )}
+            
+            <!-- Next page button -->
+            <a
+              href={currentPage < totalPages ? `/blog/page/${currentPage + 1}` : '#'}
+              class={currentPage < totalPages 
+                ? "w-10 h-10 flex items-center justify-center rounded-md border border-input hover:bg-accent hover:text-accent-foreground" 
+                : "w-10 h-10 flex items-center justify-center rounded-md border border-input opacity-50 cursor-not-allowed"}
+              aria-disabled={currentPage === totalPages}
+            >
+              <span class="sr-only">Next page</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </a>
+          </nav>
+        </div>
+      )}
+    </div>
+  </main>
+</BaseLayout>

@@ -9,7 +9,7 @@ import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
 import BlogPreview from '@/components/BlogPreview';
-import YouTubeSection from '@/components/YouTubeSection';
+import YouTubeChannelSection from '@/components/YouTubeChannelSection';
 import { buttonVariants } from "@/components/ui/button";
 import { getPosts } from '@/lib/wordpress';
 
@@ -61,27 +61,7 @@ try {
   console.log("Using fallback blog post data instead");
 }
 
-// Sample YouTube videos data
-const youtubeVideos = [
-  {
-    title: "Building an E-Bike from Scratch - DIY Guide",
-    videoId: "dQw4w9WgXcQ", // This is a placeholder
-    thumbnail: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=600&auto=format&q=80",
-    creator: "Joshua Ford"
-  },
-  {
-    title: "Get Ready With Me - Back to School Edition",
-    videoId: "dQw4w9WgXcQ", // This is a placeholder
-    thumbnail: "https://images.unsplash.com/photo-1627243847738-0b9b66a80f08?w=600&auto=format&q=80",
-    creator: "Finley Ford"
-  },
-  {
-    title: "How I Started My First Business at Age 12",
-    videoId: "dQw4w9WgXcQ", // This is a placeholder
-    thumbnail: "https://images.unsplash.com/photo-1556155092-490a1ba16284?w=600&auto=format&q=80",
-    creator: "Jackson Ford"
-  }
-];
+// YouTube videos are now fetched directly from the YouTube channel
 ---
 
 <BaseLayout
@@ -166,8 +146,8 @@ const youtubeVideos = [
   <!-- Blog Preview Section - These link to actual blog post pages -->
   <BlogPreview client:visible title="Latest Blog Posts" posts={blogPosts} />
   
-  <!-- YouTube Section -->
-  <YouTubeSection client:visible title="Featured Videos" videos={youtubeVideos} />
+  <!-- YouTube Channel Section -->
+  <YouTubeChannelSection client:visible />
   
   <!-- Contact Section -->
   <section class="py-16">
