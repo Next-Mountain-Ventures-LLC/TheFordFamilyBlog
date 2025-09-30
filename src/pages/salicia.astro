@@ -1,57 +1,8 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import { buttonVariants } from "@/components/ui/button";
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
-import BlogCarousel from "@/components/BlogCarousel";
+import ProfileLayout from "@/layouts/ProfileLayout.astro";
 import DigitalProductsStore from "@/components/DigitalProductsStore";
 import AnchorBloomSection from "@/components/AnchorBloomSection";
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
-
-// Get Salicia's blog posts
-let saliciaPosts = [];
-try {
-  const allBlogPosts = await getCollection('blog');
-  saliciaPosts = allBlogPosts
-    .filter(post => post.data.author.includes('Salicia'))
-    .map(entry => ({
-      title: entry.data.title,
-      excerpt: entry.data.description,
-      date: entry.data.date,
-      category: entry.data.category,
-      imageUrl: entry.data.imageUrl,
-      slug: entry.slug
-    }))
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-} catch (error) {
-  console.error('Error loading blog posts:', error);
-  // Continue with empty array
-}
-
-// Additional posts not in content collection
-const additionalPosts = [
-  {
-    title: "Finding Strength in Faith Through Health Challenges",
-    excerpt: "How our family relies on faith during difficult times with chronic illness and health challenges.",
-    date: "June 12, 2025",
-    category: "Faith & Health",
-    imageUrl: saliciaImage.src,
-    slug: "faith-through-health-challenges"
-  },
-  {
-    title: "Navigating Healthcare Systems as a Chronic Illness Patient",
-    excerpt: "Tips and advice for advocating for yourself in complex medical systems when dealing with chronic conditions.",
-    date: "May 25, 2025", 
-    category: "Faith & Health",
-    imageUrl: saliciaImage.src,
-    slug: "navigating-healthcare-systems"
-  }
-];
-
-// Combine and deduplicate based on slug
-const seenSlugs = new Set(saliciaPosts.map(post => post.slug));
-const morePosts = additionalPosts.filter(post => !seenSlugs.has(post.slug));
-const allSaliciaPosts = [...saliciaPosts, ...morePosts];
 
 // Digital products data
 const digitalProducts = [
@@ -83,90 +34,41 @@ const digitalProducts = [
 ];
 ---
 
-<BaseLayout
-  title="Salicia Ford - Patient Advocate & Homeschool Mom | The Ford Family"
-  description="Meet Salicia Ford, a homeschooling mom and patient advocate who helps families bring order to chaotic lives through Anchor and Bloom."
->
-  <!-- Hero Section -->
-  <section class="relative py-24 overflow-hidden bg-gradient-to-b from-primary/5 via-secondary/10 to-background border-b border-border">
-    <div class="absolute inset-0 bg-pattern opacity-5"></div>
-    <div class="container mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="order-2 lg:order-1 animate-fade-in z-10">
-          <div class="inline-block bg-primary/10 px-4 py-1 rounded-full text-primary-foreground text-sm font-medium mb-6">
-            Founder of Anchor and Bloom
-          </div>
-          <h1 class="text-4xl md:text-6xl font-bold font-display mb-6 text-primary-foreground leading-tight">
-            Salicia Ford
-          </h1>
-          <p class="text-xl text-muted-foreground mb-6 font-medium">
-            Patient Advocate, Homeschool Expert & Family Systems Specialist
-          </p>
-          <div class="prose prose-lg dark:prose-invert mb-8 max-w-none">
-            <p class="text-lg">
-              Transforming challenges into strengths, I help families navigate life's complexities with grace and purpose. 
-              As someone living with autoimmune conditions while homeschooling and running a business, I've discovered
-              powerful systems that bring order to chaos.
-            </p>
-            <p class="text-lg">
-              My mission is to empower families facing similar journeys with practical resources, supportive community, and 
-              faith-centered approaches that cultivate resilience, creativity, and joy despite difficult circumstances.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-4 mt-8">
-            <a 
-              href="#products"
-              class={buttonVariants({ size: "lg", className: "shadow-md hover:shadow-lg transition-all" })}
-            >
-              Explore Resources
-            </a>
-            <a 
-              href="#anchor-bloom"
-              class={buttonVariants({ variant: "outline", size: "lg", className: "backdrop-blur-sm bg-white/30" })}
-            >
-              About Anchor and Bloom
-            </a>
-          </div>
-        </div>
-        <div class="order-1 lg:order-2 flex justify-center relative z-10">
-          <div class="absolute w-64 h-64 rounded-full bg-primary/20 blur-3xl -z-10 opacity-50 animate-pulse"></div>
-          <div class="scrapbook-photo" style="--rotate: -1deg">
-            <div class="scrapbook-tape"></div>
-            <img 
-              src={saliciaImage.src} 
-              alt="Salicia Ford" 
-              class="rounded-sm max-w-sm w-full shadow-xl object-cover hover:scale-[1.01] transition-all duration-300"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<ProfileLayout
+  name="Salicia Ford"
+  title="Founder of Anchor and Bloom"
+  tagline="Patient Advocate, Homeschool Expert & Family Systems Specialist"
+  pageTitle="Salicia Ford - Patient Advocate & Homeschool Mom | The Ford Family"
+  pageDescription="Meet Salicia Ford, a homeschooling mom and patient advocate who helps families bring order to chaotic lives through Anchor and Bloom."
+  description="Insights and advice from my journey through homeschooling, chronic illness, and faith."
+  image={saliciaImage}
+  bio={[
+    "Transforming challenges into strengths, I help families navigate life's complexities with grace and purpose. As someone living with autoimmune conditions while homeschooling and running a business, I've discovered powerful systems that bring order to chaos.",
+    "My mission is to empower families facing similar journeys with practical resources, supportive community, and faith-centered approaches that cultivate resilience, creativity, and joy despite difficult circumstances."
+  ]}
+  social={{
+    website: "https://www.anchorandbloom.com"
+  }}
 
-  <!-- Posts Carousel Section -->
-  <section id="posts" class="py-16 bg-muted/10">
+>
+  <!-- Digital Products Section -->
+  <section id="products" class="py-16">
     <div class="container mx-auto">
-      <BlogCarousel 
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Homeschooling Resources</h2>
+      <DigitalProductsStore 
         client:visible
-        title="Salicia's Articles"
-        description="Insights and advice from my journey through homeschooling, chronic illness, and faith."
-        posts={allSaliciaPosts}
+        title="Homeschooling Resources"
+        description="Digital products designed to bring structure, joy, and effectiveness to your homeschool journey."
+        products={digitalProducts}
       />
     </div>
   </section>
 
-  <!-- Digital Products Section -->
-  <section id="products" class="py-16">
-    <DigitalProductsStore 
-      client:visible
-      title="Homeschooling Resources"
-      description="Digital products designed to bring structure, joy, and effectiveness to your homeschool journey."
-      products={digitalProducts}
-    />
-  </section>
-
   <!-- Anchor and Bloom Section -->
   <section id="anchor-bloom" class="py-16 bg-primary/5">
-    <AnchorBloomSection client:visible />
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Anchor and Bloom</h2>
+      <AnchorBloomSection client:visible />
+    </div>
   </section>
-</BaseLayout>
+</ProfileLayout>

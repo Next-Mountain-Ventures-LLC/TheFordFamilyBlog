@@ -1,0 +1,151 @@
+---
+import ProfileLayout from "@/layouts/ProfileLayout.astro";
+import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
+import { buttonVariants } from "@/components/ui/button";
+
+// Projects data
+const projects = [
+  {
+    title: "3D Printed Prosthetic Hand",
+    description: "Affordable prosthetic hand designed for children in developing countries, allowing for easy resizing as they grow.",
+    image: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800&auto=format&q=80",
+    tags: ["3D Printing", "Healthcare", "Accessibility"]
+  },
+  {
+    title: "Remote-Controlled Drone",
+    description: "Custom-built drone with extended battery life and modular attachment system for various payloads.",
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&auto=format&q=80",
+    tags: ["Drones", "Electronics", "Programming"]
+  },
+  {
+    title: "Smart Irrigation System",
+    description: "Automated irrigation system that uses soil moisture sensors to optimize water usage for home gardens.",
+    image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&auto=format&q=80",
+    tags: ["IoT", "Sustainability", "Arduino"]
+  },
+  {
+    title: "3D Printing Business",
+    description: "My own small business creating custom 3D printed items for clients, from prototypes to decorative pieces.",
+    image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=800&auto=format&q=80",
+    tags: ["Entrepreneurship", "3D Design", "Customer Service"]
+  }
+];
+
+// Online courses data
+const courses = [
+  {
+    title: "3D Printing for Beginners",
+    description: "A step-by-step guide to getting started with 3D printing, from choosing your first printer to creating amazing projects.",
+    image: "https://images.unsplash.com/photo-1563642421748-5047b6585a4a?w=800&auto=format&q=80",
+    level: "Beginner",
+    price: "$49"
+  },
+  {
+    title: "Young Inventor's Arduino Projects",
+    description: "Ten fun electronics projects that teach programming, circuit design, and problem-solving skills.",
+    image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=800&auto=format&q=80",
+    level: "Intermediate",
+    price: "$59"
+  }
+];
+---
+
+<ProfileLayout
+  name="Jackson Ford"
+  title="Young Inventor & Entrepreneur"
+  tagline="3D Printing Enthusiast, Maker & STEM Educator"
+  pageTitle="Jackson Ford - Young Inventor & Entrepreneur | The Ford Family"
+  pageDescription="Meet Jackson Ford, a young inventor and entrepreneur specializing in 3D printing, electronics, and innovative problem-solving."
+  description="Sharing my journey of learning, creating, and building a business as a young inventor."
+  image={jacksonImage}
+  bio={[
+    "As a young inventor and entrepreneur, I'm passionate about using technology to solve real-world problems. I started my journey with 3D printing at age 11 and quickly discovered the amazing possibilities it offered.",
+    "Now I run my own small 3D printing business, create online courses for other young makers, and continuously work on new inventions and projects that combine electronics, programming, and 3D design."
+  ]}
+  social={{
+    youtube: "https://www.youtube.com/@TheFordFamilyLife"
+  }}
+>
+  <!-- Projects Section -->
+  <section id="projects" class="py-16">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Featured Inventions</h2>
+      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+        Here are some of my favorite invention projects that showcase my work with 3D printing, electronics, and problem-solving.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {projects.map((project) => (
+          <div class="scrapbook-photo w-full overflow-hidden" style={`--rotate: ${Math.random() > 0.5 ? "" : "-"}${Math.floor(Math.random() * 2)}deg;`}>
+            <div class="scrapbook-tape"></div>
+            <div class="bg-white p-6 rounded-sm shadow-sm">
+              <div class="mb-4 overflow-hidden rounded-sm">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3 class="text-xl font-bold font-display mb-2">{project.title}</h3>
+              <p class="text-muted-foreground mb-4 text-sm">{project.description}</p>
+              <div class="flex flex-wrap gap-2 mt-auto">
+                {project.tags.map(tag => (
+                  <span class="text-xs bg-muted px-2 py-1 rounded-full">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses" class="py-16 bg-primary/5">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Online Courses</h2>
+      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+        Learn 3D printing, electronics, and invention skills with my step-by-step online courses designed for young makers.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {courses.map((course) => (
+          <div class="scrapbook-paper bg-white/95 overflow-hidden">
+            <div class="relative">
+              <img 
+                src={course.image} 
+                alt={course.title}
+                class="w-full h-48 object-cover"
+              />
+              <div class="absolute top-4 right-4 bg-secondary text-secondary-foreground text-xs px-3 py-1 rounded-full font-medium">
+                {course.level}
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display mb-2">{course.title}</h3>
+              <p class="text-muted-foreground mb-4 text-sm">{course.description}</p>
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-lg">{course.price}</span>
+                <a
+                  href="#"
+                  class={buttonVariants({ size: "sm" })}
+                >
+                  Enroll Now
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a 
+          href="#"
+          class={buttonVariants({ variant: "outline", size: "lg" })}
+        >
+          View All Courses
+        </a>
+      </div>
+    </div>
+  </section>
+</ProfileLayout>

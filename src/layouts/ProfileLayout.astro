@@ -1,0 +1,165 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { buttonVariants } from "@/components/ui/button";
+import { Image } from 'astro:assets';
+import { getPostsByAuthor } from '@/lib/wordpress';
+import BlogCarousel from "@/components/BlogCarousel";
+
+interface Props {
+  name: string;
+  title: string; 
+  description: string;
+  pageTitle: string;
+  pageDescription: string;
+  image: ImageMetadata;
+  tagline: string;
+  bio: string[];
+  social?: {
+    website?: string;
+    youtube?: string;
+    instagram?: string;
+  };
+  section1?: {
+    title: string;
+    component: any;
+  };
+  section2?: {
+    title: string;
+    component: any;
+  };
+}
+
+const { 
+  name, 
+  title, 
+  description, 
+  pageTitle, 
+  pageDescription, 
+  image, 
+  tagline, 
+  bio, 
+  social,
+  section1,
+  section2
+} = Astro.props;
+
+// Get author's blog posts from WordPress
+let authorPosts = [];
+try {
+  const posts = await getPostsByAuthor(name, 10);
+  authorPosts = posts;
+} catch (error) {
+  console.error(`Error fetching posts for ${name}:`, error);
+}
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <!-- Hero Section -->
+  <section class="relative py-24 overflow-hidden bg-gradient-to-b from-primary/5 via-secondary/10 to-background border-b border-border">
+    <div class="absolute inset-0 bg-pattern opacity-5"></div>
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="order-2 lg:order-1 animate-fade-in z-10">
+          <div class="inline-block bg-primary/10 px-4 py-1 rounded-full text-primary-foreground text-sm font-medium mb-6">
+            {title}
+          </div>
+          <h1 class="text-4xl md:text-6xl font-bold font-display mb-6 text-primary-foreground leading-tight">
+            {name}
+          </h1>
+          <p class="text-xl text-muted-foreground mb-6 font-medium">
+            {tagline}
+          </p>
+          <div class="prose prose-lg dark:prose-invert mb-8 max-w-none">
+            {bio.map(paragraph => <p class="text-lg">{paragraph}</p>)}
+          </div>
+          
+          {social && (
+            <div class="flex flex-wrap gap-4 mt-8">
+              {social.website && (
+                <a 
+                  href={social.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  class={buttonVariants({ variant: "outline", size: "lg", className: "backdrop-blur-sm bg-white/30" })}
+                >
+                  Visit Website
+                </a>
+              )}
+              {social.youtube && (
+                <a 
+                  href={social.youtube}
+                  target="_blank"
+                  rel="noreferrer"
+                  class={buttonVariants({ variant: "outline", size: "lg", className: "backdrop-blur-sm bg-white/30" })}
+                >
+                  YouTube Channel
+                </a>
+              )}
+              {social.instagram && (
+                <a 
+                  href={social.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  class={buttonVariants({ variant: "outline", size: "lg", className: "backdrop-blur-sm bg-white/30" })}
+                >
+                  Instagram
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+        <div class="order-1 lg:order-2 flex justify-center relative z-10">
+          <div class="absolute w-64 h-64 rounded-full bg-primary/20 blur-3xl -z-10 opacity-50 animate-pulse"></div>
+          <div class="scrapbook-photo" style="--rotate: -1deg">
+            <div class="scrapbook-tape"></div>
+            <img 
+              src={image.src} 
+              alt={name} 
+              class="rounded-sm max-w-sm w-full shadow-xl object-cover hover:scale-[1.01] transition-all duration-300"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Posts Carousel Section -->
+  {authorPosts.length > 0 && (
+    <section id="posts" class="py-16 bg-muted/10">
+      <div class="container mx-auto">
+        <BlogCarousel 
+          client:visible
+          title={`${name.split(' ')[0]}'s Articles`}
+          description={description}
+          posts={authorPosts}
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- Custom Section 1 -->
+  {section1 && (
+    <section id="section1" class="py-16">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold font-display mb-6 text-center">{section1.title}</h2>
+        <section1.component client:visible />
+      </div>
+    </section>
+  )}
+
+  <!-- Custom Section 2 -->
+  {section2 && (
+    <section id="section2" class="py-16 bg-primary/5">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold font-display mb-6 text-center">{section2.title}</h2>
+        <section2.component client:visible />
+      </div>
+    </section>
+  )}
+
+  <!-- Extra slot for custom content -->
+  <slot />
+</BaseLayout>

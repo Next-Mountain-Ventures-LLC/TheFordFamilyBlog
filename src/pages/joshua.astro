@@ -1,0 +1,101 @@
+---
+import ProfileLayout from "@/layouts/ProfileLayout.astro";
+import joshuaImage from '../assets/img_9071_nw_c2f17e0f.jpg';
+import YouTubeSection from "@/components/YouTubeSection";
+
+// Digital products data
+const digitalProducts = [
+  {
+    title: "Startup Growth Framework",
+    description: "A comprehensive guide to scaling your business from zero to seven figures.",
+    price: "$97",
+    imageUrl: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&q=80",
+    featured: true
+  },
+  {
+    title: "Inventor's Blueprint",
+    description: "Step-by-step process for taking your invention from idea to market.",
+    price: "$79",
+    imageUrl: "https://images.unsplash.com/photo-1581092160607-57e25d2edf91?w=800&auto=format&q=80"
+  },
+  {
+    title: "Next Mountain Mastermind",
+    description: "Six-week intensive program for entrepreneurs ready to summit their next business peak.",
+    price: "$497",
+    imageUrl: "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&auto=format&q=80"
+  },
+  {
+    title: "E-Bike Building Guide",
+    description: "Technical guide to building custom electric bicycles from the ground up.",
+    price: "$45",
+    imageUrl: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&q=80"
+  }
+];
+---
+
+<ProfileLayout
+  name="Joshua Ford"
+  title="Founder of Next Mountain Ventures"
+  tagline="Entrepreneur, Inventor & Business Strategist"
+  pageTitle="Joshua Ford - Entrepreneur & Inventor | The Ford Family"
+  pageDescription="Meet Joshua Ford, serial entrepreneur, inventor, and founder of Next Mountain Ventures, helping innovators turn ideas into thriving businesses."
+  description="Insights on entrepreneurship, invention development, and creating sustainable businesses."
+  image={joshuaImage}
+  bio={[
+    "With over 15 years of experience launching successful businesses, I help innovators and entrepreneurs turn ideas into reality. My background spans hardware development, software startups, and sustainable business models.",
+    "Through Next Mountain Ventures, I mentor startup founders, develop invention prototypes, and create frameworks that demystify the path from concept to market. I believe in sustainable entrepreneurship that balances profit with purpose."
+  ]}
+  social={{
+    website: "https://www.nextmountainventures.com",
+    youtube: "https://www.youtube.com/@TheFordFamilyLife"
+  }}
+>
+  <!-- Digital Products Section -->
+  <section id="products" class="py-16">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Business Resources</h2>
+      <div class="max-w-5xl mx-auto">
+        <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+          Digital products and frameworks designed to help entrepreneurs and inventors bring their ideas to market successfully.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {digitalProducts.map((product, index) => (
+            <div class={`scrapbook-paper bg-white/95 p-0 overflow-hidden ${product.featured ? 'border-2 border-primary/20 ring-1 ring-primary/5' : ''}`}>
+              <div class="relative">
+                {product.featured && (
+                  <div class="absolute top-4 right-4 bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full font-medium">
+                    Featured
+                  </div>
+                )}
+                <img 
+                  src={product.imageUrl} 
+                  alt={product.title}
+                  class="w-full h-48 object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold font-display mb-2">{product.title}</h3>
+                <p class="text-muted-foreground mb-4 text-sm">{product.description}</p>
+                <div class="flex justify-between items-center">
+                  <span class="font-bold text-lg">{product.price}</span>
+                  <button class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background bg-primary text-primary-foreground hover:bg-primary/90 h-10 py-2 px-4">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Section -->
+  <section id="youtube" class="py-16 bg-primary/5">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Featured Videos</h2>
+      <YouTubeSection client:visible />
+    </div>
+  </section>
+</ProfileLayout>

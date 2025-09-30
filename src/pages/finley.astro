@@ -1,0 +1,146 @@
+---
+import ProfileLayout from "@/layouts/ProfileLayout.astro";
+import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
+import { buttonVariants } from "@/components/ui/button";
+
+// Design projects data
+const designProjects = [
+  {
+    title: "Sustainable Fashion Collection",
+    description: "A collection of eco-friendly clothing designs using recycled materials and low-impact dyes.",
+    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&auto=format&q=80",
+    category: "Fashion Design"
+  },
+  {
+    title: "Digital Art Portfolio",
+    description: "A series of digital illustrations exploring themes of identity, nature, and imagination.",
+    image: "https://images.unsplash.com/photo-1629196914604-925a86a45128?w=800&auto=format&q=80",
+    category: "Digital Art"
+  },
+  {
+    title: "Interior Design Concepts",
+    description: "Creative room layouts and decor ideas that blend functionality with aesthetic appeal.",
+    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&q=80",
+    category: "Interior Design"
+  },
+  {
+    title: "Brand Identity Design",
+    description: "Logo designs, color palettes, and brand guidelines for various client projects.",
+    image: "https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=800&auto=format&q=80",
+    category: "Branding"
+  }
+];
+
+// Upcoming events
+const upcomingEvents = [
+  {
+    title: "Young Designers Showcase",
+    date: "November 15-18, 2025",
+    location: "City Arts Center",
+    description: "Featuring my latest fashion designs in the annual youth showcase exhibition."
+  },
+  {
+    title: "Community Theater Production",
+    date: "December 5-12, 2025",
+    location: "Riverside Theater",
+    description: "Playing the role of Elizabeth in the winter production of 'Pride and Prejudice'."
+  },
+  {
+    title: "Digital Art Workshop",
+    date: "January 22, 2026",
+    location: "Virtual Event",
+    description: "Hosting an online workshop teaching digital illustration techniques for beginners."
+  }
+];
+---
+
+<ProfileLayout
+  name="Finley Ford"
+  title="Designer & Aspiring Actress"
+  tagline="Creative Artist, Fashion Enthusiast & Digital Creator"
+  pageTitle="Finley Ford - Designer & Creative Artist | The Ford Family"
+  pageDescription="Meet Finley Ford, a young designer and creative artist with a passion for fashion, digital art, and performing arts."
+  description="Exploring creativity through design, fashion, and digital media."
+  image={finleyImage}
+  bio={[
+    "As a young designer and creative artist, I express my imagination through multiple mediums including fashion design, digital art, and performing arts. I believe that creativity has the power to inspire change and connect people.",
+    "When I'm not working on design projects, you can find me acting in community theater productions, creating content for our family's YouTube channel, or experimenting with sustainable fashion concepts."
+  ]}
+  social={{
+    instagram: "https://instagram.com/",
+    youtube: "https://www.youtube.com/@TheFordFamilyLife"
+  }}
+>
+  <!-- Creative Portfolio Section -->
+  <section id="portfolio" class="py-16">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Creative Portfolio</h2>
+      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+        A collection of my design work spanning fashion, digital art, and creative projects.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {designProjects.map((project, index) => (
+          <div class="group relative overflow-hidden rounded-md shadow-md bg-white hover:shadow-xl transition-shadow duration-300">
+            <div class="relative h-64 overflow-hidden">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent w-full h-1/2"></div>
+              <div class="absolute top-4 right-4 bg-accent/90 backdrop-blur-sm text-accent-foreground text-xs px-3 py-1 rounded-full font-medium">
+                {project.category}
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display mb-2 group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+              <p class="text-muted-foreground text-sm">
+                {project.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events Section -->
+  <section id="events" class="py-16 bg-primary/5">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold font-display mb-6 text-center">Upcoming Events</h2>
+      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+        Check out where you can see my work or performances in the coming months.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {upcomingEvents.map((event) => (
+          <div class="scrapbook-paper bg-white/95 overflow-hidden">
+            <div class="border-b border-border p-4">
+              <h3 class="text-lg font-bold font-display">{event.title}</h3>
+            </div>
+            <div class="p-5">
+              <div class="flex items-center text-sm mb-3">
+                <svg class="w-4 h-4 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>{event.date}</span>
+              </div>
+              <div class="flex items-center text-sm mb-4">
+                <svg class="w-4 h-4 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>{event.location}</span>
+              </div>
+              <p class="text-sm text-muted-foreground mb-4">{event.description}</p>
+              <a 
+                href="#" 
+                class={buttonVariants({ variant: "outline", size: "sm", class: "w-full" })}
+              >
+                Learn More
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</ProfileLayout>

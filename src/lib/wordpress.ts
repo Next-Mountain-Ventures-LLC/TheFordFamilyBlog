@@ -492,14 +492,29 @@ export async function getAuthorBySlug(slug: string): Promise<WordPressAuthor | n
 }
 
 /**
- * Fetches posts by author ID
+ * Fetches posts by author ID or name
  */
-export async function getPostsByAuthor(authorId: number, limit = 10): Promise<BlogPost[]> {
+export async function getPostsByAuthor(authorIdOrName: number | string, limit = 10): Promise<BlogPost[]> {
   try {
-    console.log(`Fetching posts by author ID ${authorId} from: ${API_URL}/posts?_embed&author=${authorId}&per_page=${limit}`);
+    let queryParam: string;
+    
+    // If authorIdOrName is a number, use it directly as the author ID
+    if (typeof authorIdOrName === 'number') {
+      queryParam = `author=${authorIdOrName}`;
+    } 
+    // If it's a string but represents a number, convert and use as ID
+    else if (!isNaN(Number(authorIdOrName))) {
+      queryParam = `author=${authorIdOrName}`;
+    }
+    // Otherwise, search posts and filter by author name
+    else {
+      queryParam = `_embed`; // We'll filter by author name after fetching
+    }
+    
+    console.log(`Fetching posts for author "${authorIdOrName}" from: ${API_URL}/posts?${queryParam}&per_page=${limit}`);
     
     const response = await fetch(
-      `${API_URL}/posts?_embed&author=${authorId}&per_page=${limit}`,
+      `${API_URL}/posts?${queryParam}&per_page=${limit}`,
       {
         headers: {
           'Accept': 'application/json',
@@ -510,16 +525,33 @@ export async function getPostsByAuthor(authorId: number, limit = 10): Promise<Bl
     );
 
     if (!response.ok) {
-      console.error(`API response not OK for author ID ${authorId}: Status ${response.status}`);
+      console.error(`API response not OK for author "${authorIdOrName}": Status ${response.status}`);
       throw new Error(`Failed to fetch posts by author: ${response.status}`);
     }
 
-    const posts: WordPressPost[] = await response.json();
-    console.log(`Successfully fetched ${posts.length} posts by author ID ${authorId}`);
+    let posts: WordPressPost[] = await response.json();
+    
+    // If we're searching by author name (string), filter the results
+    if (typeof authorIdOrName === 'string' && isNaN(Number(authorIdOrName))) {
+      const authorName = authorIdOrName;
+      // Check both raw author name and mapped name (for email addresses)
+      posts = posts.filter(post => {
+        const postAuthor = post._embedded?.author?.[0]?.name || '';
+        const mappedAuthor = getAuthorFullName(postAuthor);
+        
+        return (
+          // Check if either the original or mapped author name contains the search term
+          postAuthor.toLowerCase().includes(authorName.toLowerCase()) ||
+          mappedAuthor.toLowerCase().includes(authorName.toLowerCase())
+        );
+      });
+    }
+    
+    console.log(`Successfully fetched ${posts.length} posts for author "${authorIdOrName}"`);
     return posts.map(transformWordPressPost);
   } catch (error) {
-    console.error(`Error fetching WordPress posts by author ID ${authorId}:`, error);
-    throw error;
+    console.error(`Error fetching WordPress posts for author "${authorIdOrName}":`, error);
+    return []; // Return empty array instead of throwing to avoid breaking profile pages
   }
 }
 
