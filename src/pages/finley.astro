@@ -1,146 +1,384 @@
 ---
-import ProfileLayout from "@/layouts/ProfileLayout.astro";
-import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
+import { Image } from 'astro:assets';
+import { getPostsByAuthor } from '@/lib/wordpress';
+import BlogCarousel from "@/components/BlogCarousel";
+import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
+import "../styles/finley-animations.css";
 
-// Design projects data
-const designProjects = [
+// Finley's modeling portfolio images
+const modelingImages = [
   {
-    title: "Sustainable Fashion Collection",
-    description: "A collection of eco-friendly clothing designs using recycled materials and low-impact dyes.",
-    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&auto=format&q=80",
-    category: "Fashion Design"
+    url: "https://images.unsplash.com/photo-1747919778501-033bae25bdf9?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "School uniform inspired photoshoot"
   },
   {
-    title: "Digital Art Portfolio",
-    description: "A series of digital illustrations exploring themes of identity, nature, and imagination.",
-    image: "https://images.unsplash.com/photo-1629196914604-925a86a45128?w=800&auto=format&q=80",
-    category: "Digital Art"
+    url: "https://images.unsplash.com/photo-1629350260660-6053fe4fcf47?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Simple portrait session"
   },
   {
-    title: "Interior Design Concepts",
-    description: "Creative room layouts and decor ideas that blend functionality with aesthetic appeal.",
-    image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&auto=format&q=80",
-    category: "Interior Design"
+    url: "https://images.unsplash.com/photo-1712574824062-2ae6156b5cfd?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Rainy day school uniform series"
   },
   {
-    title: "Brand Identity Design",
-    description: "Logo designs, color palettes, and brand guidelines for various client projects.",
-    image: "https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=800&auto=format&q=80",
-    category: "Branding"
+    url: "https://images.unsplash.com/photo-1676149038939-95fb9eedfdfa?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Pink backdrop photoshoot"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1581132285926-a4c91a76ef14?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Blue-eyed portrait study"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1667668837657-6c34aaf06133?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Pink fashion editorial"
   }
 ];
 
-// Upcoming events
+// Video content
+const videoContent = [
+  {
+    title: "My First Cosplay Tutorial",
+    thumbnail: "https://images.unsplash.com/photo-1636509670951-3bd2911cbac9?w=600&h=400&auto=format&fit=crop&q=80",
+    description: "Learn how I created my first anime character cosplay from start to finish",
+    duration: "12:48",
+    date: "April 2, 2025"
+  },
+  {
+    title: "Behind the Scenes: Spring Photoshoot",
+    thumbnail: "https://images.unsplash.com/photo-1684527298165-489ff65e2338?w=600&h=400&auto=format&fit=crop&q=80",
+    description: "Come along with me for a day of photoshooting in the cherry blossom garden",
+    duration: "8:15",
+    date: "March 15, 2025"
+  },
+  {
+    title: "Anime-Inspired Makeup Tutorial",
+    thumbnail: "https://images.unsplash.com/photo-1697059171242-79d8eeaa56b2?w=600&h=400&auto=format&fit=crop&q=80",
+    description: "Creating the perfect anime-inspired makeup look for cosplay or everyday wear",
+    duration: "15:32",
+    date: "February 28, 2025"
+  },
+  {
+    title: "My Favorite Anime Series Review",
+    thumbnail: "https://images.unsplash.com/photo-1711276320022-25adbff1def7?w=600&h=400&auto=format&fit=crop&q=80",
+    description: "I review my top 5 favorite anime series and why I love them",
+    duration: "22:17",
+    date: "January 10, 2025"
+  }
+];
+
+// Upcoming modeling events
 const upcomingEvents = [
   {
-    title: "Young Designers Showcase",
-    date: "November 15-18, 2025",
-    location: "City Arts Center",
-    description: "Featuring my latest fashion designs in the annual youth showcase exhibition."
+    title: "Anime Convention Cosplay Contest",
+    date: "May 15-17, 2025",
+    location: "Downtown Convention Center",
+    description: "I'll be participating in the annual cosplay contest representing my favorite anime character!"
   },
   {
-    title: "Community Theater Production",
-    date: "December 5-12, 2025",
-    location: "Riverside Theater",
-    description: "Playing the role of Elizabeth in the winter production of 'Pride and Prejudice'."
+    title: "Spring Cherry Blossom Photoshoot",
+    date: "April 8, 2025",
+    location: "Sakura Gardens",
+    description: "Special springtime photoshoot among the beautiful cherry blossoms in full bloom"
   },
   {
-    title: "Digital Art Workshop",
-    date: "January 22, 2026",
-    location: "Virtual Event",
-    description: "Hosting an online workshop teaching digital illustration techniques for beginners."
+    title: "Young Models Showcase",
+    date: "June 22, 2025",
+    location: "Fashion District Gallery",
+    description: "Participating in a special showcase featuring young aspiring models and their portfolios"
   }
 ];
+
+// Get Finley's blog posts from WordPress
+let finleyPosts = [];
+try {
+  const posts = await getPostsByAuthor("Finley Ford", 10);
+  finleyPosts = posts;
+} catch (error) {
+  console.error("Error fetching posts for Finley:", error);
+}
 ---
 
-<ProfileLayout
-  name="Finley Ford"
-  title="Designer & Aspiring Actress"
-  tagline="Creative Artist, Fashion Enthusiast & Digital Creator"
-  pageTitle="Finley Ford - Designer & Creative Artist | The Ford Family"
-  pageDescription="Meet Finley Ford, a young designer and creative artist with a passion for fashion, digital art, and performing arts."
-  description="Exploring creativity through design, fashion, and digital media."
-  image={finleyImage}
-  bio={[
-    "As a young designer and creative artist, I express my imagination through multiple mediums including fashion design, digital art, and performing arts. I believe that creativity has the power to inspire change and connect people.",
-    "When I'm not working on design projects, you can find me acting in community theater productions, creating content for our family's YouTube channel, or experimenting with sustainable fashion concepts."
-  ]}
-  social={{
-    instagram: "https://instagram.com/",
-    youtube: "https://www.youtube.com/@TheFordFamilyLife"
-  }}
+<BaseLayout
+  title="Finley Ford - Young Model & Anime Enthusiast | The Ford Family"
+  description="Meet Finley Ford, a young model, anime enthusiast, and content creator who shares her passion for fashion, cosplay, and Japanese culture."
 >
-  <!-- Creative Portfolio Section -->
-  <section id="portfolio" class="py-16">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold font-display mb-6 text-center">Creative Portfolio</h2>
-      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-        A collection of my design work spanning fashion, digital art, and creative projects.
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {designProjects.map((project, index) => (
-          <div class="group relative overflow-hidden rounded-md shadow-md bg-white hover:shadow-xl transition-shadow duration-300">
-            <div class="relative h-64 overflow-hidden">
-              <img 
-                src={project.image} 
-                alt={project.title}
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div class="absolute bottom-0 left-0 bg-gradient-to-t from-black/70 to-transparent w-full h-1/2"></div>
-              <div class="absolute top-4 right-4 bg-accent/90 backdrop-blur-sm text-accent-foreground text-xs px-3 py-1 rounded-full font-medium">
-                {project.category}
-              </div>
+  <!-- Background anime pattern and cherry blossoms -->
+  <div class="anime-bg min-h-screen bg-gradient-to-b from-pink-100 via-purple-100 to-pink-100">
+    <!-- Cherry tree background element -->
+    <div class="cherry-tree"></div>
+    
+    <!-- Falling petals animations -->
+    <div class="falling-petal" style="left: 10%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 25%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 40%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 55%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 70%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 85%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 15%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 30%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 45%; top: -5%;"></div>
+    <div class="falling-petal" style="left: 60%; top: -5%;"></div>
+    
+    <!-- Hero Section -->
+    <section class="relative py-24 overflow-hidden">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="order-2 lg:order-1 animate-fade-in z-10">
+            <div class="inline-block bg-pink-300/40 backdrop-blur-sm px-4 py-1 rounded-full text-pink-800 text-sm font-medium mb-6">
+              Young Model & Anime Enthusiast
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold font-display mb-2 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
-              <p class="text-muted-foreground text-sm">
-                {project.description}
+            <h1 class="text-4xl md:text-6xl font-bold font-display mb-6 text-pink-800 leading-tight">
+              Finley Ford
+            </h1>
+            <p class="text-xl text-pink-700 mb-6 font-medium">
+              Content Creator, Aspiring Model & Japanese Culture Lover
+            </p>
+            <div class="prose prose-lg mb-8 max-w-none">
+              <p class="text-lg text-gray-700">
+                Welcome to my colorful world! I'm Finley, and I'm passionate about anime, modeling, and creating content inspired by Japanese culture and fashion. I love bringing anime characters to life through cosplay and sharing my creative journey.
+              </p>
+              <p class="text-lg text-gray-700">
+                When I'm not in front of the camera or creating videos, you can find me drawing manga-style art, practicing Japanese, and watching my favorite anime series. Join me as I explore the magical intersection of fashion, art, and storytelling!
               </p>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Upcoming Events Section -->
-  <section id="events" class="py-16 bg-primary/5">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold font-display mb-6 text-center">Upcoming Events</h2>
-      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-        Check out where you can see my work or performances in the coming months.
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        {upcomingEvents.map((event) => (
-          <div class="scrapbook-paper bg-white/95 overflow-hidden">
-            <div class="border-b border-border p-4">
-              <h3 class="text-lg font-bold font-display">{event.title}</h3>
-            </div>
-            <div class="p-5">
-              <div class="flex items-center text-sm mb-3">
-                <svg class="w-4 h-4 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                <span>{event.date}</span>
-              </div>
-              <div class="flex items-center text-sm mb-4">
-                <svg class="w-4 h-4 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span>{event.location}</span>
-              </div>
-              <p class="text-sm text-muted-foreground mb-4">{event.description}</p>
+            
+            <div class="flex flex-wrap gap-4 mt-8">
               <a 
-                href="#" 
-                class={buttonVariants({ variant: "outline", size: "sm", class: "w-full" })}
+                href="#videos"
+                class={buttonVariants({ size: "lg", className: "bg-pink-500 hover:bg-pink-600 text-white border-none" })}
               >
-                Learn More
+                Watch My Videos
+              </a>
+              <a 
+                href="#gallery"
+                class={buttonVariants({ variant: "outline", size: "lg", className: "border-pink-300 text-pink-700 hover:bg-pink-100" })}
+              >
+                Modeling Gallery
               </a>
             </div>
           </div>
-        ))}
+          <div class="order-1 lg:order-2 flex justify-center relative z-10">
+            <div class="absolute w-64 h-64 rounded-full bg-pink-300/30 blur-3xl -z-10 opacity-50 animate-pulse"></div>
+            <div class="scrapbook-photo" style="--rotate: 2deg">
+              <div class="scrapbook-tape"></div>
+              <img 
+                src={finleyImage.src} 
+                alt="Finley Ford" 
+                class="rounded-sm max-w-sm w-full shadow-xl object-cover hover:scale-[1.01] transition-all duration-300 border-4 border-pink-100"
+              />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-</ProfileLayout>
+    </section>
+
+    <!-- Video Content Section -->
+    <section id="videos" class="py-16 bg-pink-100/80 backdrop-blur-sm">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-3 text-center text-pink-800">
+          My Video Content
+        </h2>
+        <p class="text-center text-pink-600 mb-12 max-w-3xl mx-auto">
+          Join me on my creative journey through anime, cosplay, and behind-the-scenes modeling
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {videoContent.map((video) => (
+            <div class="video-card bg-white/60 backdrop-blur-sm border border-pink-200 rounded-xl overflow-hidden">
+              <div class="relative h-52 overflow-hidden">
+                <img 
+                  src={video.thumbnail} 
+                  alt={video.title}
+                  class="w-full h-full object-cover"
+                />
+                <div class="video-play-button"></div>
+              </div>
+              <div class="p-6">
+                <div class="flex justify-between items-center mb-2">
+                  <h3 class="text-xl font-bold text-pink-800">{video.title}</h3>
+                  <span class="px-3 py-1 bg-pink-200/70 text-pink-700 text-xs rounded-full">
+                    {video.duration}
+                  </span>
+                </div>
+                <p class="text-gray-600 text-sm mb-3">
+                  {video.description}
+                </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-xs text-pink-500">{video.date}</span>
+                  <a 
+                    href="#"
+                    class={buttonVariants({ size: "sm", className: "bg-pink-500 hover:bg-pink-600 text-white border-none" })}
+                  >
+                    Watch Video
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div class="text-center mt-10">
+          <a 
+            href="https://www.youtube.com/@TheFordFamilyLife"
+            target="_blank"
+            rel="noreferrer"
+            class={buttonVariants({ size: "lg", variant: "outline", className: "border-pink-400 text-pink-700 hover:bg-pink-200/50" })}
+          >
+            Visit Our YouTube Channel
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    {finleyPosts.length > 0 && (
+      <section id="blog" class="py-16 bg-gradient-to-r from-pink-50 to-purple-50">
+        <div class="container mx-auto">
+          <BlogCarousel 
+            client:visible
+            title="Finley's Articles"
+            description="Join me as I write about my favorite anime, modeling experiences, and creative projects."
+            posts={finleyPosts}
+          />
+        </div>
+      </section>
+    )}
+
+    <!-- Modeling Gallery -->
+    <section id="gallery" class="py-16 bg-purple-100/80 backdrop-blur-sm">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-3 text-center text-purple-800">
+          Modeling Gallery
+        </h2>
+        <p class="text-center text-purple-600 mb-12 max-w-3xl mx-auto">
+          Explore my portfolio of photoshoots and creative modeling projects
+        </p>
+        
+        <div class="modeling-gallery">
+          {modelingImages.map((image, index) => (
+            <div class="modeling-item" style={`--rotate: ${(index % 2 === 0) ? "2deg" : "-1deg"}`}>
+              <img 
+                src={image.url} 
+                alt={image.caption}
+                class="rounded-lg shadow-lg border-4 border-white"
+              />
+              <div class="modeling-caption">
+                <p class="text-sm font-medium">{image.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+    <!-- Upcoming Events Section -->
+    <section id="events" class="py-16 bg-pink-50/90 backdrop-blur-sm">
+      <div class="container max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-3 text-center text-pink-800">
+          Upcoming Events
+        </h2>
+        <p class="text-center text-pink-600 mb-12">
+          Here's where you can find me in the coming months
+        </p>
+        
+        <div class="space-y-6">
+          {upcomingEvents.map((event) => (
+            <div class="anime-card bg-white/80 backdrop-blur-sm border border-pink-200 p-6 rounded-xl">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h3 class="text-xl font-bold text-pink-800 mb-1">{event.title}</h3>
+                  <p class="text-sm text-gray-600 mb-3">{event.description}</p>
+                  <div class="flex flex-wrap gap-4">
+                    <span class="inline-flex items-center text-xs text-pink-600 gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar">
+                        <path d="M8 2v4"/>
+                        <path d="M16 2v4"/>
+                        <rect width="18" height="18" x="3" y="4" rx="2"/>
+                        <path d="M3 10h18"/>
+                      </svg>
+                      {event.date}
+                    </span>
+                    <span class="inline-flex items-center text-xs text-purple-600 gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin">
+                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                      </svg>
+                      {event.location}
+                    </span>
+                  </div>
+                </div>
+                <div class="mt-4 md:mt-0">
+                  <a 
+                    href="#"
+                    class={buttonVariants({ size: "sm", className: "bg-pink-500 hover:bg-pink-600 text-white border-none" })}
+                  >
+                    Learn More
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gradient-to-b from-purple-50 to-pink-100 backdrop-blur-sm">
+      <div class="container max-w-4xl mx-auto">
+        <div class="bg-white/80 border border-pink-200 p-8 rounded-lg backdrop-blur-sm shadow-xl">
+          <h2 class="text-3xl font-bold font-display mb-6 text-center text-pink-800">
+            Connect With Me
+          </h2>
+          <p class="text-center text-pink-600 mb-8">
+            Have questions about my modeling work or want to collaborate on a project? Send me a message!
+          </p>
+          
+          <form class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="w-full px-4 py-2 bg-pink-50/50 border border-pink-200 rounded-md text-gray-900 placeholder:text-pink-300 focus:border-pink-400 focus:ring focus:ring-pink-200 focus:ring-opacity-50"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="w-full px-4 py-2 bg-pink-50/50 border border-pink-200 rounded-md text-gray-900 placeholder:text-pink-300 focus:border-pink-400 focus:ring focus:ring-pink-200 focus:ring-opacity-50"
+                  placeholder="Your email"
+                />
+              </div>
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4" 
+                class="w-full px-4 py-2 bg-pink-50/50 border border-pink-200 rounded-md text-gray-900 placeholder:text-pink-300 focus:border-pink-400 focus:ring focus:ring-pink-200 focus:ring-opacity-50"
+                placeholder="Your message"
+              ></textarea>
+            </div>
+            <input type="hidden" name="form_name" value="Finley Contact Form" />
+            <div class="text-center">
+              <button 
+                type="submit" 
+                class={buttonVariants({ size: "lg", className: "bg-pink-500 hover:bg-pink-600 text-white border-none" })}
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

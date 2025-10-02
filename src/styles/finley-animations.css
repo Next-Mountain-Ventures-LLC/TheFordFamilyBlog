@@ -1,0 +1,297 @@
+/* Anime Animation Styles for Finley's Page */
+
+/* Background cherry blossom pattern and animation */
+.anime-bg {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.anime-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='%23ffc0cb20' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a1 1 0 0 1 1 1c0 1.1-1 2-2 3-1-1-2-1.9-2-3a1 1 0 0 1 1-1h2Z'/%3E%3Cpath d='M12 4c1 1 2 2 2 3-1 1-1.9 2-3 2'/%3E%3Cpath d='M12 4c-1 1-2 2-2 3 1 1 1.9 2 3 2'/%3E%3Cpath d='M10.1 7.1c-1 0-1.9 1-1.1 3 1.9 0 3-1.1 3-2a1 1 0 0 0-1-1h-1Z'/%3E%3Cpath d='M13.8 7.1c1 0 1.9 1 1.1 3-1.9 0-3-1.1-3-2a1 1 0 0 1 1-1h1Z'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='none' stroke='%23e1bee720' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a1 1 0 0 1 1 1c0 1.1-1 2-2 3-1-1-2-1.9-2-3a1 1 0 0 1 1-1h2Z'/%3E%3Cpath d='M12 4c1 1 2 2 2 3-1 1-1.9 2-3 2'/%3E%3Cpath d='M12 4c-1 1-2 2-2 3 1 1 1.9 2 3 2'/%3E%3Cpath d='M10.1 7.1c-1 0-1.9 1-1.1 3 1.9 0 3-1.1 3-2a1 1 0 0 0-1-1h-1Z'/%3E%3Cpath d='M13.8 7.1c1 0 1.9 1 1.1 3-1.9 0-3-1.1-3-2a1 1 0 0 1 1-1h1Z'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 120px, 180px;
+  opacity: 0.2;
+  z-index: 0;
+}
+
+/* Cherry blossom tree */
+.cherry-tree {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='400' viewBox='0 0 200 400' fill='none'%3E%3Cpath d='M100 400V200' stroke='%23654321' stroke-width='10' stroke-linecap='round'/%3E%3Cpath d='M100 200C100 200 150 150 180 170' stroke='%23654321' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M100 240C100 240 60 190 30 200' stroke='%23654321' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M100 180C100 180 60 130 50 100' stroke='%23654321' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M100 220C100 220 130 170 120 140' stroke='%23654321' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+/* Falling cherry blossoms animation */
+.falling-petal {
+  position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23ffc0cb' stroke='%23ffc0cb30' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a1 1 0 0 1 1 1c0 1.1-1 2-2 3-1-1-2-1.9-2-3a1 1 0 0 1 1-1h2Z'/%3E%3Cpath d='M12 4c1 1 2 2 2 3-1 1-1.9 2-3 2'/%3E%3Cpath d='M12 4c-1 1-2 2-2 3 1 1 1.9 2 3 2'/%3E%3Cpath d='M10.1 7.1c-1 0-1.9 1-1.1 3 1.9 0 3-1.1 3-2a1 1 0 0 0-1-1h-1Z'/%3E%3Cpath d='M13.8 7.1c1 0 1.9 1 1.1 3-1.9 0-3-1.1-3-2a1 1 0 0 1 1-1h1Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 15px;
+  height: 15px;
+  z-index: 2;
+  opacity: 0.8;
+  animation: falling-petal 15s linear infinite;
+}
+
+.falling-petal:nth-child(2) {
+  animation-delay: -2s;
+  animation-duration: 12s;
+}
+
+.falling-petal:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 16s;
+}
+
+.falling-petal:nth-child(4) {
+  animation-delay: -6s;
+  animation-duration: 13s;
+}
+
+.falling-petal:nth-child(5) {
+  animation-delay: -8s;
+  animation-duration: 18s;
+}
+
+.falling-petal:nth-child(6) {
+  animation-delay: -10s;
+  animation-duration: 14s;
+}
+
+.falling-petal:nth-child(7) {
+  animation-delay: -12s;
+  animation-duration: 17s;
+}
+
+.falling-petal:nth-child(8) {
+  animation-delay: -14s;
+  animation-duration: 11s;
+}
+
+.falling-petal:nth-child(9) {
+  animation-delay: -16s;
+  animation-duration: 19s;
+}
+
+.falling-petal:nth-child(10) {
+  animation-delay: -18s;
+  animation-duration: 15s;
+}
+
+@keyframes falling-petal {
+  0% {
+    transform: translateY(-5%) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(105%) translateX(20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Anime-themed sections */
+.anime-section {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anime-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Anime-style cards with effects */
+.anime-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.anime-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.2) 0%, rgba(147, 112, 219, 0.2) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.anime-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.anime-card:hover::after {
+  opacity: 1;
+}
+
+/* Video card styling */
+.video-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.video-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.video-card:hover::before {
+  opacity: 1;
+}
+
+.video-play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 192, 203, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 2;
+}
+
+.video-play-button::after {
+  content: "";
+  border-style: solid;
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent white;
+  margin-left: 4px;
+}
+
+.video-card:hover .video-play-button {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Modeling gallery styles */
+.modeling-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.modeling-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  aspect-ratio: 3/4;
+  transform: rotate(var(--rotate, 0deg));
+  transition: transform 0.3s ease;
+}
+
+.modeling-item:hover {
+  transform: rotate(0deg) scale(1.03);
+  z-index: 10;
+}
+
+.modeling-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.modeling-item:hover img {
+  transform: scale(1.1);
+}
+
+.modeling-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(219, 112, 147, 0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modeling-item:hover::after {
+  opacity: 1;
+}
+
+.modeling-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  color: white;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.modeling-item:hover .modeling-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Anime-themed colors */
+.anime-pink-gradient {
+  background: linear-gradient(135deg, #ff92a5 0%, #f67280 100%);
+  color: white;
+}
+
+.anime-purple-gradient {
+  background: linear-gradient(135deg, #c792ea 0%, #9370db 100%);
+  color: white;
+}
+
+.anime-blue-gradient {
+  background: linear-gradient(135deg, #89cff0 0%, #6495ed 100%);
+  color: white;
+}
