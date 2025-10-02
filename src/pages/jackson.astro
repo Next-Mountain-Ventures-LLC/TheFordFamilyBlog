@@ -1,151 +1,483 @@
 ---
-import ProfileLayout from "@/layouts/ProfileLayout.astro";
-import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
+import { Image } from 'astro:assets';
+import { getPostsByAuthor } from '@/lib/wordpress';
+import BlogCarousel from "@/components/BlogCarousel";
+import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
+import "../styles/jackson-animations.css";
 
-// Projects data
-const projects = [
+// Jackson's pet data
+const pets = [
   {
-    title: "3D Printed Prosthetic Hand",
-    description: "Affordable prosthetic hand designed for children in developing countries, allowing for easy resizing as they grow.",
-    image: "https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=800&auto=format&q=80",
-    tags: ["3D Printing", "Healthcare", "Accessibility"]
+    name: "Rex",
+    type: "Dog",
+    breed: "Golden Retriever",
+    age: 4,
+    description: "Rex is my trusty companion who loves to explore and play fetch. He's especially good with other animals and always follows me on adventures.",
+    image: "https://images.unsplash.com/photo-1705338098705-ebfbc17989dd?w=600&h=400&auto=format&fit=crop&q=80"
   },
   {
-    title: "Remote-Controlled Drone",
-    description: "Custom-built drone with extended battery life and modular attachment system for various payloads.",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&auto=format&q=80",
-    tags: ["Drones", "Electronics", "Programming"]
+    name: "Whiskers",
+    type: "Cat",
+    breed: "Tabby",
+    age: 3,
+    description: "Whiskers is a curious cat who loves to watch me work on my 3D printing projects. She's always trying to catch the filament as it extrudes!",
+    image: "https://images.unsplash.com/photo-1708515870578-e2148d8468f3?w=600&h=400&auto=format&fit=crop&q=80"
   },
   {
-    title: "Smart Irrigation System",
-    description: "Automated irrigation system that uses soil moisture sensors to optimize water usage for home gardens.",
-    image: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&auto=format&q=80",
-    tags: ["IoT", "Sustainability", "Arduino"]
-  },
-  {
-    title: "3D Printing Business",
-    description: "My own small business creating custom 3D printed items for clients, from prototypes to decorative pieces.",
-    image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=800&auto=format&q=80",
-    tags: ["Entrepreneurship", "3D Design", "Customer Service"]
+    name: "Speedy",
+    type: "Turtle",
+    breed: "Red-eared Slider",
+    age: 2,
+    description: "Despite his name, Speedy is actually quite slow! He enjoys sunbathing and swimming in his custom-built 3D printed habitat.",
+    image: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=600&h=400&auto=format&fit=crop&q=80"
   }
 ];
 
-// Online courses data
-const courses = [
+// Timeline events
+const timelineEvents = [
   {
-    title: "3D Printing for Beginners",
-    description: "A step-by-step guide to getting started with 3D printing, from choosing your first printer to creating amazing projects.",
-    image: "https://images.unsplash.com/photo-1563642421748-5047b6585a4a?w=800&auto=format&q=80",
-    level: "Beginner",
-    price: "$49"
+    year: 2014,
+    event: "Born into the Ford Family",
+    animalRelated: false,
+    icon: "birth"
   },
   {
-    title: "Young Inventor's Arduino Projects",
-    description: "Ten fun electronics projects that teach programming, circuit design, and problem-solving skills.",
-    image: "https://images.unsplash.com/photo-1553406830-ef2513450d76?w=800&auto=format&q=80",
-    level: "Intermediate",
-    price: "$59"
+    year: 2016,
+    event: "Got my first pet - a goldfish named Bubbles",
+    animalRelated: true,
+    icon: "fish"
+  },
+  {
+    year: 2017,
+    event: "Visited the zoo for the first time and fell in love with animals",
+    animalRelated: true,
+    icon: "turtle"
+  },
+  {
+    year: 2019,
+    event: "Adopted Rex, my Golden Retriever",
+    animalRelated: true,
+    icon: "dog"
+  },
+  {
+    year: 2020,
+    event: "Started learning 3D modeling and printed my first animal figure - a lion",
+    animalRelated: true,
+    icon: "cat"
+  },
+  {
+    year: 2021,
+    event: "Adopted Whiskers the cat from the local shelter",
+    animalRelated: true,
+    icon: "cat"
+  },
+  {
+    year: 2022,
+    event: "Got Speedy the turtle and designed a custom 3D printed habitat",
+    animalRelated: true,
+    icon: "turtle"
+  },
+  {
+    year: 2023,
+    event: "Started selling my animal-themed 3D prints online",
+    animalRelated: true,
+    icon: "rabbit"
+  },
+  {
+    year: 2024,
+    event: "Began volunteering at the local animal shelter",
+    animalRelated: true,
+    icon: "dog"
+  },
+  {
+    year: 2025,
+    event: "Working on a new line of customizable 3D printed pet accessories",
+    animalRelated: true,
+    icon: "bird"
   }
 ];
+
+// 3D products data
+const products = [
+  {
+    title: "Customizable Pet Tag",
+    description: "3D printed pet tags that can be personalized with your pet's name and your contact information.",
+    price: "$12.99",
+    image: "https://images.unsplash.com/photo-1566411520896-01e7ca4726af?w=600&h=400&auto=format&fit=crop&q=80",
+    bestseller: true
+  },
+  {
+    title: "Turtle Habitat Dock",
+    description: "A floating dock for aquatic turtles that provides a comfortable basking area with easy access from the water.",
+    price: "$24.99",
+    image: "https://images.unsplash.com/photo-1548439739-0c3dab24a0f2?w=600&h=400&auto=format&fit=crop&q=80",
+    bestseller: false
+  },
+  {
+    title: "Interactive Cat Toy",
+    description: "A 3D printed mechanical toy that keeps cats entertained with unpredictable movements.",
+    price: "$18.99",
+    image: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=600&h=400&auto=format&fit=crop&q=80",
+    bestseller: false
+  },
+  {
+    title: "Modular Bird Feeder",
+    description: "Expandable bird feeder system that can be customized for different types of seeds and birds.",
+    price: "$29.99",
+    image: "https://images.unsplash.com/photo-1590871218101-fd5c06e617c4?w=600&h=400&auto=format&fit=crop&q=80",
+    bestseller: true
+  },
+  {
+    title: "Dog Puzzle Toy",
+    description: "A challenging puzzle toy for dogs that dispenses treats as they solve different sections.",
+    price: "$22.99",
+    image: "https://images.unsplash.com/photo-1546491764-67a5b8d5b3ae?w=600&h=400&auto=format&fit=crop&q=80",
+    bestseller: false
+  },
+  {
+    title: "Small Animal Maze",
+    description: "Connectable maze pieces for hamsters, mice, and other small pets with customizable layouts.",
+    price: "$19.99",
+    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=400&auto=format&fit=crop&q=80",
+    bestseller: false
+  }
+];
+
+// Animal gallery images
+const galleryImages = [
+  {
+    url: "https://images.unsplash.com/photo-1560653816-7d57bde85550?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Zebras in their natural habitat"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1614860441270-05c98a6c2a04?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Playful panda eating bamboo"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1512706229323-a1bd0f5fe282?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Curious raccoon exploring"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1709127430485-3cc38574fcb5?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Small monkey climbing rocks"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1756903483838-0d612ccf3b63?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Majestic giraffe in the savanna"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1649357067195-be0af95b9edc?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Kitten and puppy napping together"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1669391951254-597564ab8a45?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Zebra enjoying a grassy meal"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1667526921213-45102c9c54a1?w=600&h=400&auto=format&fit=crop&q=80",
+    caption: "Playful dogs and cats interacting"
+  }
+];
+
+// Get Jackson's blog posts from WordPress
+let jacksonPosts = [];
+try {
+  const posts = await getPostsByAuthor("Jackson Ford", 10);
+  jacksonPosts = posts;
+} catch (error) {
+  console.error("Error fetching posts for Jackson:", error);
+}
 ---
 
-<ProfileLayout
-  name="Jackson Ford"
-  title="Young Inventor & Entrepreneur"
-  tagline="3D Printing Enthusiast, Maker & STEM Educator"
-  pageTitle="Jackson Ford - Young Inventor & Entrepreneur | The Ford Family"
-  pageDescription="Meet Jackson Ford, a young inventor and entrepreneur specializing in 3D printing, electronics, and innovative problem-solving."
-  description="Sharing my journey of learning, creating, and building a business as a young inventor."
-  image={jacksonImage}
-  bio={[
-    "As a young inventor and entrepreneur, I'm passionate about using technology to solve real-world problems. I started my journey with 3D printing at age 11 and quickly discovered the amazing possibilities it offered.",
-    "Now I run my own small 3D printing business, create online courses for other young makers, and continuously work on new inventions and projects that combine electronics, programming, and 3D design."
-  ]}
-  social={{
-    youtube: "https://www.youtube.com/@TheFordFamilyLife"
-  }}
+<BaseLayout
+  title="Jackson Ford - Animal Lover & Young Inventor | The Ford Family"
+  description="Meet Jackson Ford, a young inventor, animal lover, and 3D printing enthusiast who creates innovative products for pets and animal care."
 >
-  <!-- Projects Section -->
-  <section id="projects" class="py-16">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold font-display mb-6 text-center">Featured Inventions</h2>
-      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-        Here are some of my favorite invention projects that showcase my work with 3D printing, electronics, and problem-solving.
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project) => (
-          <div class="scrapbook-photo w-full overflow-hidden" style={`--rotate: ${Math.random() > 0.5 ? "" : "-"}${Math.floor(Math.random() * 2)}deg;`}>
-            <div class="scrapbook-tape"></div>
-            <div class="bg-white p-6 rounded-sm shadow-sm">
-              <div class="mb-4 overflow-hidden rounded-sm">
+  <!-- Background animal pattern and animation -->
+  <div class="animal-bg min-h-screen bg-gradient-to-b from-teal-900 via-teal-800 to-teal-900">
+    <!-- Floating paw animations -->
+    <div class="floating-paw" style="left: 10%; top: 20%;"></div>
+    <div class="floating-paw" style="left: 30%; top: 60%;"></div>
+    <div class="floating-paw" style="left: 70%; top: 30%;"></div>
+    <div class="floating-paw" style="left: 85%; top: 70%;"></div>
+    <div class="floating-paw" style="left: 50%; top: 90%;"></div>
+    
+    <!-- Hero Section -->
+    <section class="relative py-24 overflow-hidden border-b border-teal-700">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="order-2 lg:order-1 animate-fade-in z-10">
+            <div class="inline-block bg-teal-800/60 px-4 py-1 rounded-full text-teal-100 text-sm font-medium mb-6 backdrop-blur-sm">
+              Animal Lover & Young Inventor
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold font-display mb-6 text-white leading-tight">
+              Jackson Ford
+            </h1>
+            <p class="text-xl text-teal-100 mb-6 font-medium">
+              3D Printing Enthusiast, Pet Owner & Wildlife Advocate
+            </p>
+            <div class="prose prose-lg mb-8 max-w-none text-teal-100">
+              <p class="text-lg">
+                As a young inventor and animal lover, I'm passionate about creating innovative solutions for pets and wildlife. I started my journey with 3D printing at age 10 and quickly began designing products for my own pets.
+              </p>
+              <p class="text-lg">
+                Now I run my own small business selling 3D printed pet accessories, volunteer at the local animal shelter, and share my love for animals through my designs and inventions.
+              </p>
+            </div>
+            
+            <div class="flex flex-wrap gap-4 mt-8">
+              <a 
+                href="#pets"
+                class={buttonVariants({ size: "lg", className: "bg-teal-600 hover:bg-teal-700 text-white border-none" })}
+              >
+                Meet My Pets
+              </a>
+              <a 
+                href="https://www.youtube.com/@TheFordFamilyLife"
+                target="_blank"
+                rel="noreferrer"
+                class={buttonVariants({ variant: "outline", size: "lg", className: "text-white border-teal-400 hover:bg-teal-700/50" })}
+              >
+                YouTube Channel
+              </a>
+            </div>
+          </div>
+          <div class="order-1 lg:order-2 flex justify-center relative z-10">
+            <div class="absolute w-64 h-64 rounded-full bg-teal-500/20 blur-3xl -z-10 opacity-50 animate-pulse"></div>
+            <div class="scrapbook-photo" style="--rotate: -1deg">
+              <div class="scrapbook-tape"></div>
+              <img 
+                src={jacksonImage.src} 
+                alt="Jackson Ford" 
+                class="rounded-sm max-w-sm w-full shadow-xl object-cover hover:scale-[1.01] transition-all duration-300 border-4 border-teal-200"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts Section -->
+    {jacksonPosts.length > 0 && (
+      <section id="blog" class="py-16 bg-teal-800/30 backdrop-blur-sm">
+        <div class="container mx-auto">
+          <BlogCarousel 
+            client:visible
+            title="Jackson's Articles"
+            description="Sharing my adventures with animals, 3D printing projects, and invention ideas."
+            posts={jacksonPosts}
+          />
+        </div>
+      </section>
+    )}
+
+    <!-- Pet Profiles Section -->
+    <section id="pets" class="py-16 bg-teal-900/70 backdrop-blur-sm">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-white">
+          Meet My Pets
+        </h2>
+        <p class="text-center text-teal-100 mb-12 max-w-3xl mx-auto">
+          These are my furry (and not-so-furry) friends who inspire me every day and help test my inventions!
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {pets.map((pet) => (
+            <div class="pet-card bg-teal-800/40 backdrop-blur-sm border border-teal-700">
+              <img 
+                src={pet.image} 
+                alt={pet.name}
+                class="w-full h-56 object-cover"
+              />
+              <div class="p-6">
+                <div class="flex justify-between items-center mb-2">
+                  <h3 class="text-xl font-bold text-white">{pet.name}</h3>
+                  <span class="px-3 py-1 bg-teal-700 text-teal-100 text-xs rounded-full">
+                    {pet.type}
+                  </span>
+                </div>
+                <div class="flex space-x-4 mb-4 text-teal-200 text-sm">
+                  <span>{pet.breed}</span>
+                  <span>Age: {pet.age}</span>
+                </div>
+                <p class="text-teal-100 text-sm">
+                  {pet.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-16 bg-teal-800/50 backdrop-blur-sm">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-white">
+          My Animal Journey
+        </h2>
+        <p class="text-center text-teal-100 mb-12 max-w-3xl mx-auto">
+          A timeline of my life events and experiences with animals.
+        </p>
+        
+        <div class="max-w-3xl mx-auto border-l-2 border-teal-500 pl-10 space-y-8 relative">
+          {timelineEvents.map((event) => (
+            <div class={`animal-timeline-item ${event.icon} bg-teal-800/30 backdrop-blur-sm p-6 rounded-lg border border-teal-700`}>
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="text-lg font-bold text-white">{event.year}</h3>
+                {event.animalRelated && (
+                  <span class="px-3 py-1 bg-teal-700 text-teal-100 text-xs rounded-full">
+                    Animal Related
+                  </span>
+                )}
+              </div>
+              <p class="text-teal-100">
+                {event.event}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+    <!-- Animal Gallery -->
+    <section id="gallery" class="py-16 bg-teal-900/70 backdrop-blur-sm">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-white">
+          Animal Gallery
+        </h2>
+        <p class="text-center text-teal-100 mb-12 max-w-3xl mx-auto">
+          A collection of my favorite animal photos that inspire my 3D designs.
+        </p>
+        
+        <div class="animal-gallery">
+          {galleryImages.map((image, index) => (
+            <div class="gallery-item" style={`--rotate: ${(index % 2 === 0) ? "1deg" : "-1deg"}`}>
+              <img 
+                src={image.url} 
+                alt={image.caption}
+              />
+              <div class="gallery-caption">
+                <p class="text-sm font-medium">{image.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+    
+    <!-- 3D Products Section -->
+    <section id="products" class="py-16 bg-teal-800/40 backdrop-blur-sm">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-white">
+          My 3D Printed Animal Products
+        </h2>
+        <p class="text-center text-teal-100 mb-12 max-w-3xl mx-auto">
+          Check out my latest 3D printed products designed specifically for pets and animal lovers.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <div class="product-card bg-teal-800/30 backdrop-blur-sm border border-teal-700">
+              {product.bestseller && (
+                <div class="product-badge px-3 py-1 bg-amber-600 text-white text-xs font-bold rounded-full">
+                  Bestseller
+                </div>
+              )}
+              <div class="h-48 overflow-hidden">
                 <img 
-                  src={project.image} 
-                  alt={project.title}
-                  class="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
+                  src={product.image} 
+                  alt={product.title}
+                  class="w-full h-full object-cover"
                 />
               </div>
-              <h3 class="text-xl font-bold font-display mb-2">{project.title}</h3>
-              <p class="text-muted-foreground mb-4 text-sm">{project.description}</p>
-              <div class="flex flex-wrap gap-2 mt-auto">
-                {project.tags.map(tag => (
-                  <span class="text-xs bg-muted px-2 py-1 rounded-full">{tag}</span>
-                ))}
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-white mb-2">{product.title}</h3>
+                <p class="text-teal-100 text-sm mb-4">
+                  {product.description}
+                </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-teal-300 font-bold">{product.price}</span>
+                  <a 
+                    href="#"
+                    class={buttonVariants({ size: "sm", className: "bg-teal-600 hover:bg-teal-700 text-white border-none" })}
+                  >
+                    View Product
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        
+        <div class="text-center mt-12">
+          <a 
+            href="#"
+            class={buttonVariants({ size: "lg", className: "bg-teal-600 hover:bg-teal-700 text-white border-none" })}
+          >
+            View All Products
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Courses Section -->
-  <section id="courses" class="py-16 bg-primary/5">
-    <div class="container mx-auto">
-      <h2 class="text-3xl font-bold font-display mb-6 text-center">Online Courses</h2>
-      <p class="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-        Learn 3D printing, electronics, and invention skills with my step-by-step online courses designed for young makers.
-      </p>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        {courses.map((course) => (
-          <div class="scrapbook-paper bg-white/95 overflow-hidden">
-            <div class="relative">
-              <img 
-                src={course.image} 
-                alt={course.title}
-                class="w-full h-48 object-cover"
-              />
-              <div class="absolute top-4 right-4 bg-secondary text-secondary-foreground text-xs px-3 py-1 rounded-full font-medium">
-                {course.level}
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-teal-900/80 backdrop-blur-sm">
+      <div class="container max-w-4xl mx-auto">
+        <div class="bg-teal-800/40 border border-teal-700 p-8 rounded-lg backdrop-blur-sm">
+          <h2 class="text-3xl font-bold font-display mb-6 text-center text-white">
+            Get In Touch
+          </h2>
+          <p class="text-center text-teal-100 mb-8">
+            Have questions about my 3D printed pet products or want to share your own animal stories? Send me a message!
+          </p>
+          
+          <form class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-teal-100 mb-1">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="w-full px-4 py-2 bg-teal-700/50 border border-teal-600 rounded-md text-white placeholder:text-teal-300"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-teal-100 mb-1">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="w-full px-4 py-2 bg-teal-700/50 border border-teal-600 rounded-md text-white placeholder:text-teal-300"
+                  placeholder="Your email"
+                />
               </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold font-display mb-2">{course.title}</h3>
-              <p class="text-muted-foreground mb-4 text-sm">{course.description}</p>
-              <div class="flex justify-between items-center">
-                <span class="font-bold text-lg">{course.price}</span>
-                <a
-                  href="#"
-                  class={buttonVariants({ size: "sm" })}
-                >
-                  Enroll Now
-                </a>
-              </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-teal-100 mb-1">Message</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="4" 
+                class="w-full px-4 py-2 bg-teal-700/50 border border-teal-600 rounded-md text-white placeholder:text-teal-300"
+                placeholder="Your message"
+              ></textarea>
             </div>
-          </div>
-        ))}
+            <div class="text-center">
+              <button 
+                type="submit" 
+                class={buttonVariants({ size: "lg", className: "bg-teal-600 hover:bg-teal-700 text-white border-none" })}
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      
-      <div class="text-center mt-12">
-        <a 
-          href="#"
-          class={buttonVariants({ variant: "outline", size: "lg" })}
-        >
-          View All Courses
-        </a>
-      </div>
-    </div>
-  </section>
-</ProfileLayout>
+    </section>
+  </div>
+</BaseLayout>

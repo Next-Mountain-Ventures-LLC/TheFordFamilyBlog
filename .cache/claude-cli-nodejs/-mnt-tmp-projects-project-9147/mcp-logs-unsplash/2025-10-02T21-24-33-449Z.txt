@@ -1,0 +1,74 @@
+[
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:24:33.746Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:24:33.961Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:24:34.008Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:24:34.009Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:24:34.009Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:24:34.010Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-10-02T21:25:11.279Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:25:11.280Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1649357067195-be0af95b9edc?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a cat laying next to a puppy on the ground\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1667526921213-45102c9c54a1?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a dog jumping over two cats\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1709127430485-3cc38574fcb5?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a small monkey is climbing up a rock\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1705338098705-ebfbc17989dd?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a couple of dogs standing next to each other\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1708515870578-e2148d8468f3?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a cat sitting in the grass near some plants\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1736345677790-fa997ad9585f?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"A couple of cats standing next to each other\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1687769149384-d2d264691659?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a dog behind a fence looking at the camera\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1755624380080-9489514d5421?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Mother cat with kittens resting under a tree\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1663001352044-e79c5e4dfa63?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a cat in the woods\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1709743243488-e61376a66759?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a couple of dogs standing next to each other\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1614860441270-05c98a6c2a04?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"white and black panda on stainless steel bucket\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1512706229323-a1bd0f5fe282?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"grey raccoon\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1649357067195-be0af95b9edc?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a cat laying next to a puppy on the ground\"},{\"url\":\"https://images.unsplash.com/photo-1667526921213-45102c9c54a1?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a dog jumping over two cats\"},{\"url\":\"https://images.unsplash.com/photo-1709127430485-3cc38574fcb5?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a small monkey is climbing up a rock\"},{\"url\":\"https://images.unsplash.com/photo-1705338098705-ebfbc17989dd?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a couple of dogs standing next to each other\"},{\"url\":\"https://images.unsplash.com/photo-1708515870578-e2148d8468f3?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a cat sitting in the grass near some plants\"},{\"url\":\"https://images.unsplash.com/photo-1736345677790-fa997ad9585f?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"A couple of cats standing next to each other\"},{\"url\":\"https://images.unsplash.com/photo-1687769149384-d2d264691659?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a dog behind a fence looking at the camera\"},{\"url\":\"https://images.unsplash.com/photo-1755624380080-9489514d5421?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"Mother cat with kittens resting under a tree\"},{\"url\":\"https://images.unsplash.com/photo-1663001352044-e79c5e4dfa63?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a cat in the woods\"},{\"url\":\"https://images.unsplash.com/photo-1709743243488-e61376a66759?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a couple of dogs standing next to each other\"},{\"url\":\"https://images.unsplash.com/photo-1614860441270-05c98a6c2a04?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"white and black panda on stainless steel bucket\"},{\"url\":\"https://images.unsplash.com/photo-1512706229323-a1bd0f5fe282?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"grey raccoon\"}]}}",
+    "timestamp": "2025-10-02T21:25:13.664Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Calling MCP tool: search_images",
+    "timestamp": "2025-10-02T21:25:53.574Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "No token data found",
+    "timestamp": "2025-10-02T21:25:53.574Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  },
+  {
+    "debug": "Tool call succeeded: {\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1560653816-7d57bde85550?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"zebra head\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1545927520-f34a4b90ddd4?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"zebra behind trees\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1725783649088-e60a135e16da?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"A couple of zebra standing on top of a grass covered field\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1669391951254-597564ab8a45?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a zebra eating grass\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1590611376250-bd4de0238a35?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"zebra on brown grass field during daytime\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1615675546585-7c4b262b0bfa?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"zebra standing on brown grass field during daytime\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1546551142-ce1d774e630a?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"two zebras beside leafless tree\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1756903483838-0d612ccf3b63?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Giraffe standing in a grassy savanna with trees.\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1759211756885-e55f303ff712?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"Close-up of a zebra's striped leg standing on dry ground\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1640073694260-c7e09eb7c983?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"a brown and white animal grazing on grass next to a tree\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1720263869270-c8c0c4b75475?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"A couple of zebra standing next to each other on a dirt field\\\"\\n}\"},{\"type\":\"text\",\"text\":\"{\\n  \\\"url\\\": \\\"https://images.unsplash.com/photo-1748730892411-035531eaa606?w=600&h=400&auto=format&fit=crop&q=80\\\",\\n  \\\"description\\\": \\\"A zebra runs through the brush and foliage.\\\"\\n}\"}],\"isError\":false,\"structuredContent\":{\"result\":[{\"url\":\"https://images.unsplash.com/photo-1560653816-7d57bde85550?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"zebra head\"},{\"url\":\"https://images.unsplash.com/photo-1545927520-f34a4b90ddd4?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"zebra behind trees\"},{\"url\":\"https://images.unsplash.com/photo-1725783649088-e60a135e16da?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"A couple of zebra standing on top of a grass covered field\"},{\"url\":\"https://images.unsplash.com/photo-1669391951254-597564ab8a45?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a zebra eating grass\"},{\"url\":\"https://images.unsplash.com/photo-1590611376250-bd4de0238a35?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"zebra on brown grass field during daytime\"},{\"url\":\"https://images.unsplash.com/photo-1615675546585-7c4b262b0bfa?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"zebra standing on brown grass field during daytime\"},{\"url\":\"https://images.unsplash.com/photo-1546551142-ce1d774e630a?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"two zebras beside leafless tree\"},{\"url\":\"https://images.unsplash.com/photo-1756903483838-0d612ccf3b63?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"Giraffe standing in a grassy savanna with trees.\"},{\"url\":\"https://images.unsplash.com/photo-1759211756885-e55f303ff712?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"Close-up of a zebra's striped leg standing on dry ground\"},{\"url\":\"https://images.unsplash.com/photo-1640073694260-c7e09eb7c983?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"a brown and white animal grazing on grass next to a tree\"},{\"url\":\"https://images.unsplash.com/photo-1720263869270-c8c0c4b75475?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"A couple of zebra standing next to each other on a dirt field\"},{\"url\":\"https://images.unsplash.com/photo-1748730892411-035531eaa606?w=600&h=400&auto=format&fit=crop&q=80\",\"description\":\"A zebra runs through the brush and foliage.\"}]}}",
+    "timestamp": "2025-10-02T21:25:55.583Z",
+    "sessionId": "07fb5068-10f6-4486-a9a3-d26c70a2a330",
+    "cwd": "/mnt/tmp-projects/project-9147"
+  }
+]
