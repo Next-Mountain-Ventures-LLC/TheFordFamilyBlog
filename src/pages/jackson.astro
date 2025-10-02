@@ -105,42 +105,42 @@ const products = [
     title: "Customizable Pet Tag",
     description: "3D printed pet tags that can be personalized with your pet's name and your contact information.",
     price: "$12.99",
-    image: "https://images.unsplash.com/photo-1566411520896-01e7ca4726af?w=600&h=400&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1584825705741-19e88b5698d5?w=600&h=400&auto=format&fit=crop&q=80",
     bestseller: true
   },
   {
-    title: "Turtle Habitat Dock",
-    description: "A floating dock for aquatic turtles that provides a comfortable basking area with easy access from the water.",
+    title: "Animal Phone Holder",
+    description: "Cute bear-shaped phone holder that's perfect for watching videos or video calls with your pets.",
     price: "$24.99",
-    image: "https://images.unsplash.com/photo-1548439739-0c3dab24a0f2?w=600&h=400&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1747228984027-7d922d33899f?w=600&h=400&auto=format&fit=crop&q=80",
     bestseller: false
   },
   {
-    title: "Interactive Cat Toy",
-    description: "A 3D printed mechanical toy that keeps cats entertained with unpredictable movements.",
+    title: "Dinosaur Toy Set",
+    description: "3D printed colorful dinosaur toys that are durable and safe for kids and pets to play with.",
     price: "$18.99",
-    image: "https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=600&h=400&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1627874459820-4868e9cdcbca?w=600&h=400&auto=format&fit=crop&q=80",
     bestseller: false
   },
   {
-    title: "Modular Bird Feeder",
-    description: "Expandable bird feeder system that can be customized for different types of seeds and birds.",
+    title: "Zebra Figurine",
+    description: "Detailed zebra figurine perfect for animal lovers and collectors. Great as a desk decoration!",
     price: "$29.99",
-    image: "https://images.unsplash.com/photo-1590871218101-fd5c06e617c4?w=600&h=400&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1624294365418-c0a530b3e350?w=600&h=400&auto=format&fit=crop&q=80",
     bestseller: true
   },
   {
-    title: "Dog Puzzle Toy",
-    description: "A challenging puzzle toy for dogs that dispenses treats as they solve different sections.",
+    title: "Custom 3D Printed Toy Dinosaur",
+    description: "Made-to-order dinosaur toy that can be customized with your choice of colors and features.",
     price: "$22.99",
-    image: "https://images.unsplash.com/photo-1546491764-67a5b8d5b3ae?w=600&h=400&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1592628458142-b3d42acefbf2?w=600&h=400&auto=format&fit=crop&q=80",
     bestseller: false
   },
   {
-    title: "Small Animal Maze",
-    description: "Connectable maze pieces for hamsters, mice, and other small pets with customizable layouts.",
+    title: "3D Printed Toy Set",
+    description: "Set of colorful 3D printed animal toys perfect for children and pet toys for cats and dogs.",
     price: "$19.99",
-    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600&h=400&auto=format&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1756723903142-2cfc05d30755?w=600&h=400&auto=format&fit=crop&q=80",
     bestseller: false
   }
 ];
@@ -203,6 +203,12 @@ try {
     <div class="floating-paw" style="left: 70%; top: 30%;"></div>
     <div class="floating-paw" style="left: 85%; top: 70%;"></div>
     <div class="floating-paw" style="left: 50%; top: 90%;"></div>
+    
+    <!-- Funny animal background images -->
+    <img src="https://images.unsplash.com/photo-1739513275605-8f768065d402?w=600&h=400&auto=format&fit=crop&q=80" alt="Cute white cat in purple cape" class="animal-bg-image image1" />
+    <img src="https://images.unsplash.com/photo-1758287621027-b9d46325ec52?w=600&h=400&auto=format&fit=crop&q=80" alt="Fluffy pink and blue monster with horns" class="animal-bg-image image2" />
+    <img src="https://images.unsplash.com/photo-1676084979891-c861375dbabd?w=600&h=400&auto=format&fit=crop&q=80" alt="Small toy animal in hand" class="animal-bg-image image3" />
+    <img src="https://images.unsplash.com/photo-1723630717170-6dbce6f1065b?w=600&h=400&auto=format&fit=crop&q=80" alt="Small toy chameleon in hand" class="animal-bg-image image4" />
     
     <!-- Hero Section -->
     <section class="relative py-24 overflow-hidden border-b border-teal-700">
@@ -319,23 +325,66 @@ try {
           My Animal Journey
         </h2>
         <p class="text-center text-teal-100 mb-12 max-w-3xl mx-auto">
-          A timeline of my life events and experiences with animals.
+          A historical timeline of my adventures with animals. Swipe to explore!
         </p>
         
-        <div class="max-w-3xl mx-auto border-l-2 border-teal-500 pl-10 space-y-8 relative">
+        <div class="blog-timeline">
           {timelineEvents.map((event) => (
-            <div class={`animal-timeline-item ${event.icon} bg-teal-800/30 backdrop-blur-sm p-6 rounded-lg border border-teal-700`}>
-              <div class="flex justify-between items-center mb-2">
-                <h3 class="text-lg font-bold text-white">{event.year}</h3>
-                {event.animalRelated && (
-                  <span class="px-3 py-1 bg-teal-700 text-teal-100 text-xs rounded-full">
-                    Animal Related
-                  </span>
-                )}
+            <div class="blog-timeline-item">
+              <div class="blog-timeline-item-header">
+                <div class="blog-timeline-item-year">{event.year}</div>
+                <div class="blog-timeline-item-icon">
+                  {event.icon === "cat" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cat"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7"/><path d="M8 5c-.67 0-1.35.09-2 .26C4.22 3.26.97 2.42-.42 3 -1.82 3.58 0 10 0 10"/><path d="M5.5 13c-.83 0-1.5.67-1.5 1.5S4.67 16 5.5 16 7 15.33 7 14.5 6.33 13 5.5 13z"/><path d="M18.5 13c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M12 16c-.67 0-1.35-.09-2-.26C8.22 17.74 4.97 18.58 3.58 18c-1.4-.58 0-7 0-7"/><path d="M12 16c.67 0 1.35-.09 2-.26 1.78 2 5.03 2.84 6.42 2.26 1.4-.58 0-7 0-7"/><line x1="12" y1="8" x2="12" y2="10"/><path d="M19 8a7 7 0 0 1-7 7 7 7 0 0 1-7-7"/><path d="M12 15v4"/><line x1="9" y1="21" x2="15" y2="21"/></svg>
+                  )}
+                  {event.icon === "dog" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dog"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5"/><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5"/><path d="M8 14v.5"/><path d="M16 14v.5"/><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"/><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"/></svg>
+                  )}
+                  {event.icon === "turtle" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-turtle"><path d="m12 10 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a8 8 0 1 0-16 0v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3l2-4h4Z"/><path d="M4.82 7.9 8 10"/><path d="M15.18 7.9 12 10"/><path d="M9 3v3"/><path d="M15 3v3"/><path d="M14.5 5h-5"/></svg>
+                  )}
+                  {event.icon === "rabbit" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rabbit"><path d="M13 16a3 3 0 0 1-3-3c0-1.1.5-3 3-3 2 0 3 1.9 3 3a3 3 0 0 1-3 3z"/><path d="m7 7 1.5-1.5A3.5 3.5 0 1 1 14 11h-3"/><path d="M14 17A3.5 3.5 0 1 1 7 13a3 3 0 0 0 3 3h4z"/><path d="M9.5 9.5 9 10"/><path d="m14.5 13.5-.5.5"/><path d="M13 19c2 0 5 1 5-3"/><path d="M11.6 18.6a2.1 2.1 0 0 0 .1 1.4c.4 1 1.6 1 3.4 1s2.9 0 3.3-1c.1-.4.1-1 .1-1.4"/><path d="M14 20v2"/></svg>
+                  )}
+                  {event.icon === "bird" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bird"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>
+                  )}
+                  {event.icon === "birth" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-baby"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.5.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg>
+                  )}
+                  {event.icon === "fish" && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#80cbc4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fish"><path d="M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z"/><path d="M18 12v.5"/><path d="M16 17.93a9.77 9.77 0 0 1 0-11.86"/><path d="M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33"/><path d="M10.46 7.26C10.2 5.88 9.17 4.24 8 3h5.8a2 2 0 0 1 1.98 1.67l.23 1.4"/><path d="m16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98"/></svg>
+                  )}
+                </div>
               </div>
-              <p class="text-teal-100">
+              
+              <h3 class="blog-timeline-item-title">
                 {event.event}
-              </p>
+              </h3>
+              
+              <div class="blog-timeline-item-content">
+                <p>
+                  {event.icon === "birth" && "I was born into the wonderful Ford family. Even as a baby, I showed interest in animals and nature."}
+                  {event.icon === "fish" && "My first pet was a goldfish named Bubbles. I loved watching him swim around in his tank, and I learned how to take care of a living creature."}
+                  {event.icon === "turtle" && "My first trip to the zoo was magical! I saw so many amazing animals, and I knew then that I wanted to learn everything about them."}
+                  {event.icon === "dog" && event.year === 2019 && "Rex joined our family! My Golden Retriever became my best friend and adventure buddy. He's been by my side ever since."}
+                  {event.icon === "cat" && event.year === 2020 && "I started learning 3D modeling and printed my very first animal figure - a lion! This began my journey into creating things for animals."}
+                  {event.icon === "cat" && event.year === 2021 && "Whiskers came into my life when we adopted her from the local shelter. She's very curious and loves to watch me work on my 3D printing projects."}
+                  {event.icon === "turtle" && event.year === 2022 && "I got Speedy the turtle and designed a custom 3D printed habitat for him with ramps and platforms for basking."}
+                  {event.icon === "rabbit" && "I launched my online shop selling animal-themed 3D prints! My designs for pet toys, feeders, and accessories started gaining popularity."}
+                  {event.icon === "dog" && event.year === 2024 && "I started volunteering at the local animal shelter, helping with animal care and creating 3D printed solutions for special needs pets."}
+                  {event.icon === "bird" && "I'm working on a new line of customizable 3D printed pet accessories that can be personalized for any pet!"}
+                </p>
+              </div>
+              
+              <div class="blog-timeline-item-footer">
+                {event.animalRelated ? (
+                  <span class="blog-timeline-item-badge">Animal Related</span>
+                ) : (
+                  <span></span>
+                )}
+                <a href="#" class="text-teal-300 hover:text-white text-sm">Read More</a>
+              </div>
             </div>
           ))}
         </div>

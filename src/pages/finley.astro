@@ -68,27 +68,6 @@ const videoContent = [
   }
 ];
 
-// Upcoming modeling events
-const upcomingEvents = [
-  {
-    title: "Anime Convention Cosplay Contest",
-    date: "May 15-17, 2025",
-    location: "Downtown Convention Center",
-    description: "I'll be participating in the annual cosplay contest representing my favorite anime character!"
-  },
-  {
-    title: "Spring Cherry Blossom Photoshoot",
-    date: "April 8, 2025",
-    location: "Sakura Gardens",
-    description: "Special springtime photoshoot among the beautiful cherry blossoms in full bloom"
-  },
-  {
-    title: "Young Models Showcase",
-    date: "June 22, 2025",
-    location: "Fashion District Gallery",
-    description: "Participating in a special showcase featuring young aspiring models and their portfolios"
-  }
-];
 
 // Get Finley's blog posts from WordPress
 let finleyPosts = [];
@@ -120,6 +99,11 @@ try {
     <div class="falling-petal" style="left: 30%; top: -5%;"></div>
     <div class="falling-petal" style="left: 45%; top: -5%;"></div>
     <div class="falling-petal" style="left: 60%; top: -5%;"></div>
+    
+    <!-- Anime girl background images -->
+    <img src="https://images.unsplash.com/photo-1623252729328-9941b271ad48?w=600&h=400&auto=format&fit=crop&q=80" alt="Anime girl" class="anime-bg-image image1" />
+    <img src="https://images.unsplash.com/photo-1697205153149-a60e3a2ddc61?w=600&h=400&auto=format&fit=crop&q=80" alt="Anime girl" class="anime-bg-image image2" />
+    <img src="https://images.unsplash.com/photo-1759302307377-e72f6a6918a1?w=600&h=400&auto=format&fit=crop&q=80" alt="Anime drawing" class="anime-bg-image image3" />
     
     <!-- Hero Section -->
     <section class="relative py-24 overflow-hidden">
@@ -273,56 +257,6 @@ try {
       </div>
     </section>
     
-    <!-- Upcoming Events Section -->
-    <section id="events" class="py-16 bg-pink-50/90 backdrop-blur-sm">
-      <div class="container max-w-4xl mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold font-display mb-3 text-center text-pink-800">
-          Upcoming Events
-        </h2>
-        <p class="text-center text-pink-600 mb-12">
-          Here's where you can find me in the coming months
-        </p>
-        
-        <div class="space-y-6">
-          {upcomingEvents.map((event) => (
-            <div class="anime-card bg-white/80 backdrop-blur-sm border border-pink-200 p-6 rounded-xl">
-              <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div>
-                  <h3 class="text-xl font-bold text-pink-800 mb-1">{event.title}</h3>
-                  <p class="text-sm text-gray-600 mb-3">{event.description}</p>
-                  <div class="flex flex-wrap gap-4">
-                    <span class="inline-flex items-center text-xs text-pink-600 gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar">
-                        <path d="M8 2v4"/>
-                        <path d="M16 2v4"/>
-                        <rect width="18" height="18" x="3" y="4" rx="2"/>
-                        <path d="M3 10h18"/>
-                      </svg>
-                      {event.date}
-                    </span>
-                    <span class="inline-flex items-center text-xs text-purple-600 gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                        <circle cx="12" cy="10" r="3"/>
-                      </svg>
-                      {event.location}
-                    </span>
-                  </div>
-                </div>
-                <div class="mt-4 md:mt-0">
-                  <a 
-                    href="#"
-                    class={buttonVariants({ size: "sm", className: "bg-pink-500 hover:bg-pink-600 text-white border-none" })}
-                  >
-                    Learn More
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
     
     <!-- Contact Section -->
     <section id="contact" class="py-16 bg-gradient-to-b from-purple-50 to-pink-100 backdrop-blur-sm">

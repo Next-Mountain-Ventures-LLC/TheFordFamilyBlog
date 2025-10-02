@@ -23,6 +23,50 @@
   z-index: -1;
 }
 
+/* Funny animal background images */
+.animal-bg-image {
+  position: absolute;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.animal-bg-image.image1 {
+  bottom: 10%;
+  right: 8%;
+  width: 280px;
+  height: 200px;
+  object-fit: contain;
+  transform: rotate(3deg);
+}
+
+.animal-bg-image.image2 {
+  top: 20%;
+  left: 5%;
+  width: 220px;
+  height: 200px;
+  object-fit: contain;
+  transform: rotate(-2deg);
+}
+
+.animal-bg-image.image3 {
+  bottom: 45%;
+  right: 18%;
+  width: 250px;
+  height: 180px;
+  object-fit: contain;
+  transform: rotate(5deg);
+}
+
+.animal-bg-image.image4 {
+  top: 60%;
+  left: 15%;
+  width: 230px;
+  height: 180px;
+  object-fit: contain;
+  transform: rotate(-4deg);
+}
+
 /* Paw print animation */
 .floating-paw {
   position: absolute;
@@ -73,44 +117,147 @@
   }
 }
 
-/* Animal timeline styles */
-.animal-timeline-item {
-  position: relative;
+/* Horizontal Blog Timeline styles */
+.blog-timeline {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 1.5rem 0;
+  scroll-padding: 1rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(20, 184, 166, 0.5) rgba(17, 94, 89, 0.2);
+  -ms-overflow-style: none;
+  gap: 1.5rem;
 }
 
-.animal-timeline-item::before {
+.blog-timeline::-webkit-scrollbar {
+  height: 8px;
+}
+
+.blog-timeline::-webkit-scrollbar-track {
+  background-color: rgba(17, 94, 89, 0.2);
+  border-radius: 4px;
+}
+
+.blog-timeline::-webkit-scrollbar-thumb {
+  background-color: rgba(20, 184, 166, 0.5);
+  border-radius: 4px;
+}
+
+.blog-timeline-item {
+  position: relative;
+  min-width: 280px;
+  max-width: 280px;
+  background-color: rgba(13, 148, 136, 0.2);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  scroll-snap-align: start;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 400px;
+}
+
+.blog-timeline-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+  border-color: rgba(20, 184, 166, 0.6);
+}
+
+.blog-timeline-item::before {
   content: "";
   position: absolute;
-  left: -25px;
   top: 0;
-  width: 24px;
-  height: 24px;
-  background-size: contain;
-  background-repeat: no-repeat;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, rgba(20, 184, 166, 0.8), rgba(15, 118, 110, 0.8));
 }
 
-.animal-timeline-item.cat::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2380cbc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-cat'%3E%3Cpath d='M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7'/%3E%3Cpath d='M8 5c-.67 0-1.35.09-2 .26C4.22 3.26.97 2.42-.42 3 -1.82 3.58 0 10 0 10'/%3E%3Cpath d='M5.5 13c-.83 0-1.5.67-1.5 1.5S4.67 16 5.5 16 7 15.33 7 14.5 6.33 13 5.5 13z'/%3E%3Cpath d='M18.5 13c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z'/%3E%3Cpath d='M12 16c-.67 0-1.35-.09-2-.26C8.22 17.74 4.97 18.58 3.58 18c-1.4-.58 0-7 0-7'/%3E%3Cpath d='M12 16c.67 0 1.35-.09 2-.26 1.78 2 5.03 2.84 6.42 2.26 1.4-.58 0-7 0-7'/%3E%3Cline x1='12' y1='8' x2='12' y2='10'/%3E%3Cpath d='M19 8a7 7 0 0 1-7 7 7 7 0 0 1-7-7'/%3E%3Cpath d='M12 15v4'/%3E%3Cline x1='9' y1='21' x2='15' y2='21'/%3E%3C/svg%3E");
+.blog-timeline-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
-.animal-timeline-item.dog::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2380cbc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-dog'%3E%3Cpath d='M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.96-1.45 2.344-2.5'/%3E%3Cpath d='M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.45-2.239-2.5'/%3E%3Cpath d='M8 14v.5'/%3E%3Cpath d='M16 14v.5'/%3E%3Cpath d='M11.25 16.25h1.5L12 17l-.75-.75Z'/%3E%3Cpath d='M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306'/%3E%3C/svg%3E");
+.blog-timeline-item-year {
+  display: inline-block;
+  background-color: rgba(13, 148, 136, 0.8);
+  color: white;
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  line-height: 1;
 }
 
-.animal-timeline-item.turtle::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2380cbc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-turtle'%3E%3Cpath d='m12 10 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a8 8 0 1 0-16 0v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3l2-4h4Z'/%3E%3Cpath d='M4.82 7.9 8 10'/%3E%3Cpath d='M15.18 7.9 12 10'/%3E%3Cpath d='M9 3v3'/%3E%3Cpath d='M15 3v3'/%3E%3Cpath d='M14.5 5h-5'/%3E%3C/svg%3E");
+.blog-timeline-item-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(20, 184, 166, 0.2);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.animal-timeline-item.rabbit::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2380cbc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-rabbit'%3E%3Cpath d='M13 16a3 3 0 0 1-3-3c0-1.1.5-3 3-3 2 0 3 1.9 3 3a3 3 0 0 1-3 3z'/%3E%3Cpath d='m7 7 1.5-1.5A3.5 3.5 0 1 1 14 11h-3'/%3E%3Cpath d='M14 17A3.5 3.5 0 1 1 7 13a3 3 0 0 0 3 3h4z'/%3E%3Cpath d='M9.5 9.5 9 10'/%3E%3Cpath d='m14.5 13.5-.5.5'/%3E%3Cpath d='M13 19c2 0 5 1 5-3'/%3E%3Cpath d='M11.6 18.6a2.1 2.1 0 0 0 .1 1.4c.4 1 1.6 1 3.4 1s2.9 0 3.3-1c.1-.4.1-1 .1-1.4'/%3E%3Cpath d='M14 20v2'/%3E%3C/svg%3E");
+.blog-timeline-item-icon img {
+  width: 20px;
+  height: 20px;
 }
 
-.animal-timeline-item.bird::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2380cbc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-bird'%3E%3Cpath d='M16 7h.01'/%3E%3Cpath d='M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20'/%3E%3Cpath d='m20 7 2 .5-2 .5'/%3E%3Cpath d='M10 18v3'/%3E%3Cpath d='M14 17.75V21'/%3E%3Cpath d='M7 18a6 6 0 0 0 3.84-10.61'/%3E%3C/svg%3E");
+.blog-timeline-item-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
 }
 
-.animal-timeline-item.birth::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2380cbc4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-baby'%3E%3Cpath d='M9 12h.01'/%3E%3Cpath d='M15 12h.01'/%3E%3Cpath d='M10 16c.5.3 1.5.5 2 .5s1.5-.2 2-.5'/%3E%3Cpath d='M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1'/%3E%3C/svg%3E");
+.blog-timeline-item-content {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.blog-timeline-item-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.blog-timeline-item-content::-webkit-scrollbar-track {
+  background-color: rgba(17, 94, 89, 0.2);
+}
+
+.blog-timeline-item-content::-webkit-scrollbar-thumb {
+  background-color: rgba(20, 184, 166, 0.5);
+}
+
+.blog-timeline-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.blog-timeline-item-badge {
+  background-color: rgba(13, 148, 136, 0.8);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
 }
 
 /* Animal Gallery */
