@@ -1,0 +1,91 @@
+---
+import BlogLayout from "@/layouts/BlogLayout.astro";
+import { Image } from 'astro:assets';
+import FreeStuffGallery from "@/components/FreeStuffGallery.astro";
+
+const post = {
+  title: "There's still stuff left for those in need!",
+  description: "We have a variety of free items available for families in need. Browse our gallery to see what's available and contact us to arrange pickup.",
+  date: "October 8, 2025",
+  author: "Salicia Ford",
+  category: "Family",
+  // Use custom gallery instead of single image
+  slug: "free-stuff-for-those-in-need",
+  useCustomGallery: true
+};
+---
+
+<BlogLayout
+  title={post.title}
+  description={post.description}
+  author={post.author}
+  date={post.date}
+  category={post.category}
+  useCustomGallery={post.useCustomGallery}
+>
+  <h1><strong>There's still stuff left for those in need!</strong></h1>
+
+  <p>As we continue our journey of decluttering and simplifying our lives, we've found that we have many items that are still in excellent condition and could be useful to other families. Rather than contributing to landfill waste, we'd like to offer these items to those who might need them.</p>
+
+  <p>All items in the gallery above are <strong>completely free</strong> to families in need. We believe in paying forward the blessings we've received throughout our own challenges.</p>
+
+  <hr>
+
+  <h2><strong>What's Available?</strong></h2>
+
+  <p>As you can see in the gallery, we have a variety of items including:</p>
+
+  <ul>
+    <li>Children's clothing (various sizes)</li>
+    <li>Toys and games</li>
+    <li>Books and educational materials</li>
+    <li>Household items</li>
+    <li>Some furniture pieces</li>
+    <li>Kitchen appliances and tools</li>
+    <li>Craft supplies</li>
+    <li>And more!</li>
+  </ul>
+
+  <p>The items are available on a first-come, first-served basis. We update the gallery regularly as items are claimed or new ones become available.</p>
+
+  <hr>
+
+  <h2><strong>How to Claim Items</strong></h2>
+
+  <p>If you see something that would be helpful for your family or someone you know:</p>
+
+  <ol>
+    <li>
+      <p><strong>Contact Us</strong></p>
+      <p>Use the contact form at the bottom of our website or email us directly at <em>help@thefordfamily.life</em></p>
+    </li>
+    <li>
+      <p><strong>Describe the Items</strong></p>
+      <p>Let us know which items you're interested in from the gallery.</p>
+    </li>
+    <li>
+      <p><strong>Arrange Pickup</strong></p>
+      <p>We'll arrange a convenient time for local pickup. For those unable to pickup, we might be able to arrange delivery within a reasonable distance.</p>
+    </li>
+  </ol>
+
+  <blockquote>
+    <p>We've been blessed to be a blessing. These items have served our family well, and now we hope they can serve yours too.</p>
+  </blockquote>
+
+  <hr>
+
+  <h2><strong>Why We're Doing This</strong></h2>
+
+  <p>Our family has faced many challenges over the years, including health struggles and financial difficulties. During those times, the generosity of others made a tremendous difference in our lives. Now that we're in a position to help others, we want to pay that kindness forward.</p>
+
+  <p>Additionally, we're passionate about reducing waste and promoting sustainability. By giving these items a second life in another home, we're keeping them out of landfills and making better use of the resources we've been given.</p>
+
+  <hr>
+
+  <h2><strong>Do You Have Items to Donate?</strong></h2>
+
+  <p>If you have items in good condition that you'd like to add to our free stuff collection, we'd be happy to help distribute them to families in need. Please contact us with details and photos of what you'd like to donate.</p>
+
+  <p>Together, we can create a community of sharing and support!</p>
+</BlogLayout>
