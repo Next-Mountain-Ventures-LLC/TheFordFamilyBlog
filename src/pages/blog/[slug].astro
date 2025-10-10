@@ -41,7 +41,6 @@ const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
   imageUrl={post.imageUrl}
   ogImage={ogImage}
   tags={post.tags}
-  useCustomGallery={slug === 'free-stuff-for-those-in-need'}
 >
   <!-- Use set:html to render the HTML content from WordPress -->
   <article set:html={post.content} />
