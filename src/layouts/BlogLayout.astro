@@ -6,6 +6,7 @@ import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
 import { getAuthorFullName } from '../lib/wordpress';
+import FreeStuffGallery from "@/components/FreeStuffGallery.astro";
 
 interface Props {
   title: string;
@@ -18,9 +19,10 @@ interface Props {
   ogImage?: URL;
   tags?: Array<{id: number, name: string, slug: string}>;
   authorSlug?: string;
+  useCustomGallery?: boolean;
 }
 
-const { title, description, author: rawAuthor, date, category, categorySlug, imageUrl, ogImage, tags, authorSlug } = Astro.props;
+const { title, description, author: rawAuthor, date, category, categorySlug, imageUrl, ogImage, tags, authorSlug, useCustomGallery = false } = Astro.props;
 
 // Map email usernames to full names if needed
 const author = getAuthorFullName(rawAuthor);
@@ -73,8 +75,10 @@ const author = getAuthorFullName(rawAuthor);
         <!-- Main Content -->
         <div class="lg:col-span-2">
           <article class="scrapbook-paper bg-white/95 mb-8">
-            {/* Only display images from WordPress */}
-            {imageUrl && (
+            {/* Use custom gallery or display single image */}
+            {useCustomGallery ? (
+              <FreeStuffGallery />
+            ) : imageUrl && (
               <div class="mb-6 -mt-2 -mx-2">
                 <div class="scrapbook-photo w-full" style="--rotate: 0deg;">
                   <div class="scrapbook-tape"></div>

@@ -1,6 +1,7 @@
 ---
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import { Image } from 'astro:assets';
+import FreeStuffGallery from "@/components/FreeStuffGallery.astro";
 
 const post = {
   title: "Road Blocks: Navigating the Entrepreneurial Journey",
@@ -8,8 +9,10 @@ const post = {
   date: "September 24, 2025",
   author: "Joshua Ford",
   category: "Entrepreneurship",
-  imageUrl: "https://images.unsplash.com/photo-1589633905509-d07b42c9899f?w=1200&h=600&auto=format&fit=crop&q=80",
-  slug: "road-blocks"
+  // Use custom gallery instead of single image
+  // imageUrl: "https://images.unsplash.com/photo-1589633905509-d07b42c9899f?w=1200&h=600&auto=format&fit=crop&q=80",
+  slug: "road-blocks",
+  useCustomGallery: true
 };
 ---
 
@@ -19,7 +22,7 @@ const post = {
   author={post.author}
   date={post.date}
   category={post.category}
-  imageUrl={post.imageUrl}
+  useCustomGallery={post.useCustomGallery}
 >
   <h1><strong>When Creativity Hits a Roadblock: Navigating Entrepreneurial Stagnation</strong></h1>
 
