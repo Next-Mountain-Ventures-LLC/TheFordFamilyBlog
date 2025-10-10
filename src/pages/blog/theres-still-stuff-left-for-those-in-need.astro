@@ -1,0 +1,10 @@
+---
+import { type } from 'astro/zod';
+// This is a redirect file to handle different slug formats
+export const prerender = false;
+
+// Redirect to the correctly formatted slug
+if (Astro.request.url) {
+  return Astro.redirect('/blog/free-stuff-for-those-in-need');
+}
+---
