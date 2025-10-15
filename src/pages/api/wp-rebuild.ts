@@ -4,7 +4,7 @@
 import type { APIRoute } from 'astro';
 
 // You can set this to a secure token in your environment variables
-const WP_WEBHOOK_SECRET = process.env.WP_WEBHOOK_SECRET || 'ford-family-wp-hook-secret';
+const WP_WEBHOOK_SECRET = process.env.WP_WEBHOOK_SECRET || '67136844';
 
 // This function will be called when WordPress sends a webhook
 export const post: APIRoute = async ({ request, redirect }) => {

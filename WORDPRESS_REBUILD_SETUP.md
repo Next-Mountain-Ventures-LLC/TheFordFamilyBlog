@@ -22,7 +22,7 @@ Since this integration uses Node.js to run build commands, you need to ensure yo
 
 In your Astro project, set the following environment variables:
 
-- `WP_WEBHOOK_SECRET`: A secure random string that will be used to authenticate webhook requests (e.g., `ford-family-wp-hook-secret`)
+- `WP_WEBHOOK_SECRET`: A secure random string that will be used to authenticate webhook requests (e.g., `67136844`)
 
 ### 3. Set Up the WordPress Webhook Plugin
 
@@ -68,7 +68,7 @@ function trigger_astro_rebuild($post_id) {
 
     // Your Astro site URL and webhook secret
     $webhook_url = 'https://your-site-url.com/api/wp-rebuild';
-    $webhook_secret = 'ford-family-wp-hook-secret'; // Should match WP_WEBHOOK_SECRET
+    $webhook_secret = '67136844'; // Should match WP_WEBHOOK_SECRET
 
     // Data to send
     $data = array(
@@ -109,7 +109,7 @@ If the rebuild is not being triggered:
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"secret":"ford-family-wp-hook-secret","test":true}' \
+  -d '{"secret":"67136844","test":true}' \
   https://your-site-url.com/api/wp-rebuild
 ```
 
