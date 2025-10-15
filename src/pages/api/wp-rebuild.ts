@@ -70,35 +70,47 @@ export const post: APIRoute = async ({ request, redirect }) => {
       });
     }
 
-    // Trigger an Astro rebuild using Node child_process
+    // For static sites, we need to use a deployment hook from your hosting provider
     try {
-      console.log('Triggering Astro rebuild...');
+      console.log('Processing webhook request...');
       
-      // Import the required Node modules
-      const { exec } = await import('child_process');
-      const { promisify } = await import('util');
+      // Get the deployment hook URL from environment variables
+      const DEPLOY_HOOK = process.env.DEPLOY_HOOK || '';
       
-      // Promisify exec for async/await usage
-      const execAsync = promisify(exec);
-      
-      // Use Astro's build command
-      // This executes the build command defined in package.json
-      // You may need to adjust this command based on your specific setup
-      const { stdout, stderr } = await execAsync('npm run build');
-      
-      console.log('Astro build output:', stdout);
-      
-      if (stderr) {
-        console.error('Astro build errors:', stderr);
+      if (!DEPLOY_HOOK) {
+        console.warn('No DEPLOY_HOOK environment variable set');
+        return new Response(JSON.stringify({
+          message: 'Webhook received, but no deployment hook configured',
+          details: {
+            timestamp: new Date().toISOString(),
+            success: false,
+            error: 'Missing DEPLOY_HOOK environment variable'
+          }
+        }), {
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
       }
+      
+      // Call the deployment hook
+      const response = await fetch(DEPLOY_HOOK, { method: 'POST' });
+      const result = await response.text();
+      
+      console.log('Deployment hook response:', {
+        status: response.status,
+        result
+      });
       
       // Return success response
       return new Response(JSON.stringify({
         message: 'WordPress-triggered rebuild initiated successfully',
         details: {
           timestamp: new Date().toISOString(),
-          success: true,
-          buildOutput: stdout.substring(0, 500) + (stdout.length > 500 ? '...' : '')
+          success: response.ok,
+          status: response.status,
+          responseInfo: result.substring(0, 500) + (result.length > 500 ? '...' : '')
         }
       }), {
         status: 200,
@@ -107,12 +119,12 @@ export const post: APIRoute = async ({ request, redirect }) => {
         }
       });
       
-    } catch (buildError) {
-      console.error('Error triggering Astro build:', buildError);
+    } catch (deployError) {
+      console.error('Error triggering deployment hook:', deployError);
       
       return new Response(JSON.stringify({
-        message: 'Rebuild failed',
-        error: buildError instanceof Error ? buildError.message : String(buildError)
+        message: 'Rebuild request failed',
+        error: deployError instanceof Error ? deployError.message : String(deployError)
       }), {
         status: 500,
         headers: {

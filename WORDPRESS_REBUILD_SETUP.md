@@ -6,23 +6,25 @@ This document describes how to set up automatic rebuilds of your Astro site when
 
 1. When content is updated in WordPress (new post, edit post, etc.), WordPress will send a webhook to your Astro site.
 2. The Astro site has an API endpoint (`/api/wp-rebuild`) that receives this webhook.
-3. When the endpoint receives a valid webhook, it triggers a rebuild of the site directly using Node.js.
+3. When the endpoint receives a valid webhook, it triggers a rebuild of the site via a deployment hook.
 
 ## Setup Instructions
 
-### 1. Set Up Node.js Server Environment
+### 1. Set Up Your Deployment Hook
 
-Since this integration uses Node.js to run build commands, you need to ensure your server environment is properly configured:
+Since this is a static Astro site, you need to set up a deployment hook with your hosting provider:
 
-1. Make sure Node.js and npm are installed on your server
-2. Ensure the user running your Astro server has permissions to execute the build command
-3. Configure any necessary environment variables for your build process
+1. For Vercel: Go to your project settings → Git → Deploy Hooks and create a new hook
+2. For Netlify: Go to your site settings → Build & deploy → Build hooks and create a new hook
+3. For GitHub Pages or other services: Check your provider's documentation for deployment hook setup
+4. Copy the deployment hook URL for use in your environment variables
 
 ### 2. Configure Environment Variables
 
-In your Astro project, set the following environment variables:
+In your hosting provider's environment variables section, set the following:
 
 - `WP_WEBHOOK_SECRET`: A secure random string that will be used to authenticate webhook requests (e.g., `67136844`)
+- `DEPLOY_HOOK`: The deployment hook URL from your hosting provider
 
 ### 3. Set Up the WordPress Webhook Plugin
 
@@ -104,7 +106,7 @@ If the rebuild is not being triggered:
 1. Check WordPress webhook logs (if using a plugin)
 2. Verify that the secret matches between WordPress and your Astro site
 3. Check your server logs for any errors in the webhook endpoint
-4. Make sure the Node.js process has permission to execute the build command
+4. Make sure the `DEPLOY_HOOK` environment variable is correctly set
 5. Test the endpoint directly by sending a POST request with tools like Postman or curl:
 
 ```bash
