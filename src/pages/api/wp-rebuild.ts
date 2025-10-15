@@ -70,44 +70,36 @@ export const post: APIRoute = async ({ request, redirect }) => {
       });
     }
 
-    // For Vercel, we'll use their API to trigger a new deployment
-    const VERCEL_DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK || 'https://api.vercel.com/v1/integrations/deploy/prj_your_project_id/your_hook_id';
-
-    // Make a request to the Vercel Deploy Hook
+    // Trigger an Astro rebuild using Node child_process
     try {
-      console.log('Triggering Vercel deploy hook:', VERCEL_DEPLOY_HOOK);
-      const response = await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' });
+      console.log('Triggering Astro rebuild...');
       
-      let result;
-      try {
-        result = await response.json();
-      } catch (e) {
-        // If not JSON, get text
-        result = await response.text();
+      // Import the required Node modules
+      const { exec } = await import('child_process');
+      const { promisify } = await import('util');
+      
+      // Promisify exec for async/await usage
+      const execAsync = promisify(exec);
+      
+      // Use Astro's build command
+      // This executes the build command defined in package.json
+      // You may need to adjust this command based on your specific setup
+      const { stdout, stderr } = await execAsync('npm run build');
+      
+      console.log('Astro build output:', stdout);
+      
+      if (stderr) {
+        console.error('Astro build errors:', stderr);
       }
       
-      console.log('Webhook triggered - rebuild initiated', { 
-        status: response.status, 
-        result 
-      });
-      
-      // If the deploy hook failed, return an error
-      if (!response.ok) {
-        return new Response(JSON.stringify({
-          message: 'Rebuild trigger failed',
-          error: result
-        }), {
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      }
-      
-      // Return success response with deployment info
+      // Return success response
       return new Response(JSON.stringify({
         message: 'WordPress-triggered rebuild initiated successfully',
-        deployment: result
+        details: {
+          timestamp: new Date().toISOString(),
+          success: true,
+          buildOutput: stdout.substring(0, 500) + (stdout.length > 500 ? '...' : '')
+        }
       }), {
         status: 200,
         headers: {
@@ -115,12 +107,12 @@ export const post: APIRoute = async ({ request, redirect }) => {
         }
       });
       
-    } catch (deployError) {
-      console.error('Error triggering deploy hook:', deployError);
+    } catch (buildError) {
+      console.error('Error triggering Astro build:', buildError);
       
       return new Response(JSON.stringify({
-        message: 'Error triggering deploy hook',
-        error: deployError instanceof Error ? deployError.message : String(deployError)
+        message: 'Rebuild failed',
+        error: buildError instanceof Error ? buildError.message : String(buildError)
       }), {
         status: 500,
         headers: {

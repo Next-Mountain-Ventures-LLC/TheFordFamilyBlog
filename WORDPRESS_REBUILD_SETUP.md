@@ -6,24 +6,22 @@ This document describes how to set up automatic rebuilds of your Astro site when
 
 1. When content is updated in WordPress (new post, edit post, etc.), WordPress will send a webhook to your Astro site.
 2. The Astro site has an API endpoint (`/api/wp-rebuild`) that receives this webhook.
-3. When the endpoint receives a valid webhook, it triggers a rebuild of the site via a Vercel deployment hook.
+3. When the endpoint receives a valid webhook, it triggers a rebuild of the site directly using Node.js.
 
 ## Setup Instructions
 
-### 1. Configure Vercel Deploy Hook
+### 1. Set Up Node.js Server Environment
 
-First, you need to create a Vercel deployment hook:
+Since this integration uses Node.js to run build commands, you need to ensure your server environment is properly configured:
 
-1. Go to your Vercel project dashboard
-2. Navigate to Settings > Git > Deploy Hooks
-3. Create a new hook with a name like "WordPress Content Update"
-4. Copy the generated URL (it should look like `https://api.vercel.com/v1/integrations/deploy/prj_xxxx/xxxxxx`)
+1. Make sure Node.js and npm are installed on your server
+2. Ensure the user running your Astro server has permissions to execute the build command
+3. Configure any necessary environment variables for your build process
 
 ### 2. Configure Environment Variables
 
-In your Vercel project, add these environment variables:
+In your Astro project, set the following environment variables:
 
-- `VERCEL_DEPLOY_HOOK`: The deploy hook URL you copied in the previous step
 - `WP_WEBHOOK_SECRET`: A secure random string that will be used to authenticate webhook requests (e.g., `ford-family-wp-hook-secret`)
 
 ### 3. Set Up the WordPress Webhook Plugin
@@ -96,7 +94,7 @@ add_action('delete_post', 'trigger_astro_rebuild', 10, 1);
 ### 4. Test the Integration
 
 1. Make a change to a post in WordPress and publish/update it
-2. Check the Vercel deployment logs to confirm that a new build was triggered
+2. Check your server logs to confirm that a new build was triggered
 3. Verify that the changes appear on your site once the build completes
 
 ## Troubleshooting
@@ -105,8 +103,9 @@ If the rebuild is not being triggered:
 
 1. Check WordPress webhook logs (if using a plugin)
 2. Verify that the secret matches between WordPress and your Astro site
-3. Check the Vercel function logs for any errors in the webhook endpoint
-4. Test the endpoint directly by sending a POST request with tools like Postman or curl:
+3. Check your server logs for any errors in the webhook endpoint
+4. Make sure the Node.js process has permission to execute the build command
+5. Test the endpoint directly by sending a POST request with tools like Postman or curl:
 
 ```bash
 curl -X POST -H "Content-Type: application/json" \
