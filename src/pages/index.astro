@@ -9,7 +9,7 @@ import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
 import BlogPreview from '@/components/BlogPreview';
-import YouTubeChannelSection from '@/components/YouTubeChannelSection';
+import YouTubeCarousel from '@/components/YouTubeCarousel';
 import { buttonVariants } from "@/components/ui/button";
 import { getPosts } from '@/lib/wordpress';
 
@@ -147,11 +147,11 @@ try {
   <BlogPreview client:visible title="Latest Blog Posts" posts={blogPosts} />
   
   <!-- YouTube Channel Section -->
-  <YouTubeChannelSection client:visible />
+  <YouTubeCarousel client:visible />
   
   <!-- Contact Section -->
   <section class="py-16">
-    <div class="container max-w-4xl mx-auto">
+    <div class="container mx-auto">
       <div class="scrapbook-paper">
         <h2 class="text-3xl md:text-4xl font-bold font-display mb-6 text-center text-primary-foreground animate-on-scroll">
           Connect With Us

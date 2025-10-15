@@ -97,8 +97,8 @@
 
 @layer base {
   :root {
-    /* White background with soft colors for scrapbook aesthetic */
-    --background: 0 0% 100%;
+    /* Darker background with soft colors for scrapbook aesthetic */
+    --background: 210 20% 96%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -113,8 +113,8 @@
     --secondary: 335 80% 85%;
     --secondary-foreground: 335 80% 25%;
     
-    /* Muted gray tones */
-    --muted: 240 4.8% 95.9%;
+    /* Muted gray tones - darker */
+    --muted: 240 5% 90%;
     --muted-foreground: 240 3.8% 46.1%;
     
     /* Soft green accent color */
@@ -178,10 +178,40 @@
   }
   
   .scrapbook-tape {
-    @apply absolute w-16 h-4 bg-secondary opacity-50;
-    top: -10px;
+    @apply absolute w-16 h-5;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%) rotate(var(--rotate, 0deg));
+    opacity: 0.85;
+  }
+  
+  /* Alternate tape colors from the color scheme */
+  .scrapbook-tape:nth-child(odd) {
+    @apply bg-primary/60;
+  }
+
+  .scrapbook-tape:nth-child(even) {
+    @apply bg-secondary/70;
+  }
+
+  .scrapbook-tape:nth-child(3n) {
+    @apply bg-accent/70;
+  }
+
+  .scrapbook-tape::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.3) 3px,
+      rgba(255, 255, 255, 0.3) 6px
+    );
   }
   
   .animate-on-scroll {
