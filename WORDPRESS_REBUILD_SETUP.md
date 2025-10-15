@@ -24,7 +24,7 @@ Since this is a static Astro site, you need to set up a deployment hook with you
 In your hosting provider's environment variables section, set the following:
 
 - `WP_WEBHOOK_SECRET`: A secure random string that will be used to authenticate webhook requests (e.g., `67136844`)
-- `DEPLOY_HOOK`: The deployment hook URL from your hosting provider
+- `VERCEL_DEPLOY_HOOK`: The deployment hook URL from your Vercel project
 
 ### 3. Set Up the WordPress Webhook Plugin
 
@@ -106,7 +106,7 @@ If the rebuild is not being triggered:
 1. Check WordPress webhook logs (if using a plugin)
 2. Verify that the secret matches between WordPress and your Astro site
 3. Check your server logs for any errors in the webhook endpoint
-4. Make sure the `DEPLOY_HOOK` environment variable is correctly set
+4. Make sure the `VERCEL_DEPLOY_HOOK` environment variable is correctly set
 5. Test the endpoint directly by sending a POST request with tools like Postman or curl:
 
 ```bash

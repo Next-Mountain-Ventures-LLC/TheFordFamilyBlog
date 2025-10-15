@@ -70,38 +70,45 @@ export const post: APIRoute = async ({ request, redirect }) => {
       });
     }
 
-    // For static sites, we need to use a deployment hook from your hosting provider
+    // Use the existing Vercel deployment hook from rebuild-hook.ts
     try {
-      console.log('Processing webhook request...');
+      console.log('Processing WordPress webhook request...');
       
-      // Get the deployment hook URL from environment variables
-      const DEPLOY_HOOK = process.env.DEPLOY_HOOK || '';
+      // Get the Vercel deployment hook URL from environment variables
+      const VERCEL_DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK || 'https://api.vercel.com/v1/integrations/deploy/prj_your_project_id/your_hook_id';
       
-      if (!DEPLOY_HOOK) {
-        console.warn('No DEPLOY_HOOK environment variable set');
+      console.log('Triggering Vercel deploy hook...');
+      
+      // Call the Vercel deployment hook
+      const response = await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' });
+      
+      let result;
+      try {
+        // Try to parse response as JSON
+        result = await response.json();
+      } catch (e) {
+        // Fallback to text if not JSON
+        result = await response.text();
+      }
+      
+      console.log('Vercel deployment hook response:', {
+        status: response.status,
+        result
+      });
+      
+      // If the deploy hook failed, return an error
+      if (!response.ok) {
+        console.warn('Vercel deployment hook failed:', result);
         return new Response(JSON.stringify({
-          message: 'Webhook received, but no deployment hook configured',
-          details: {
-            timestamp: new Date().toISOString(),
-            success: false,
-            error: 'Missing DEPLOY_HOOK environment variable'
-          }
+          message: 'Rebuild trigger failed',
+          error: result
         }), {
-          status: 400,
+          status: 500,
           headers: {
             'Content-Type': 'application/json'
           }
         });
       }
-      
-      // Call the deployment hook
-      const response = await fetch(DEPLOY_HOOK, { method: 'POST' });
-      const result = await response.text();
-      
-      console.log('Deployment hook response:', {
-        status: response.status,
-        result
-      });
       
       // Return success response
       return new Response(JSON.stringify({
