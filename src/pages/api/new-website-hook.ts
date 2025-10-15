@@ -2,6 +2,7 @@
 // File: /src/pages/api/new-website-hook.ts
 
 import type { APIRoute } from 'astro';
+import { storeWebhookEvent } from '../../utils/webhookStorage';
 
 // You can set this to a secure token in your environment variables
 const NEW_WEBSITE_API_KEY = process.env.NEW_WEBSITE_API_KEY || 'ford-family-new-website-key';
@@ -119,12 +120,24 @@ export const post: APIRoute = async ({ request }) => {
         });
     }
 
-    // Return success response
-    return new Response(JSON.stringify({
+    // Create response data
+    const responseData = {
       success: true,
       message: `Successfully processed ${action} webhook`,
       processedAt: new Date().toISOString()
-    }), {
+    };
+    
+    // Store webhook event in history
+    storeWebhookEvent({
+      endpoint: '/api/new-website-hook',
+      action: action || 'unknown',
+      status: 'success',
+      payload: postData,
+      response: responseData
+    });
+    
+    // Return success response
+    return new Response(JSON.stringify(responseData), {
       status: 200,
       headers: {
         'Content-Type': 'application/json'
@@ -134,12 +147,24 @@ export const post: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error('Error processing new.website webhook:', error);
     
-    // Return error response
-    return new Response(JSON.stringify({
+    // Create error response data
+    const errorData = {
       success: false,
       message: 'Error processing webhook',
       error: error instanceof Error ? error.message : String(error)
-    }), {
+    };
+    
+    // Store webhook error event in history
+    storeWebhookEvent({
+      endpoint: '/api/new-website-hook',
+      action: 'error',
+      status: 'error',
+      payload: {},
+      error: error instanceof Error ? error.message : String(error)
+    });
+    
+    // Return error response
+    return new Response(JSON.stringify(errorData), {
       status: 500,
       headers: {
         'Content-Type': 'application/json'

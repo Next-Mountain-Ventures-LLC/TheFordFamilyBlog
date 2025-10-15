@@ -1,0 +1,17 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import WebhookDashboard from "@/components/webhook/WebhookDashboard";
+
+// Webhook testing dashboard page
+---
+
+<BaseLayout
+  title="Webhook Testing Dashboard | The Ford Family"
+  description="Test, monitor, and analyze your webhook integrations for the Ford Family website"
+>
+  <div class="py-8 md:py-12">
+    <div class="container mx-auto">
+      <WebhookDashboard client:load />
+    </div>
+  </div>
+</BaseLayout>
