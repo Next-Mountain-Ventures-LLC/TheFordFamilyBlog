@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { buttonVariants } from "./ui/button";
 
 export default function SubscribeForm() {
-  const defaultFormData = { email: "", form_name: "Ford Family Newsletter Subscription" };
+  const defaultFormData = { email: "", form_name: "Newsletter Subscription" };
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
@@ -20,36 +20,20 @@ export default function SubscribeForm() {
     try {
       // Create FormData and add each field
       const form = new FormData();
-      
-      // Explicitly add each field to ensure they're included
-      form.append("email", formData.email);
-      form.append("form_name", formData.form_name);
-      
-      // Log form data for debugging
-      console.log("Form submission data:", {
-        email: formData.email,
-        form_name: formData.form_name
+      Object.entries(formData).forEach(([key, value]) => {
+        form.append(key, value);
       });
       
-      // Ensure the form has the appropriate Content-Type for multipart/form-data
-      // The browser will set this automatically when using FormData
       const response = await fetch("https://api.new.website/api/submit-form/", {
         method: "POST",
         body: form,
       });
 
       if (response.ok) {
-        console.log("Form submission successful");
         setSubmitStatus("success");
         setFormData(defaultFormData);
       } else {
-        // Log more details about the failed submission
-        const errorText = await response.text();
-        console.error("Form submission failed:", {
-          status: response.status,
-          statusText: response.statusText,
-          responseText: errorText
-        });
+        console.error("Form submission failed:", await response.text());
         setSubmitStatus("error");
       }
     } catch (error) {
@@ -85,7 +69,6 @@ export default function SubscribeForm() {
         </button>
       </div>
 
-      {/* This hidden field ensures the form is properly categorized in your forms list */}
       <input name="form_name" type="hidden" value={formData.form_name} />
       
       {submitStatus === "success" && (
