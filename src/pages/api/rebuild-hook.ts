@@ -4,7 +4,7 @@
 import type { APIRoute } from 'astro';
 
 // You can set this to a secure token in your environment variables
-const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'your-secret-token';
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'ford-family-rebuild-hook-secret';
 
 // This function will be called when the webhook is triggered
 export const post: APIRoute = async ({ request, redirect }) => {
@@ -26,9 +26,41 @@ export const post: APIRoute = async ({ request, redirect }) => {
     }
 
     // In a real deployment environment, this would trigger a rebuild
-    // This is a placeholder for your deployment platform's API call
-    // For example, on Vercel you might use their API to trigger a new deployment
-    console.log('Webhook triggered - rebuild initiated');
+    // For Vercel, we'll use their API to trigger a new deployment
+    const VERCEL_DEPLOY_HOOK = process.env.VERCEL_DEPLOY_HOOK || 'https://api.vercel.com/v1/integrations/deploy/prj_your_project_id/your_hook_id';
+
+    // Make a request to the Vercel Deploy Hook
+    try {
+      const response = await fetch(VERCEL_DEPLOY_HOOK, { method: 'POST' });
+      const result = await response.json();
+      
+      console.log('Webhook triggered - rebuild initiated', result);
+      
+      // If the deploy hook failed, return an error
+      if (!response.ok) {
+        return new Response(JSON.stringify({
+          message: 'Rebuild trigger failed',
+          error: result
+        }), {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      }
+    } catch (deployError) {
+      console.error('Error triggering deploy hook:', deployError);
+      
+      return new Response(JSON.stringify({
+        message: 'Error triggering deploy hook',
+        error: deployError instanceof Error ? deployError.message : String(deployError)
+      }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    }
 
     // Return success response
     return new Response(JSON.stringify({
