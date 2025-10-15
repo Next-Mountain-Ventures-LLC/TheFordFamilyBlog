@@ -1,0 +1,176 @@
+---
+import { Image } from 'astro:assets';
+
+// Import all free stuff images
+import img1 from '../assets/img_2740_nw_849d0e17.jpeg';
+import img2 from '../assets/img_2736_nw_4758c97b.jpeg';
+import img3 from '../assets/img_2737_nw_d7487bda.jpeg';
+import img4 from '../assets/img_2725_nw_73296f6e.jpeg';
+import img5 from '../assets/img_2729_nw_1b124e30.jpeg';
+import img6 from '../assets/img_2726_nw_d9d3ce2e.jpeg';
+import img7 from '../assets/img_2734_nw_55c0a1c1.jpeg';
+import img8 from '../assets/img_2723_nw_db7f2498.jpeg';
+import img9 from '../assets/img_2727_nw_a3f54761.jpeg';
+import img10 from '../assets/img_2721_nw_5ccf2e8f.jpeg';
+import img11 from '../assets/img_2724_nw_43210e19.jpeg';
+import img12 from '../assets/img_2730_nw_835622b9.jpeg';
+import img13 from '../assets/img_2733_nw_b09dd68e.jpeg';
+import img14 from '../assets/img_2718_nw_afe5f144.jpeg';
+import img15 from '../assets/img_2728_nw_d2152b8e.jpeg';
+import img16 from '../assets/img_2720_nw_d54e608c.jpeg';
+import img17 from '../assets/img_2735_nw_53c3232b.jpeg';
+import img18 from '../assets/img_2722_nw_1b2522f8.jpeg';
+import img19 from '../assets/img_2719_nw_d0625901.jpeg';
+import img20 from '../assets/img_2738_nw_746aaedf.jpeg';
+import img21 from '../assets/img_2732_nw_a4015955.jpeg';
+import img22 from '../assets/img_2731_nw_eb3266e1.jpeg';
+
+// Create an array of all the images with alt text
+const images = [
+  { src: img1, alt: "Free stuff for those in need - donation item" },
+  { src: img2, alt: "Free stuff for those in need - donation item" },
+  { src: img3, alt: "Free stuff for those in need - donation item" },
+  { src: img4, alt: "Free stuff for those in need - donation item" },
+  { src: img5, alt: "Free stuff for those in need - donation item" },
+  { src: img6, alt: "Free stuff for those in need - donation item" },
+  { src: img7, alt: "Free stuff for those in need - donation item" },
+  { src: img8, alt: "Free stuff for those in need - donation item" },
+  { src: img9, alt: "Free stuff for those in need - donation item" },
+  { src: img10, alt: "Free stuff for those in need - donation item" },
+  { src: img11, alt: "Free stuff for those in need - donation item" },
+  { src: img12, alt: "Free stuff for those in need - donation item" },
+  { src: img13, alt: "Free stuff for those in need - donation item" },
+  { src: img14, alt: "Free stuff for those in need - donation item" },
+  { src: img15, alt: "Free stuff for those in need - donation item" },
+  { src: img16, alt: "Free stuff for those in need - donation item" },
+  { src: img17, alt: "Free stuff for those in need - donation item" },
+  { src: img18, alt: "Free stuff for those in need - donation item" },
+  { src: img19, alt: "Free stuff for those in need - donation item" },
+  { src: img20, alt: "Free stuff for those in need - donation item" },
+  { src: img21, alt: "Free stuff for those in need - donation item" },
+  { src: img22, alt: "Free stuff for those in need - donation item" },
+];
+---
+
+<div class="mb-6 -mt-2 -mx-2">
+  <div class="scrapbook-photo w-full" style="--rotate: 0deg;">
+    <div class="scrapbook-tape"></div>
+    <div class="relative">
+      <!-- Main Gallery -->
+      <div class="overflow-x-auto hide-scrollbar gallery-scroll pb-4 snap-x snap-mandatory">
+        <div class="flex gap-4 min-w-max">
+          {images.map((image, index) => (
+            <div 
+              class="snap-start shrink-0 w-[280px] h-[200px] rounded overflow-hidden gallery-item"
+            >
+              <Image 
+                src={image.src} 
+                alt={image.alt} 
+                class="w-full h-full object-cover"
+                width={280}
+                height={200}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Navigation buttons -->
+      <button 
+        class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white rounded-full p-2 hover:bg-black/80 transition-colors prev-button"
+        aria-label="Previous image"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button 
+        class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white rounded-full p-2 hover:bg-black/80 transition-colors next-button"
+        aria-label="Next image"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+
+      <!-- Dots indicator showing there are more images -->
+      <div class="flex justify-center mt-4 gap-1.5">
+        <span class="w-2 h-2 bg-primary rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/50 rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/50 rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/30 rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/30 rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/20 rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/20 rounded-full"></span>
+        <span class="w-2 h-2 bg-primary/10 rounded-full"></span>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-2 text-sm text-muted-foreground italic">
+    <p>Swipe or use arrow buttons to see all {images.length} available items</p>
+  </div>
+</div>
+
+<style>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .gallery-scroll {
+    scroll-behavior: smooth;
+  }
+
+  .gallery-item {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .gallery-item:hover {
+    transform: scale(1.03);
+  }
+</style>
+
+<script>
+  // Initialize the gallery navigation
+  document.addEventListener('DOMContentLoaded', () => {
+    const gallery = document.querySelector('.gallery-scroll');
+    const prevButton = document.querySelector('.prev-button');
+    const nextButton = document.querySelector('.next-button');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    if (!gallery || !prevButton || !nextButton || galleryItems.length === 0) return;
+    
+    const itemWidth = galleryItems[0].clientWidth + 16; // Width + gap
+    
+    // Previous button click handler
+    prevButton.addEventListener('click', () => {
+      gallery.scrollBy({
+        left: -itemWidth * 2,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Next button click handler
+    nextButton.addEventListener('click', () => {
+      gallery.scrollBy({
+        left: itemWidth * 2,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        gallery.scrollBy({
+          left: -itemWidth * 2,
+          behavior: 'smooth'
+        });
+      }
+      if (event.key === 'ArrowRight') {
+        gallery.scrollBy({
+          left: itemWidth * 2,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>

@@ -2,6 +2,8 @@
 
 @plugin "tailwindcss-animate";
 
+@import "./gallery.css";
+
 @theme {
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
