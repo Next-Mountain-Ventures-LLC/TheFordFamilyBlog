@@ -26,6 +26,8 @@ export default function RequestItemForm() {
     phone: '',
     email: '',
     message: '',
+    pickupDate: '',
+    pickupTime: ''
   });
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -121,6 +123,8 @@ export default function RequestItemForm() {
         phone: '',
         email: '',
         message: '',
+        pickupDate: '',
+        pickupTime: ''
       });
       setSelectedCategories([]);
       setShowClothingSizes(false);
@@ -157,7 +161,7 @@ export default function RequestItemForm() {
 
   return (
     <div className="scrapbook-paper bg-white/90">
-      <h2 className="font-display text-2xl font-bold mb-2 text-primary-foreground">Request Free Items</h2>
+      <h2 className="font-display text-2xl font-bold mb-2 text-primary-foreground">Request Free Items - Submissions Due By Friday, Oct. 27th</h2>
       <p className="text-muted-foreground mb-6">
         We're here to help! Let us know what you need, and we'll do our best to match you with available items. Your request will be kept confidential.
       </p>
@@ -342,10 +346,50 @@ export default function RequestItemForm() {
             className="w-full px-3 py-2 border border-border rounded-md bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
           ></textarea>
           <p className="text-sm text-muted-foreground mt-1">
-            Your story helps us understand your needs better. We're here to help!
+            We're not an organization, we're just a family trying to help other families.
           </p>
         </div>
         
+        {/* Pickup Date/Time Section */}
+        <div className="p-4 bg-muted/30 rounded-md space-y-4 border border-border">
+          <h3 className="font-medium">Select Pickup Date & Time <span className="text-sm text-muted-foreground">(1107 S. Clay St, Ennis, TX 75119)</span></h3>
+          <p className="text-sm text-muted-foreground mb-2">Please note: We'll do our best to accommodate your selected time, but we may need to arrange an alternative time based on availability.</p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="pickupDate" className="block text-sm font-medium mb-1">Preferred Date *</label>
+              <input
+                type="date"
+                id="pickupDate"
+                name="pickupDate"
+                value={formData.pickupDate}
+                onChange={handleInputChange}
+                min={new Date().toISOString().split('T')[0]}
+                max="2025-10-27"
+                className="w-full px-3 py-2 border border-border rounded-md bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="pickupTime" className="block text-sm font-medium mb-1">Preferred Time *</label>
+              <select
+                id="pickupTime"
+                name="pickupTime"
+                value={formData.pickupTime}
+                onChange={handleInputChange as React.ChangeEventHandler<HTMLSelectElement>}
+                className="w-full px-3 py-2 border border-border rounded-md bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                required
+              >
+                <option value="">Select a time</option>
+                <option value="Morning (9am-12pm)">Morning (9am-12pm)</option>
+                <option value="Afternoon (12pm-5pm)">Afternoon (12pm-5pm)</option>
+                <option value="Evening (5pm-7pm)">Evening (5pm-7pm)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         <button 
           type="submit"
           disabled={submitting || selectedCategories.length === 0}
@@ -359,7 +403,7 @@ export default function RequestItemForm() {
       
       <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
         <p className="italic">
-          "Whoever has two tunics should share with him who has none, and whoever has food should do the same." - Luke 3:11
+          "If you have two shirts, give one to the poor. If you have food, share it with those who are hungry." - Luke 3:11 (NLT)
         </p>
       </div>
     </div>

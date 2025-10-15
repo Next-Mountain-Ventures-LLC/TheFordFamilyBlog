@@ -61,14 +61,14 @@ const images = [
         <div class="flex gap-4 min-w-max">
           {images.map((image, index) => (
             <div 
-              class="snap-start shrink-0 w-[280px] h-[200px] rounded overflow-hidden gallery-item"
+              class="snap-start shrink-0 w-[480px] h-[360px] rounded overflow-hidden gallery-item"
             >
               <Image 
                 src={image.src} 
                 alt={image.alt} 
                 class="w-full h-full object-cover"
-                width={280}
-                height={200}
+                width={480}
+                height={360}
               />
             </div>
           ))}
@@ -103,7 +103,7 @@ const images = [
     </div>
   </div>
   <div class="text-center mt-2 text-sm text-muted-foreground italic">
-    <p>Swipe or use arrow buttons to see all {images.length} available items</p>
+    <p>Swipe or use arrow buttons to see available items</p>
   </div>
 </div>
 
@@ -144,7 +144,7 @@ const images = [
     // Previous button click handler
     prevButton.addEventListener('click', () => {
       gallery.scrollBy({
-        left: -itemWidth * 2,
+        left: -itemWidth,
         behavior: 'smooth'
       });
     });
@@ -152,7 +152,7 @@ const images = [
     // Next button click handler
     nextButton.addEventListener('click', () => {
       gallery.scrollBy({
-        left: itemWidth * 2,
+        left: itemWidth,
         behavior: 'smooth'
       });
     });
@@ -161,13 +161,13 @@ const images = [
     document.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowLeft') {
         gallery.scrollBy({
-          left: -itemWidth * 2,
+          left: -itemWidth,
           behavior: 'smooth'
         });
       }
       if (event.key === 'ArrowRight') {
         gallery.scrollBy({
-          left: itemWidth * 2,
+          left: itemWidth,
           behavior: 'smooth'
         });
       }
