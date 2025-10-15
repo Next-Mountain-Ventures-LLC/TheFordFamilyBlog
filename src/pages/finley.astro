@@ -84,7 +84,15 @@ try {
   description="Meet Finley Ford, a young model, anime enthusiast, and content creator who shares her passion for fashion, cosplay, and Japanese culture."
 >
   <!-- Background anime pattern and cherry blossoms -->
-  <div class="anime-bg min-h-screen bg-gradient-to-b from-pink-100 via-purple-100 to-pink-100">
+  <div class="anime-bg min-h-screen bg-gradient-to-b from-pink-100 via-purple-100 to-pink-100 relative">
+    <!-- Coming Soon Overlay -->
+    <div class="absolute inset-0 bg-black/80 z-50 flex flex-col items-center justify-center">
+      <div class="text-center p-8 bg-pink-900/80 border-2 border-pink-400 rounded-lg max-w-lg mx-auto backdrop-blur-md">
+        <h2 class="text-4xl font-bold font-display text-white mb-4">Coming Soon</h2>
+        <p class="text-pink-100 mb-6">Finley's page is currently under construction. We're working on creating a beautiful space to showcase her modeling portfolio and creative content.</p>
+        <a href="/blog" class="inline-block px-6 py-3 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition-colors">Return to Blog</a>
+      </div>
+    </div>
     <!-- Cherry tree background element -->
     <div class="cherry-tree"></div>
     
