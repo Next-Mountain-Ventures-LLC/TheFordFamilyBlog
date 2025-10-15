@@ -7,33 +7,35 @@ import saliciaImage from '../../../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../../../assets/jackson_ford_nw_10531fa1.jpg';
 import { getPostsByAuthor, getAuthorBySlug, getAuthors, getAuthorFullName } from '@/lib/wordpress';
 
-// Enable server-side rendering for dynamic routes
-export const prerender = false;
-
-// Get the current author slug from the URL
-const { slug } = Astro.params;
-
-// Fetch the author data from WordPress API
-let author = null;
-let authorPosts = [];
-
-try {
-  console.log(`Attempting to fetch author with slug: ${slug}`);
-  author = await getAuthorBySlug(slug as string);
-  
-  if (author) {
-    console.log(`Successfully fetched author: ${author.name}`);
-    // Fetch posts for this author
-    authorPosts = await getPostsByAuthor(author.id, 20);
-    console.log(`Successfully fetched ${authorPosts.length} posts for author ${author.name}`);
-  } else {
-    console.log(`Author with slug ${slug} not found`);
-    return Astro.redirect('/blog');
+// Generate static paths for all authors
+export async function getStaticPaths() {
+  try {
+    // Fetch all authors
+    const allAuthors = await getAuthors();
+    
+    // Generate paths for each author
+    const paths = await Promise.all(allAuthors.map(async (author) => {
+      // Fetch posts for this author
+      const authorPosts = await getPostsByAuthor(author.id, 20);
+      
+      return {
+        params: { slug: author.slug },
+        props: { 
+          author,
+          authorPosts
+        }
+      };
+    }));
+    
+    return paths;
+  } catch (error) {
+    console.error('Error generating static paths for authors:', error);
+    return []; // Return empty array if fetch fails
   }
-} catch (error) {
-  console.error(`Error fetching author or posts: ${error}`);
-  return Astro.redirect('/blog');
 }
+
+// Get the author data and posts from props
+const { author, authorPosts } = Astro.props;
 
 // Get avatar URL
 const avatarUrl = author.avatar_urls ? author.avatar_urls['96'] : '';

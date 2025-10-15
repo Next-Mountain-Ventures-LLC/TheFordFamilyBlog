@@ -4,47 +4,42 @@ import { buttonVariants } from "@/components/ui/button";
 import { Image } from 'astro:assets';
 import { getPostsByTag, getTagBySlug, getTags } from '@/lib/wordpress';
 
-// Enable server-side rendering for dynamic routes
-export const prerender = false;
-
-// Get the current tag slug from the URL
-const { slug } = Astro.params;
-
-// Fetch the tag data from WordPress API
-let tag = null;
-let tagPosts = [];
-
-try {
-  console.log(`Attempting to fetch tag with slug: ${slug}`);
-  tag = await getTagBySlug(slug as string);
-  
-  if (tag) {
-    console.log(`Successfully fetched tag: ${tag.name}`);
-    // Fetch posts for this tag
-    tagPosts = await getPostsByTag(tag.id, 20);
-    console.log(`Successfully fetched ${tagPosts.length} posts for tag ${tag.name}`);
-  } else {
-    console.log(`Tag with slug ${slug} not found`);
-    return Astro.redirect('/blog');
+// Generate static paths for all tags
+export async function getStaticPaths() {
+  try {
+    // Fetch all tags
+    const allTags = await getTags();
+    
+    // Filter out tags with no posts
+    const activeTags = allTags.filter(t => t.count > 0);
+    
+    // Sort by post count (descending)
+    activeTags.sort((a, b) => b.count - a.count);
+    
+    // Generate paths for each tag
+    const paths = await Promise.all(activeTags.map(async (tag) => {
+      // Fetch posts for this tag
+      const tagPosts = await getPostsByTag(tag.id, 20);
+      
+      return {
+        params: { slug: tag.slug },
+        props: { 
+          tag,
+          tagPosts,
+          allTags: activeTags.slice(0, 20) // Top 20 tags for navigation
+        }
+      };
+    }));
+    
+    return paths;
+  } catch (error) {
+    console.error('Error generating static paths for tags:', error);
+    return []; // Return empty array if fetch fails
   }
-} catch (error) {
-  console.error(`Error fetching tag or posts: ${error}`);
-  return Astro.redirect('/blog');
 }
 
-// Fetch all tags for the navigation
-let allTags = [];
-try {
-  allTags = await getTags();
-  // Filter out tags with no posts
-  allTags = allTags.filter(t => t.count > 0);
-  // Sort by post count (descending)
-  allTags.sort((a, b) => b.count - a.count);
-  // Limit to top 20 tags
-  allTags = allTags.slice(0, 20);
-} catch (error) {
-  console.error('Error fetching all tags:', error);
-}
+// Get the tag data and posts from props
+const { tag, tagPosts, allTags } = Astro.props;
 ---
 
 <BaseLayout 

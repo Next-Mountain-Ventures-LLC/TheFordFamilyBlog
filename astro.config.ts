@@ -2,13 +2,13 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
-import vercel from "@astrojs/vercel/serverless";
+import vercel from "@astrojs/vercel/static";
 
 // https://astro.build/config
 export default defineConfig({
   site: process.env.SITE_URL || "http://localhost:4321",
   integrations: [react()],
-  output: "server",
+  output: "static",
   adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],

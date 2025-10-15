@@ -2,31 +2,28 @@
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import { getPostBySlug, getPosts } from '@/lib/wordpress';
 
-// Enable server-side rendering for dynamic routes
-export const prerender = false;
-
-// Get the current slug from the URL
-const { slug } = Astro.params;
-
-// Fetch the post data from WordPress API
-let post = null;
-try {
-  console.log(`Attempting to fetch post with slug: ${slug}`);
-  post = await getPostBySlug(slug as string);
-  console.log(`Successfully fetched post: ${post?.title}`);
-} catch (error) {
-  console.error(`Error fetching post with slug ${slug}:`, error);
-  // Post not found in WordPress API, check for local content
-  // Here we could add additional logic to load local content if needed
+// Generate static paths for all blog posts
+export async function getStaticPaths() {
+  try {
+    // Fetch all posts from WordPress API
+    const posts = await getPosts(100); // Increase limit as needed
+    
+    // Generate paths for each post
+    return posts.map(post => ({
+      params: { slug: post.slug },
+      props: { post }
+    }));
+  } catch (error) {
+    console.error('Error generating static paths for blog posts:', error);
+    return []; // Return empty array if fetch fails
+  }
 }
 
-// If post not found, redirect to the 404 page
-if (!post) {
-  console.log(`Post with slug ${slug} not found, redirecting to 404`);
-  return Astro.redirect('/404');
-}
+// Get the post data from props
+const { post } = Astro.props;
 
 // Generate the SEO-friendly metadata
+const { slug } = Astro.params; // Get slug from params for ogImage
 const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
 ---
 

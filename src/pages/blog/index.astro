@@ -174,27 +174,33 @@ const fallbackPosts = [
   }
 ];
 
-// Fetch blog posts from WordPress API
-let blogPosts = fallbackPosts;
-try {
-  console.log("Attempting to fetch WordPress posts for blog index...");
-  blogPosts = await getPosts(20);
-  console.log("Successfully fetched WordPress posts for blog index:", blogPosts.length);
-} catch (error) {
-  console.error('Error fetching WordPress posts for blog index:', error);
-  console.log("Using fallback blog post data for blog index");
+// Use static data fetching for the blog index page
+// Define caching time (for example, 1 hour in seconds)
+const CACHE_TIME = 3600;
+
+// Function to fetch data at build time
+async function fetchBlogData() {
+  let blogPosts = fallbackPosts;
+  let wpCategories = fallbackCategories;
+
+  try {
+    console.log("Fetching WordPress posts for blog index at build time...");
+    blogPosts = await getPosts(20);
+    console.log(`Successfully fetched ${blogPosts.length} posts at build time`);
+    
+    console.log("Fetching WordPress categories at build time...");
+    wpCategories = await getCategories();
+    console.log(`Successfully fetched ${wpCategories.length} categories at build time`);
+  } catch (error) {
+    console.error('Error fetching WordPress data at build time:', error);
+    console.log("Using fallback data for build");
+  }
+
+  return { blogPosts, wpCategories };
 }
 
-// Fetch categories from WordPress API
-let wpCategories = fallbackCategories;
-try {
-  console.log("Attempting to fetch WordPress categories...");
-  wpCategories = await getCategories();
-  console.log(`Successfully fetched ${wpCategories.length} WordPress categories`);
-} catch (error) {
-  console.error('Error fetching WordPress categories:', error);
-  console.log("Using fallback category data");
-}
+// Fetch data at build time
+const { blogPosts, wpCategories } = await fetchBlogData();
 
 // Filter out categories with no posts
 const activeCategories = wpCategories.filter(category => category.count > 0);

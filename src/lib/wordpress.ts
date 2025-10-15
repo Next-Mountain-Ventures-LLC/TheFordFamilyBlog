@@ -192,7 +192,8 @@ export async function getPosts(limit = 10): Promise<BlogPost[]> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        // Allow caching for static generation
+        cache: 'force-cache'
       }
     );
 
@@ -224,7 +225,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -354,7 +355,7 @@ export async function getCategories(): Promise<WordPressCategory[]> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -386,7 +387,7 @@ export async function getCategoryBySlug(slug: string): Promise<WordPressCategory
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -437,7 +438,7 @@ export async function getAuthors(): Promise<WordPressAuthor[]> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -469,7 +470,7 @@ export async function getAuthorBySlug(slug: string): Promise<WordPressAuthor | n
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -520,7 +521,7 @@ export async function getPostsByAuthor(authorIdOrName: number | string, limit = 
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -582,7 +583,7 @@ export async function getTags(): Promise<WordPressTag[]> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -614,7 +615,7 @@ export async function getTagBySlug(slug: string): Promise<WordPressTag | null> {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
@@ -650,7 +651,7 @@ export async function getPostsByTag(tagId: number, limit = 10): Promise<BlogPost
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-        cache: 'no-store'
+        cache: 'force-cache'
       }
     );
 
