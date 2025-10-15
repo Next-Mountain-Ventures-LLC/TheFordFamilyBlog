@@ -161,9 +161,9 @@ export default function RequestItemForm() {
 
   return (
     <div className="scrapbook-paper bg-white/90">
-      <h2 className="font-display text-2xl font-bold mb-2 text-primary-foreground">Request Free Items - Submissions Due By Friday, Oct. 27th</h2>
-      <p className="text-muted-foreground mb-6">
-        We're here to help! Let us know what you need, and we'll do our best to match you with available items. Your request will be kept confidential.
+      <h2 className="font-display text-2xl font-bold mb-1 text-primary-foreground">Request Free Items</h2>
+      <p className="text-muted-foreground mb-6 text-sm font-medium">
+        Submissions Due By Friday, Oct. 27th
       </p>
       
       <form onSubmit={handleSubmit} className="space-y-6" data-form-type="utility">
@@ -365,7 +365,7 @@ export default function RequestItemForm() {
                 value={formData.pickupDate}
                 onChange={handleInputChange}
                 min={new Date().toISOString().split('T')[0]}
-                max="2025-10-27"
+                max="2025-10-18"
                 className="w-full px-3 py-2 border border-border rounded-md bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 required
               />
@@ -403,7 +403,7 @@ export default function RequestItemForm() {
       
       <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
         <p className="italic">
-          "If you have two shirts, give one to the poor. If you have food, share it with those who are hungry." - Luke 3:11 (NLT)
+          "It is more blessed to give than to receive." - Acts 20:35
         </p>
       </div>
     </div>
