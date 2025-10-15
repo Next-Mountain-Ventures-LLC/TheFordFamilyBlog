@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
+import SubscribeForm from "@/components/SubscribeForm";
 import joshuaImage from '../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
@@ -231,10 +232,7 @@ const author = getAuthorFullName(rawAuthor);
           <div class="scrapbook-paper bg-secondary/5">
             <h3 class="font-display font-bold text-xl mb-4">Subscribe</h3>
             <p class="text-sm mb-4">Get the latest posts delivered straight to your inbox.</p>
-            <form class="space-y-3">
-              <input type="email" placeholder="Your email address" class="w-full px-3 py-2 border border-border rounded-md bg-white/50" />
-              <button type="submit" class={buttonVariants({ size: 'sm', class: 'w-full' })}>Subscribe</button>
-            </form>
+            <SubscribeForm client:load />
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
+import SubscribeForm from "@/components/SubscribeForm";
 import { Image } from 'astro:assets';
 import joshuaImage from '../../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../../assets/salicias-profile_nw_7fb06e56.jpg';
@@ -436,17 +437,9 @@ const regularPosts = allRegularPosts.slice(startIndex, endIndex);
             <p class="text-muted-foreground mb-6">
               Get the latest blog posts, family updates, and exclusive content delivered straight to your inbox.
             </p>
-            <form class="max-w-md mx-auto flex gap-2">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                class="flex-1 px-4 py-2 bg-white border border-border rounded-md"
-                required
-              />
-              <button type="submit" class={buttonVariants({ variant: "default" })}>
-                Subscribe
-              </button>
-            </form>
+            <div class="max-w-md mx-auto">
+              <SubscribeForm client:load />
+            </div>
           </div>
         </div>
       </div>
