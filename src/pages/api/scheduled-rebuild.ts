@@ -68,7 +68,7 @@ export const get: APIRoute = async ({ request }) => {
       timestamp: new Date().toISOString(),
       details: {
         jobType: 'daily-rebuild',
-        scheduledTime: '11:00am',
+        scheduledTime: '11:10am',
         deploymentInfo: result
       }
     }), {

@@ -1,6 +1,6 @@
 # Scheduled Rebuilds for new.website
 
-This document explains how to set up a daily scheduled rebuild of your Astro site at 11:00am.
+This document explains how to set up a daily scheduled rebuild of your Astro site at 11:10am.
 
 ## How It Works
 
@@ -28,7 +28,7 @@ You have several options to trigger the daily rebuild:
 2. Create a new cron job with the following settings:
    - URL: `https://your-site-url.com/api/scheduled-rebuild?secret=ford-family-schedule-secret` (use your actual secret)
    - Method: GET
-   - Schedule: Daily at 11:00 AM
+   - Schedule: Daily at 11:10 AM
    - Timezone: Your preferred timezone
 
 #### Option B: Using GitHub Actions
@@ -42,8 +42,8 @@ name: Daily Rebuild
 
 on:
   schedule:
-    # Run at 11:00 AM UTC every day
-    - cron: '0 11 * * *'
+    # Run at 11:10 AM UTC every day
+    - cron: '10 11 * * *'
 
 jobs:
   rebuild:
@@ -67,7 +67,7 @@ If you're using Vercel, you can use their built-in Cron Jobs feature:
   "crons": [
     {
       "path": "/api/scheduled-rebuild?secret=ford-family-schedule-secret",
-      "schedule": "0 11 * * *"
+      "schedule": "10 11 * * *"
     }
   ]
 }
