@@ -1,3 +1,9 @@
 {
-    "framework": "astro"
+    "framework": "astro",
+    "crons": [
+        {
+            "path": "/api/scheduled-rebuild?secret=ford-family-schedule-secret",
+            "schedule": "0 11 * * *"
+        }
+    ]
 }
