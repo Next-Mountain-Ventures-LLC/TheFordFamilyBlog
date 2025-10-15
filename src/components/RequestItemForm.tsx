@@ -403,7 +403,7 @@ export default function RequestItemForm() {
       
       <div className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
         <p className="italic">
-          "It is more blessed to give than to receive." - Acts 20:35
+          "It is more blessing to give than to receive." - Acts 20:35
         </p>
       </div>
     </div>

@@ -49,9 +49,9 @@ const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
 ---
 
 <BaseLayout title={post.title} description={post.excerpt} ogImage={ogImage}>
-  <div class="bg-muted/20 py-10 border-b border-primary/10">
+  <div class="bg-muted/20 py-6 border-b border-primary/10">
     <div class="container max-w-4xl mx-auto">
-      <div class="flex items-center space-x-2 mb-2">
+      <div class="flex items-center space-x-2 mb-1">
         <a href="/blog" class="text-primary hover:text-primary-foreground transition-colors">
           Blog
         </a>
@@ -61,11 +61,11 @@ const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
         </a>
       </div>
       
-      <h1 class="text-3xl md:text-5xl font-bold font-display mb-4 text-primary-foreground">
+      <h1 class="text-3xl md:text-4xl font-bold font-display mb-3 text-primary-foreground">
         {post.title}
       </h1>
       
-      <div class="flex flex-wrap items-center text-sm text-muted-foreground gap-x-4 gap-y-2 mb-8">
+      <div class="flex flex-wrap items-center text-sm text-muted-foreground gap-x-4 gap-y-2 mb-4">
         <div class="flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           <a 
