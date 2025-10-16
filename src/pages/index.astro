@@ -9,7 +9,7 @@ import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
 import BlogPreview from '@/components/BlogPreview';
-import YouTubeCarousel from '@/components/YouTubeCarousel';
+import SubscribeForm from '@/components/SubscribeForm';
 import { buttonVariants } from "@/components/ui/button";
 import { getPosts } from '@/lib/wordpress';
 
@@ -70,6 +70,21 @@ try {
 >
   <!-- Hero Section -->
   <HeroSection client:load />
+  
+  <!-- Subscribe Form Section -->
+  <section class="py-8 bg-secondary/5 border-y border-primary/5">
+    <div class="container max-w-md mx-auto">
+      <div class="scrapbook-paper bg-white/95">
+        <h2 class="text-xl md:text-2xl font-bold font-display mb-2 text-center text-secondary-foreground">
+          Subscribe to Our Newsletter
+        </h2>
+        <p class="text-sm text-center text-muted-foreground mb-4">
+          Get updates on homeschooling, health challenges, and our family adventures directly to your inbox.
+        </p>
+        <SubscribeForm client:load />
+      </div>
+    </div>
+  </section>
   
   <!-- Family Members Section -->
   <section id="family" class="py-20 bg-muted/10">
@@ -145,9 +160,6 @@ try {
   
   <!-- Blog Preview Section - These link to actual blog post pages -->
   <BlogPreview client:visible title="Latest Blog Posts" posts={blogPosts} />
-  
-  <!-- YouTube Channel Section -->
-  <YouTubeCarousel client:visible />
   
   <!-- Contact Section -->
   <section class="py-16">
