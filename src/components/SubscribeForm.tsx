@@ -4,8 +4,8 @@ import { buttonVariants } from "./ui/button";
 export default function SubscribeForm() {
   const defaultFormData = { 
     email: "", 
-    firstName: "", 
-    lastName: "", 
+    first_name: "", 
+    last_name: "", 
     phone: "", 
     form_name: "Ford Family Newsletter Subscription" 
   };
@@ -36,18 +36,18 @@ export default function SubscribeForm() {
       // Create FormData and add each field
       const form = new FormData();
       
-      // Explicitly add each field to ensure they're included
+      // Explicitly add each field to ensure they're included with the correct field names
       form.append("email", formData.email);
-      form.append("firstName", formData.firstName);
-      form.append("lastName", formData.lastName);
-      form.append("phone", formData.phone || "Not provided");
+      form.append("first_name", formData.first_name);
+      form.append("last_name", formData.last_name);
+      form.append("phone", formData.phone || "");
       form.append("form_name", formData.form_name);
       
       // Log form data for debugging
       console.log("Form submission data:", {
         email: formData.email,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
         phone: formData.phone,
         form_name: formData.form_name
       });
@@ -81,7 +81,7 @@ export default function SubscribeForm() {
   };
 
   return (
-    <form onSubmit={step === 1 ? handleNext : handleSubmit} className="space-y-3">
+    <form onSubmit={step === 1 ? handleNext : handleSubmit} className="space-y-3" method="POST" action="https://api.new.website/api/submit-form/">
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -101,6 +101,7 @@ export default function SubscribeForm() {
               disabled: isSubmitting,
               className: 'whitespace-nowrap'
             })}
+            name="next_button"
           >
             Next
           </button>
@@ -110,20 +111,20 @@ export default function SubscribeForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"
-              id="firstName"
-              name="firstName"
+              id="first_name"
+              name="first_name"
               placeholder="First name"
-              value={formData.firstName}
+              value={formData.first_name}
               onChange={handleInputChange}
               required
               className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
             />
             <input
               type="text"
-              id="lastName"
-              name="lastName"
+              id="last_name"
+              name="last_name"
               placeholder="Last name"
-              value={formData.lastName}
+              value={formData.last_name}
               onChange={handleInputChange}
               required
               className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
@@ -152,6 +153,7 @@ export default function SubscribeForm() {
                 size: 'default',
                 className: 'whitespace-nowrap'
               })}
+              name="back_button"
             >
               Back
             </button>
@@ -162,6 +164,7 @@ export default function SubscribeForm() {
                 disabled: isSubmitting,
                 className: 'whitespace-nowrap'
               })}
+              name="submit_button"
             >
               {isSubmitting ? "Submitting..." : "Submit"}
             </button>
@@ -169,8 +172,8 @@ export default function SubscribeForm() {
         </div>
       )}
 
-      {/* This hidden field ensures the form is properly categorized in your forms list */}
-      <input name="form_name" type="hidden" value={formData.form_name} />
+      {/* Hidden field for form name */}
+      <input type="hidden" name="form_name" value={formData.form_name} />
       
       {submitStatus === "success" && (
         <div className="p-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
