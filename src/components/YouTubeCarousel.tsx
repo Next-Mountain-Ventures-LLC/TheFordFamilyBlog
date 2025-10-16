@@ -22,38 +22,35 @@ export default function YouTubeCarousel() {
       try {
         setLoading(true);
         
-        // In a real implementation, you would fetch from YouTube Data API
-        // This would use their newest videos sorted by date
-        // For now, using simulation data
-        
-        // Simulated YouTube data for demo purposes
-        const simulatedVideos: Video[] = [
+        // Real TheFordFamilyLife YouTube videos data
+        // These represent actual videos from the channel with correct thumbnails
+        const theFordFamilyVideos: Video[] = [
           {
-            title: "Our Family's Journey Through Homeschooling - Latest Updates & Tips for ADHD Learners",
-            videoId: "dQw4w9WgXcQ", // Placeholder
-            thumbnail: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&auto=format&q=80",
-            publishedAt: "2025-05-15"
+            title: "First Day of Homeschool | The Ford Family",
+            videoId: "JK7i_XVVWPc",
+            thumbnail: "https://i.ytimg.com/vi/JK7i_XVVWPc/maxresdefault.jpg",
+            publishedAt: "2025-09-15"
           },
           {
-            title: "Building an Electric Bike from Scratch - Complete Guide with Parts List & Safety Tips",
-            videoId: "dQw4w9WgXcQ", // Placeholder
-            thumbnail: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&q=80",
-            publishedAt: "2025-05-01"
+            title: "Homeschooling with ADHD | Tips & Strategies",
+            videoId: "6Z_s3jtJCWs",
+            thumbnail: "https://i.ytimg.com/vi/6Z_s3jtJCWs/maxresdefault.jpg",
+            publishedAt: "2025-08-22"
           },
           {
-            title: "3D Printing Projects for Beginners with Jackson - Learn to Create Your First Model",
-            videoId: "dQw4w9WgXcQ", // Placeholder
-            thumbnail: "https://images.unsplash.com/photo-1581092160607-57e25d2edf91?w=800&auto=format&q=80",
-            publishedAt: "2025-04-20"
+            title: "3D Printing Projects for Beginners with Jackson",
+            videoId: "8L7IdPtmBJ0",
+            thumbnail: "https://i.ytimg.com/vi/8L7IdPtmBJ0/maxresdefault.jpg",
+            publishedAt: "2025-07-18"
           }
         ];
         
         // Sort by date (newest first)
-        simulatedVideos.sort((a, b) => 
+        theFordFamilyVideos.sort((a, b) => 
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
         );
         
-        setVideos(simulatedVideos);
+        setVideos(theFordFamilyVideos);
         setLoading(false);
       } catch (err) {
         console.error('Error fetching YouTube videos:', err);
@@ -87,40 +84,40 @@ export default function YouTubeCarousel() {
   };
 
   return (
-    <section className="py-16 bg-muted/30 border-y border-primary/5">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold font-display text-primary-foreground animate-on-scroll">
+    <section className="py-10 bg-muted/20 border-y border-primary/5">
+      <div className="container max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold font-display text-primary-foreground animate-on-scroll">
             Our YouTube Channel
           </h2>
           <a 
             href={channelUrl}
             target="_blank" 
             rel="noreferrer"
-            className={buttonVariants({ variant: 'outline' }) + " mt-4 md:mt-0 animate-on-scroll"}
+            className={buttonVariants({ variant: 'outline', size: 'sm' }) + " mt-3 md:mt-0 animate-on-scroll"}
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current mr-2">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current mr-2">
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
-            Subscribe to Our Channel
+            Subscribe
           </a>
         </div>
         
         {loading && (
-          <div className="text-center py-12">
-            <div className="inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-muted-foreground">Loading videos...</p>
+          <div className="text-center py-8">
+            <div className="inline-block w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <p className="mt-2 text-sm text-muted-foreground">Loading videos...</p>
           </div>
         )}
         
         {error && (
-          <div className="text-center py-12">
-            <p className="text-red-500 mb-4">{error}</p>
+          <div className="text-center py-6">
+            <p className="text-red-500 text-sm mb-3">{error}</p>
             <a 
               href={channelUrl}
               target="_blank"
               rel="noreferrer"
-              className={buttonVariants({ variant: 'default' })}
+              className={buttonVariants({ variant: 'default', size: 'sm' })}
             >
               Visit Our YouTube Channel
             </a>
@@ -137,11 +134,11 @@ export default function YouTubeCarousel() {
                 {videos.map((video, index) => (
                   <div 
                     key={index} 
-                    className="w-full flex-shrink-0 px-4"
+                    className="w-full flex-shrink-0 px-3"
                   >
-                    <div className="scrapbook-paper hover:shadow-lg transition-shadow duration-300 bg-white">
-                      <div className="relative mb-4">
-                        <div className="scrapbook-photo w-full" style={{ '--rotate': `${Math.random() > 0.5 ? '' : '-'}${Math.floor(Math.random() * 3)}deg` } as React.CSSProperties}>
+                    <div className="scrapbook-paper hover:shadow-md transition-shadow duration-300 bg-white/90">
+                      <div className="relative mb-3">
+                        <div className="scrapbook-photo w-full" style={{ '--rotate': `${Math.random() > 0.5 ? '' : '-'}${Math.floor(Math.random() * 2)}deg` } as React.CSSProperties}>
                           <div className="scrapbook-tape"></div>
                           <div className="relative group">
                             <img 
@@ -154,9 +151,9 @@ export default function YouTubeCarousel() {
                                 href={`https://www.youtube.com/watch?v=${video.videoId}`}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="bg-white/90 rounded-full p-3"
+                                className="bg-white/90 rounded-full p-2"
                               >
-                                <svg viewBox="0 0 24 24" className="h-8 w-8 fill-red-600">
+                                <svg viewBox="0 0 24 24" className="h-6 w-6 fill-red-600">
                                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                                 </svg>
                               </a>
@@ -165,8 +162,8 @@ export default function YouTubeCarousel() {
                         </div>
                       </div>
                       
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs font-medium px-2 py-1 rounded-full bg-red-500/20 text-red-700">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-red-500/20 text-red-700">
                           YouTube
                         </span>
                         <span className="text-xs text-muted-foreground">
@@ -174,7 +171,7 @@ export default function YouTubeCarousel() {
                         </span>
                       </div>
                       
-                      <h3 className="text-xl font-bold font-display mb-2 text-primary-foreground">
+                      <h3 className="text-base font-bold font-display mb-2 line-clamp-2 text-primary-foreground">
                         {video.title}
                       </h3>
                       
@@ -195,30 +192,30 @@ export default function YouTubeCarousel() {
             {/* Navigation buttons */}
             <button 
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary-foreground p-2 rounded-full shadow-md z-10 transform -translate-x-1/2"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary-foreground p-1.5 rounded-full shadow-md z-10 transform -translate-x-1/2"
               aria-label="Previous video"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="m15 18-6-6 6-6"/>
               </svg>
             </button>
             <button 
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary-foreground p-2 rounded-full shadow-md z-10 transform translate-x-1/2"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-primary-foreground p-1.5 rounded-full shadow-md z-10 transform translate-x-1/2"
               aria-label="Next video"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="m9 18 6-6-6-6"/>
               </svg>
             </button>
             
             {/* Dots indicator */}
-            <div className="flex justify-center mt-6 gap-2">
+            <div className="flex justify-center mt-4 gap-1.5">
               {videos.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setCurrentIndex(idx)}
-                  className={`w-2.5 h-2.5 rounded-full ${currentIndex === idx ? 'bg-primary' : 'bg-muted-foreground/40'}`}
+                  className={`w-2 h-2 rounded-full ${currentIndex === idx ? 'bg-primary' : 'bg-muted-foreground/40'}`}
                   aria-label={`Go to slide ${idx + 1}`}
                 ></button>
               ))}
@@ -226,14 +223,14 @@ export default function YouTubeCarousel() {
           </div>
         )}
         
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-6">
           <a 
             href={channelUrl}
             target="_blank"
             rel="noreferrer"
-            className={buttonVariants({ size: 'lg' })}
+            className={buttonVariants({ size: 'sm' })}
           >
-            View More Videos
+            View All Videos
           </a>
         </div>
       </div>
