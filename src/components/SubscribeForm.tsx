@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { buttonVariants } from "./ui/button";
 
 export default function SubscribeForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  // Define state for form data with the exact field names expected by the API
   const defaultFormData = { 
     email: "", 
     first_name: "", 
@@ -33,23 +36,25 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Create FormData and add each field
-      const form = new FormData();
+      // Create FormData directly from the form element to ensure all fields are included
+      const form = formRef.current ? new FormData(formRef.current) : new FormData();
       
-      // Explicitly add each field to ensure they're included with the correct field names
-      form.append("email", formData.email);
-      form.append("first_name", formData.first_name);
-      form.append("last_name", formData.last_name);
-      form.append("phone", formData.phone || "");
-      form.append("form_name", formData.form_name);
+      // Just to be sure, also explicitly add each field with the correct field name
+      if (!formRef.current) {
+        form.append("email", formData.email);
+        form.append("first_name", formData.first_name);
+        form.append("last_name", formData.last_name);
+        form.append("phone", formData.phone || "");
+        form.append("form_name", formData.form_name);
+      }
       
       // Log form data for debugging
       console.log("Form submission data:", {
-        email: formData.email,
-        first_name: formData.first_name,
-        last_name: formData.last_name,
-        phone: formData.phone,
-        form_name: formData.form_name
+        email: form.get("email"),
+        first_name: form.get("first_name"),
+        last_name: form.get("last_name"),
+        phone: form.get("phone"),
+        form_name: form.get("form_name")
       });
       
       const response = await fetch("https://api.new.website/api/submit-form/", {
@@ -81,7 +86,14 @@ export default function SubscribeForm() {
   };
 
   return (
-    <form onSubmit={step === 1 ? handleNext : handleSubmit} className="space-y-3" method="POST" action="https://api.new.website/api/submit-form/">
+    <form 
+      ref={formRef}
+      onSubmit={step === 1 ? handleNext : handleSubmit} 
+      className="space-y-3" 
+      method="POST" 
+      action="https://api.new.website/api/submit-form/"
+      encType="multipart/form-data"
+    >
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -108,6 +120,9 @@ export default function SubscribeForm() {
         </div>
       ) : (
         <div className="space-y-3">
+          {/* This hidden field ensures the email is included when submitting the final form */}
+          <input type="hidden" name="email" value={formData.email} />
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
               type="text"
@@ -172,8 +187,8 @@ export default function SubscribeForm() {
         </div>
       )}
 
-      {/* Hidden field for form name */}
-      <input type="hidden" name="form_name" value={formData.form_name} />
+      {/* Hidden field for form name - this is critical for your form identification */}
+      <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
       
       {submitStatus === "success" && (
         <div className="p-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
