@@ -112,27 +112,81 @@ export default function RequestItemForm() {
     setSubmitting(true);
 
     try {
-      // In a real implementation, we would submit the form data to an API
-      // For now, we'll simulate a submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Create FormData object to submit
+      const form = new FormData(e.target as HTMLFormElement);
       
-      setFormSubmitted(true);
-      // Reset form
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        message: '',
-        pickupDate: '',
-        pickupTime: ''
+      // Make sure form_name is properly set
+      form.set("form_name", "Free Stuff Request");
+      
+      // Add selected categories as a comma-separated string
+      form.set("selected_categories", selectedCategories.join(", "));
+      
+      // Add clothing sizes info if available
+      if (clothingSizes.length > 0) {
+        const clothingSizesText = clothingSizes.map(item => 
+          `${item.type}: ${item.sizes}`
+        ).join("; ");
+        form.set("clothing_sizes", clothingSizesText);
+      }
+      
+      // Add shoe sizes info if available
+      if (shoeSizes.length > 0) {
+        const shoeSizesText = shoeSizes.map(item => 
+          `${item.type}: ${item.sizes}`
+        ).join("; ");
+        form.set("shoe_sizes", shoeSizesText);
+      }
+      
+      // Log what we're sending for debugging
+      console.log("Sending form data to API:", {
+        name: form.get("name"),
+        email: form.get("email"),
+        phone: form.get("phone"),
+        message: form.get("message"),
+        pickupDate: form.get("pickupDate"),
+        pickupTime: form.get("pickupTime"),
+        selected_categories: form.get("selected_categories"),
+        clothing_sizes: form.get("clothing_sizes"),
+        shoe_sizes: form.get("shoe_sizes"),
+        form_name: form.get("form_name")
       });
-      setSelectedCategories([]);
-      setShowClothingSizes(false);
-      setShowShoeSizes(false);
-      setClothingSizes([]);
-      setShoeSizes([]);
+      
+      // Send to the API endpoint
+      const response = await fetch("https://api.new.website/api/submit-form/", {
+        method: "POST",
+        body: form,
+      });
+
+      if (response.ok) {
+        console.log("Form submission successful");
+        setFormSubmitted(true);
+        // Reset form
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          message: '',
+          pickupDate: '',
+          pickupTime: ''
+        });
+        setSelectedCategories([]);
+        setShowClothingSizes(false);
+        setShowShoeSizes(false);
+        setClothingSizes([]);
+        setShoeSizes([]);
+      } else {
+        // Log more details about the failed submission
+        const errorText = await response.text();
+        console.error("Form submission failed:", {
+          status: response.status,
+          statusText: response.statusText,
+          responseText: errorText
+        });
+        throw new Error(`Form submission failed: ${response.status} ${response.statusText}`);
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert("There was an error submitting the form. Please try again.");
     } finally {
       setSubmitting(false);
     }
