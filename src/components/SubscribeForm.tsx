@@ -26,6 +26,8 @@ export default function SubscribeForm() {
     e.preventDefault();
     // Validate email before proceeding
     if (formData.email) {
+      // Make sure to set form_name in case the form is submitted directly
+      formData.form_name = "Ford Family Newsletter Subscription";
       setStep(2);
     }
   };
@@ -36,28 +38,17 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Create FormData directly from the form element to ensure all fields are included
-      const form = formRef.current ? new FormData(formRef.current) : new FormData();
+      // Create a new FormData object from the form element
+      const form = new FormData(formRef.current as HTMLFormElement);
       
-      // Check if form_name is present in the form data, add it if not
-      if (!form.get("form_name")) {
-        form.append("form_name", "Ford Family Newsletter Subscription");
+      // Make sure all required fields are explicitly included with the correct names
+      form.set("email", formData.email);
+      form.set("first_name", formData.first_name);
+      form.set("last_name", formData.last_name);
+      if (formData.phone) {
+        form.set("phone", formData.phone);
       }
-      
-      // Just to be sure, also explicitly add each field with the correct field name
-      // Even when using formRef, let's make sure all fields are present
-      if (formData.email && !form.get("email")) {
-        form.append("email", formData.email);
-      }
-      if (formData.first_name && !form.get("first_name")) {
-        form.append("first_name", formData.first_name);
-      }
-      if (formData.last_name && !form.get("last_name")) {
-        form.append("last_name", formData.last_name);
-      }
-      if (formData.phone && !form.get("phone")) {
-        form.append("phone", formData.phone);
-      }
+      form.set("form_name", "Ford Family Newsletter Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -68,9 +59,9 @@ export default function SubscribeForm() {
         form_name: form.get("form_name")
       });
       
-      // Log the complete fetch request for debugging
       console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
       
+      // Send the form data directly to the endpoint
       const response = await fetch("https://api.new.website/api/submit-form/", {
         method: "POST",
         body: form,
@@ -107,6 +98,7 @@ export default function SubscribeForm() {
       method="POST" 
       action="https://api.new.website/api/submit-form/"
       encType="multipart/form-data"
+      autoComplete="on"
     >
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
@@ -120,6 +112,8 @@ export default function SubscribeForm() {
             required
             className="flex-1 px-3 py-2 border border-border rounded-md bg-white/50"
           />
+          {/* Include hidden form_name field in step 1 too */}
+          <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
           <button 
             type="submit" 
             className={buttonVariants({ 
@@ -134,8 +128,9 @@ export default function SubscribeForm() {
         </div>
       ) : (
         <div className="space-y-3">
-          {/* This hidden field ensures the email is included when submitting the final form */}
+          {/* Hidden fields to ensure critical data is included in the final form */}
           <input type="hidden" name="email" value={formData.email} />
+          <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input
@@ -201,9 +196,6 @@ export default function SubscribeForm() {
         </div>
       )}
 
-      {/* Hidden field for form name - this is critical for your form identification */}
-      <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
-      
       {submitStatus === "success" && (
         <div className="p-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
           Thank you for subscribing!
