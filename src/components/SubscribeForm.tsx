@@ -39,13 +39,24 @@ export default function SubscribeForm() {
       // Create FormData directly from the form element to ensure all fields are included
       const form = formRef.current ? new FormData(formRef.current) : new FormData();
       
+      // Check if form_name is present in the form data, add it if not
+      if (!form.get("form_name")) {
+        form.append("form_name", "Ford Family Newsletter Subscription");
+      }
+      
       // Just to be sure, also explicitly add each field with the correct field name
-      if (!formRef.current) {
+      // Even when using formRef, let's make sure all fields are present
+      if (formData.email && !form.get("email")) {
         form.append("email", formData.email);
+      }
+      if (formData.first_name && !form.get("first_name")) {
         form.append("first_name", formData.first_name);
+      }
+      if (formData.last_name && !form.get("last_name")) {
         form.append("last_name", formData.last_name);
-        form.append("phone", formData.phone || "");
-        form.append("form_name", formData.form_name);
+      }
+      if (formData.phone && !form.get("phone")) {
+        form.append("phone", formData.phone);
       }
       
       // Log form data for debugging
@@ -56,6 +67,9 @@ export default function SubscribeForm() {
         phone: form.get("phone"),
         form_name: form.get("form_name")
       });
+      
+      // Log the complete fetch request for debugging
+      console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
       
       const response = await fetch("https://api.new.website/api/submit-form/", {
         method: "POST",
