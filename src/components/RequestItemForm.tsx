@@ -217,7 +217,7 @@ export default function RequestItemForm() {
     <div className="scrapbook-paper bg-white/90">
       <h2 className="font-display text-2xl font-bold mb-1 text-primary-foreground">Request Free Items</h2>
       <p className="text-muted-foreground mb-6 text-sm font-medium">
-        Submissions Due By Thursday, Oct. 24th
+        Submissions Due By Friday, Oct. 24th - Pickup available through Saturday, Oct. 25th
       </p>
       
       <form onSubmit={handleSubmit} className="space-y-6" data-form-type="utility">
@@ -419,7 +419,7 @@ export default function RequestItemForm() {
                 value={formData.pickupDate}
                 onChange={handleInputChange}
                 min={new Date().toISOString().split('T')[0]}
-                max="2025-10-24"
+                max="2025-10-25"
                 className="w-full px-3 py-2 border border-border rounded-md bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 required
               />
