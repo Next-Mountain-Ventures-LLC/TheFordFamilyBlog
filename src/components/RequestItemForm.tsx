@@ -365,7 +365,7 @@ export default function RequestItemForm() {
                 value={formData.pickupDate}
                 onChange={handleInputChange}
                 min={new Date().toISOString().split('T')[0]}
-                max="2025-10-18"
+                max="2025-10-25"
                 className="w-full px-3 py-2 border border-border rounded-md bg-white/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 required
               />
