@@ -27,7 +27,7 @@ export default function SubscribeForm() {
     // Validate email before proceeding
     if (formData.email) {
       // Make sure to set form_name in case the form is submitted directly
-      formData.form_name = "Ford Family Newsletter Subscription";
+      setFormData(prev => ({ ...prev, form_name: "Ford Family Newsletter Subscription" }));
       setStep(2);
     }
   };
@@ -99,6 +99,7 @@ export default function SubscribeForm() {
       action="https://api.new.website/api/submit-form/"
       encType="multipart/form-data"
       autoComplete="on"
+      id="newsletter-subscribe-form"
     >
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
