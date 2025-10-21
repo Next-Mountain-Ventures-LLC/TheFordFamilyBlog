@@ -38,16 +38,20 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Create a new FormData object from the form element
-      const form = new FormData(formRef.current as HTMLFormElement);
+      // Get the form element directly
+      const formElement = formRef.current as HTMLFormElement;
       
-      // Make sure all required fields are explicitly included with the correct names
+      // Create a new FormData object from the form element
+      const form = new FormData(formElement);
+      
+      // Ensure all fields are included in the FormData
       form.set("email", formData.email);
       form.set("first_name", formData.first_name);
       form.set("last_name", formData.last_name);
       if (formData.phone) {
         form.set("phone", formData.phone);
       }
+      // Make sure form_name is properly set
       form.set("form_name", "Ford Family Newsletter Subscription");
       
       // Log form data for debugging
@@ -100,6 +104,7 @@ export default function SubscribeForm() {
       encType="multipart/form-data"
       autoComplete="on"
       id="newsletter-subscribe-form"
+      data-form-type="contact"
     >
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
