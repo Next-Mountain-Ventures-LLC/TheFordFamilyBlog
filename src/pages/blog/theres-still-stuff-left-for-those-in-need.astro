@@ -98,6 +98,22 @@ const ogImage = new URL(`/og-images/${slug}.png`, Astro.site);
             <!-- Gallery of free stuff images instead of a single image -->
             <FreeStuffGallery />
             
+            <!-- Original Facebook post embed -->
+            <div class="my-6 flex flex-col items-center">
+              <p class="text-sm text-muted-foreground mb-2 italic">Original posting:</p>
+              <iframe 
+                src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fj.d.ford.313691%2Fposts%2Fpfbid0z86zp2wWR28B7udFkcVsATggjjMFrj7D3H7XFUhCQhKc6G8zd2sp5temEmQXxQdHl&show_text=true&width=500" 
+                width="500" 
+                height="250" 
+                style="border:none;overflow:hidden" 
+                scrolling="no" 
+                frameborder="0" 
+                allowfullscreen="true" 
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                class="max-w-full"
+              ></iframe>
+            </div>
+            
             <div class="prose prose-slate max-w-none">
               <div set:html={post.content} />
             </div>
