@@ -49,7 +49,10 @@ export default function SubscribeForm() {
       form.set("first_name", formData.first_name);
       form.set("last_name", formData.last_name);
       if (formData.phone) {
-        form.set("phone", formData.phone);
+        // Automatically add +1 prefix to phone numbers if not already present
+        const phoneNumber = formData.phone.trim();
+        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+        form.set("phone", formattedPhone);
       }
       // Make sure form_name is properly set
       form.set("form_name", "Ford Family Newsletter Subscription");
