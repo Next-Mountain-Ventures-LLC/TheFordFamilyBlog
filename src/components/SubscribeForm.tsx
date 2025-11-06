@@ -28,6 +28,10 @@ export default function SubscribeForm() {
     if (formData.email) {
       // Make sure to set form_name in case the form is submitted directly
       setFormData(prev => ({ ...prev, form_name: "Ford Family Newsletter Subscription" }));
+      
+      // If we want to debug form data before step 2, can log it here
+      console.log("Moving to step 2 with email:", formData.email);
+      
       setStep(2);
     }
   };
@@ -41,28 +45,23 @@ export default function SubscribeForm() {
       // Get the form element directly
       const formElement = formRef.current as HTMLFormElement;
       
-      // Create a new FormData object from the form element
-      const form = new FormData(formElement);
+      // Create a fresh FormData object
+      const form = new FormData();
       
-      // Clear existing form data to avoid duplicates
-      Array.from(form.entries()).forEach(([key]) => {
-        if (key !== 'submit_button' && key !== 'back_button') {
-          form.delete(key);
-        }
-      });
-      
-      // Ensure all fields are included in the FormData with the correct names
+      // Add form fields with the correct names
       form.append("email", formData.email);
       form.append("first_name", formData.first_name);
       form.append("last_name", formData.last_name);
+      
       if (formData.phone) {
         // Automatically add +1 prefix to phone numbers if not already present
         const phoneNumber = formData.phone.trim();
         const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
         form.append("phone", formattedPhone);
       }
+      
       // Make sure form_name is properly set
-      form.append("form_name", "Ford Family Newsletter Subscription");
+      form.set("form_name", "Ford Family Newsletter Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
