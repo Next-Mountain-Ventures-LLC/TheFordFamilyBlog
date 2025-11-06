@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ListChecks, DollarSign, ChevronRight } from 'lucide-react';
+import { Users, HeartPulse, HandHeart, Store, Check, ArrowDown } from 'lucide-react';
 
 interface Category {
   id: string;
@@ -22,26 +22,26 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
     {
       id: 'family_updates',
       name: 'Family Updates',
-      description: 'Regular updates about our family events and activities',
-      icon: ListChecks
+      description: 'Regular updates about our family',
+      icon: Users
     },
     {
       id: 'health_updates',
       name: 'Health Updates',
-      description: 'Updates about health journeys and challenges',
-      icon: ListChecks
+      description: 'Direct updates concerning Salicia\'s health',
+      icon: HeartPulse
     },
     {
       id: 'prayer_request',
       name: 'Prayer Request',
-      description: 'Prayer requests and faith-based reflections',
-      icon: ListChecks
+      description: 'Received prayer requests from our family',
+      icon: HandHeart
     },
     {
       id: 'business_ventures',
       name: 'Business Ventures',
       description: 'Get updates on our family business endeavors and upcoming launches',
-      icon: DollarSign,
+      icon: Store,
       special: true
     }
   ];
@@ -61,9 +61,9 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <h3 className="text-lg font-medium">Select your subscription preferences</h3>
+        <h3 className="text-lg font-medium">Please choose what kind of notifications you would like to receive</h3>
         <p className="text-sm text-muted-foreground">
-          Choose which updates you'd like to receive from the Ford family
+          Please select one or more categories
         </p>
       </div>
 
@@ -75,7 +75,18 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
           
           return (
             <React.Fragment key={category.id}>
-              {isSpecial && <div className="h-4" />}
+              {isSpecial && (
+                <div className="my-8 px-4 py-4 bg-gray-50 rounded-lg border border-gray-200 relative">
+                  <div className="flex justify-center mb-2">
+                    <ArrowDown className="w-6 h-6 text-primary animate-bounce" />
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    To adapt to staying home and caring for Salicia, we have had to completely revamp our income streams. 
+                    We have several products and business ventures that are about to launch, and if you would like to be 
+                    part of helping us establish new sources of income to provide for our family, please join this list.
+                  </p>
+                </div>
+              )}
               <button
                 type="button"
                 onClick={() => toggleCategory(category.id)}
@@ -100,6 +111,12 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
                   {category.description && (
                     <div className="text-xs text-muted-foreground mt-0.5">{category.description}</div>
                   )}
+                  {category.id === 'business_ventures' && (
+                    <div className="text-xs text-primary/80 mt-2">
+                      Please select this category if you would like to be added to our list of friends and family 
+                      that want to help share our upcoming business endeavors.
+                    </div>
+                  )}
                 </div>
                 <div className={cn(
                   "w-5 h-5 rounded-full border flex items-center justify-center flex-shrink-0",
@@ -107,7 +124,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
                     ? "bg-primary border-primary" 
                     : "bg-white border-gray-300"
                 )}>
-                  {isSelected && <ChevronRight className="w-3 h-3 text-white" />}
+                  {isSelected && <Check className="w-3 h-3 text-white" />}
                 </div>
               </button>
             </React.Fragment>
