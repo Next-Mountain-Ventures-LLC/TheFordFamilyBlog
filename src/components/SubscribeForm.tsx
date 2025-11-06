@@ -10,7 +10,7 @@ export default function SubscribeForm() {
     first_name: "", 
     last_name: "", 
     phone: "", 
-    form_name: "Friends and Family Form" 
+    form_name: "Ford Family Newsletter Subscription" 
   };
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +27,7 @@ export default function SubscribeForm() {
     // Validate email before proceeding
     if (formData.email) {
       // Make sure to set form_name in case the form is submitted directly
-      setFormData(prev => ({ ...prev, form_name: "Friends and Family Form" }));
+      setFormData(prev => ({ ...prev, form_name: "Ford Family Newsletter Subscription" }));
       
       // If we want to debug form data before step 2, can log it here
       console.log("Moving to step 2 with email:", formData.email);
@@ -42,18 +42,23 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Get the form element directly and create FormData from it
-      const formElement = formRef.current as HTMLFormElement;
-      const formDataObj = new FormData(formElement);
+      // Instead of using the form element, create a fresh FormData directly
+      const formDataObj = new FormData();
       
-      // Process phone number to ensure it has +1 prefix
-      if (formDataObj.has("phone")) {
-        const phoneNumber = (formDataObj.get("phone") as string || "").trim();
-        if (phoneNumber) {
-          const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-          formDataObj.set("phone", formattedPhone);
-        }
+      // Add all required fields with their correct names
+      formDataObj.set("email", formData.email);
+      formDataObj.set("first_name", formData.first_name);
+      formDataObj.set("last_name", formData.last_name);
+      
+      // Process phone number with +1 prefix
+      if (formData.phone) {
+        const phoneNumber = formData.phone.trim();
+        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+        formDataObj.set("phone", formattedPhone);
       }
+      
+      // Make sure form_name is properly set
+      formDataObj.set("form_name", "Ford Family Newsletter Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -106,7 +111,7 @@ export default function SubscribeForm() {
       autoComplete="on"
       id="newsletter-subscribe-form"
       data-form-type="newsletter"
-      name="friends-and-family-form"
+      name="ford-family-newsletter"
     >
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
@@ -121,7 +126,7 @@ export default function SubscribeForm() {
             className="flex-1 px-3 py-2 border border-border rounded-md bg-white/50"
           />
           {/* Include hidden form_name field in step 1 too */}
-          <input type="hidden" name="form_name" value="Friends and Family Form" />
+          <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
           <button 
             type="submit" 
             className={buttonVariants({ 
@@ -138,7 +143,7 @@ export default function SubscribeForm() {
         <div className="space-y-3">
           {/* Hidden fields to ensure critical data is included in the final form */}
           <input type="hidden" name="email" value={formData.email} />
-          <input type="hidden" name="form_name" value="Friends and Family Form" />
+          <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input

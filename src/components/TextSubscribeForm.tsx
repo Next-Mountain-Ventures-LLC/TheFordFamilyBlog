@@ -12,7 +12,7 @@ export default function TextSubscribeForm() {
     last_name: "", 
     phone: "",
     subscription_categories: ["family_updates"],
-    form_name: "Friends and Family Form" 
+    form_name: "Ford Family Text Subscription" 
   };
   
   const [formData, setFormData] = useState(defaultFormData);
@@ -34,26 +34,32 @@ export default function TextSubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Get the form element directly and use it to create a FormData object
+      // Get the form element directly
       const formElement = formRef.current as HTMLFormElement;
-      const formDataObj = new FormData(formElement);
       
-      // Process phone number to ensure it has +1 prefix
-      if (formDataObj.has("phone")) {
-        const phoneNumber = (formDataObj.get("phone") as string).trim();
-        if (phoneNumber) {
-          const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-          formDataObj.set("phone", formattedPhone);
-        }
+      // Create a fresh FormData object
+      const formDataObj = new FormData();
+      
+      // Ensure all fields are included in the FormData with the correct names
+      formDataObj.set("email", formData.email);
+      formDataObj.set("first_name", formData.first_name);
+      formDataObj.set("last_name", formData.last_name);
+      
+      // Always process phone number, even if empty
+      const phoneNumber = formData.phone.trim();
+      // If phone is provided, ensure it has +1 prefix
+      if (phoneNumber) {
+        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+        formDataObj.set("phone", formattedPhone);
       }
       
-      // Make sure subscription categories are included properly
-      // The hidden inputs might not capture this correctly, so we'll add them explicitly
+      // Add selected categories
       formData.subscription_categories.forEach(category => {
         formDataObj.append("subscription_categories[]", category);
       });
       
-      // The form_name field is already included as a hidden input in the form
+      // Make sure form_name is properly set
+      formDataObj.set("form_name", "Ford Family Text Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -106,7 +112,7 @@ export default function TextSubscribeForm() {
       autoComplete="on"
       id="text-subscribe-form"
       data-form-type="newsletter"
-      name="friends-and-family-form"
+      name="ford-family-text-subscription"
     >
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -183,7 +189,7 @@ export default function TextSubscribeForm() {
         </div>
         
         {/* Include hidden form_name field */}
-        <input type="hidden" name="form_name" value="Friends and Family Form" />
+        <input type="hidden" name="form_name" value="Ford Family Text Subscription" />
       </div>
       
       <div className="pt-2">
@@ -191,16 +197,6 @@ export default function TextSubscribeForm() {
           onChange={handleCategoriesChange}
           defaultSelected={['family_updates']}
         />
-        
-        {/* Hidden inputs for selected categories */}
-        {formData.subscription_categories.map(category => (
-          <input 
-            key={category} 
-            type="hidden" 
-            name="subscription_categories[]" 
-            value={category}
-          />
-        ))}
       </div>
 
       <div className="pt-4">
