@@ -42,23 +42,18 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Instead of using the form element, create a fresh FormData directly
-      const formDataObj = new FormData();
+      // Get the form element directly and create FormData from it
+      const formElement = formRef.current as HTMLFormElement;
+      const formDataObj = new FormData(formElement);
       
-      // Add all required fields with their correct names
-      formDataObj.set("email", formData.email);
-      formDataObj.set("first_name", formData.first_name);
-      formDataObj.set("last_name", formData.last_name);
-      
-      // Process phone number with +1 prefix
-      if (formData.phone) {
-        const phoneNumber = formData.phone.trim();
-        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-        formDataObj.set("phone", formattedPhone);
+      // Process phone number to ensure it has +1 prefix
+      if (formDataObj.has("phone")) {
+        const phoneNumber = (formDataObj.get("phone") as string || "").trim();
+        if (phoneNumber) {
+          const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+          formDataObj.set("phone", formattedPhone);
+        }
       }
-      
-      // Make sure form_name is properly set
-      formDataObj.set("form_name", "Friends and Family Form");
       
       // Log form data for debugging
       console.log("Form submission data:", {

@@ -34,32 +34,26 @@ export default function TextSubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Get the form element directly
+      // Get the form element directly and use it to create a FormData object
       const formElement = formRef.current as HTMLFormElement;
+      const formDataObj = new FormData(formElement);
       
-      // Create a fresh FormData object
-      const formDataObj = new FormData();
-      
-      // Ensure all fields are included in the FormData with the correct names
-      formDataObj.set("email", formData.email);
-      formDataObj.set("first_name", formData.first_name);
-      formDataObj.set("last_name", formData.last_name);
-      
-      // Always process phone number, even if empty
-      const phoneNumber = formData.phone.trim();
-      // If phone is provided, ensure it has +1 prefix
-      if (phoneNumber) {
-        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-        formDataObj.set("phone", formattedPhone);
+      // Process phone number to ensure it has +1 prefix
+      if (formDataObj.has("phone")) {
+        const phoneNumber = (formDataObj.get("phone") as string).trim();
+        if (phoneNumber) {
+          const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+          formDataObj.set("phone", formattedPhone);
+        }
       }
       
-      // Add selected categories
+      // Make sure subscription categories are included properly
+      // The hidden inputs might not capture this correctly, so we'll add them explicitly
       formData.subscription_categories.forEach(category => {
         formDataObj.append("subscription_categories[]", category);
       });
       
-      // Make sure form_name is properly set
-      formDataObj.set("form_name", "Friends and Family Form");
+      // The form_name field is already included as a hidden input in the form
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -197,6 +191,16 @@ export default function TextSubscribeForm() {
           onChange={handleCategoriesChange}
           defaultSelected={['family_updates']}
         />
+        
+        {/* Hidden inputs for selected categories */}
+        {formData.subscription_categories.map(category => (
+          <input 
+            key={category} 
+            type="hidden" 
+            name="subscription_categories[]" 
+            value={category}
+          />
+        ))}
       </div>
 
       <div className="pt-4">
