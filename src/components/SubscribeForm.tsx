@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { buttonVariants } from "./ui/button";
 
 export default function SubscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
   
   // Define state for form data with the exact field names expected by the API
   const defaultFormData = { 
@@ -39,24 +40,34 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Create a simple FormData object
-      const formData = new FormData();
+      // Ensure all form fields have proper name attributes
+      if (!formRef.current) {
+        throw new Error("Form element not found");
+      }
+      // Use FormData directly from the form element to capture all fields with their name attributes
+      const formData = new FormData(formRef.current);
       
-      // Add all required fields explicitly with the correct names
-      formData.append("email", e.currentTarget.querySelector<HTMLInputElement>('input[name="email"]')?.value || "");
-      formData.append("first_name", e.currentTarget.querySelector<HTMLInputElement>('input[name="first_name"]')?.value || "");
-      formData.append("last_name", e.currentTarget.querySelector<HTMLInputElement>('input[name="last_name"]')?.value || "");
+      // Get current values for logging and validation
+      const email = formData.get("email") as string;
+      const firstName = formData.get("first_name") as string;
+      const lastName = formData.get("last_name") as string;
+      let phone = formData.get("phone") as string;
       
-      // Process phone number with +1 prefix
-      const phoneInput = e.currentTarget.querySelector<HTMLInputElement>('input[name="phone"]');
-      if (phoneInput && phoneInput.value) {
-        const phoneNumber = phoneInput.value.trim();
-        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-        formData.append("phone", formattedPhone);
+      // Validate required fields are present
+      if (!email || !firstName || !lastName) {
+        throw new Error("Required fields are missing");
       }
       
-      // Set the form name explicitly
-      formData.append("form_name", "Ford Family Newsletter Subscription");
+      // Process phone number with +1 prefix if not empty
+      if (phone && phone.trim()) {
+        phone = phone.trim();
+        const formattedPhone = phone.startsWith("+1") ? phone : `+1${phone}`;
+        // Replace the phone in FormData
+        formData.set("phone", formattedPhone);
+      }
+      
+      // Ensure form_name is set correctly
+      formData.set("form_name", "Ford Family Newsletter Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -96,7 +107,22 @@ export default function SubscribeForm() {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
+      
+      // Scroll to status message if available
+      setTimeout(() => {
+        if (statusRef.current) {
+          statusRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
+  };
+  
+  // Effect to scroll to status message when it appears
+  useEffect(() => {
+    if (submitStatus && statusRef.current) {
+      statusRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [submitStatus]);
   };
 
   return (
@@ -112,6 +138,19 @@ export default function SubscribeForm() {
       data-form-type="newsletter"
       name="ford-family-newsletter"
     >
+      <div ref={statusRef}>
+        {submitStatus === "success" && (
+          <div className="p-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
+            Thank you for subscribing!
+          </div>
+        )}
+
+        {submitStatus === "error" && (
+          <div className="p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+            There was an error. Please try again.
+          </div>
+        )}
+      </div>
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -208,17 +247,6 @@ export default function SubscribeForm() {
         </div>
       )}
 
-      {submitStatus === "success" && (
-        <div className="p-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
-          Thank you for subscribing!
-        </div>
-      )}
-
-      {submitStatus === "error" && (
-        <div className="p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
-          There was an error. Please try again.
-        </div>
-      )}
     </form>
   );
 }
