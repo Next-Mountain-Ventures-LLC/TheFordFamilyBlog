@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { buttonVariants } from "./ui/button";
 import SubscriptionCategories from "./SubscriptionCategories";
 
 export default function TextSubscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const statusRef = useRef<HTMLDivElement>(null);
   
   // Define state for form data with the exact field names expected by the API
   const defaultFormData = { 
@@ -32,6 +33,11 @@ export default function TextSubscribeForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    
+    // Scroll to top of form to ensure user sees status message later
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
 
     try {
       // Get the form element directly
@@ -98,8 +104,22 @@ export default function TextSubscribeForm() {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
+      
+      // Scroll to status message after state updates
+      setTimeout(() => {
+        if (statusRef.current) {
+          statusRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
+  
+  // Effect to scroll to status message when it changes
+  useEffect(() => {
+    if (submitStatus && statusRef.current) {
+      statusRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [submitStatus]);
 
   return (
     <form 
@@ -114,6 +134,22 @@ export default function TextSubscribeForm() {
       data-form-type="newsletter"
       name="ford-family-text-subscription"
     >
+      <div ref={statusRef}>
+        {submitStatus === "success" && (
+          <div className="p-3 mb-6 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
+            <p className="font-medium">Thank you for subscribing!</p>
+            <p className="text-xs mt-1">You'll start receiving updates based on your preferences.</p>
+          </div>
+        )}
+
+        {submitStatus === "error" && (
+          <div className="p-3 mb-6 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+            <p className="font-medium">There was an error processing your subscription.</p>
+            <p className="text-xs mt-1">Please try again or contact us directly.</p>
+          </div>
+        )}
+      </div>
+      
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
@@ -208,19 +244,6 @@ export default function TextSubscribeForm() {
         </button>
       </div>
 
-      {submitStatus === "success" && (
-        <div className="p-3 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
-          <p className="font-medium">Thank you for subscribing!</p>
-          <p className="text-xs mt-1">You'll start receiving updates based on your preferences.</p>
-        </div>
-      )}
-
-      {submitStatus === "error" && (
-        <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
-          <p className="font-medium">There was an error processing your subscription.</p>
-          <p className="text-xs mt-1">Please try again or contact us directly.</p>
-        </div>
-      )}
     </form>
   );
 }
