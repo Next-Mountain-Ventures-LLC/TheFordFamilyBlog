@@ -28,7 +28,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
     {
       id: 'health_updates',
       name: 'Health Updates',
-      description: 'Direct updates concerning family',
+      description: 'Direct updates concerning family health issues',
       icon: HeartPulse
     },
     {
