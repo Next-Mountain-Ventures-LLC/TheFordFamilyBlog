@@ -123,7 +123,6 @@ export default function SubscribeForm() {
       statusRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [submitStatus]);
-  };
 
   return (
     <form 
