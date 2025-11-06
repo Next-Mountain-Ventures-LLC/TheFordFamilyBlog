@@ -75,7 +75,6 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
           
           return (
             <React.Fragment key={category.id}>
-              {isSpecial && <div className="h-8" />}
               <button
                 type="button"
                 onClick={() => toggleCategory(category.id)}

@@ -64,6 +64,13 @@ export default function MobileMenu() {
             Finley
           </a>
           <a
+            href="/subscribe"
+            className="text-lg font-medium transition-colors hover:text-primary"
+            onClick={() => setIsOpen(false)}
+          >
+            Subscribe
+          </a>
+          <a
             href="https://www.youtube.com/@TheFordFamilyLife"
             target="_blank"
             rel="noreferrer"
