@@ -45,31 +45,27 @@ export default function SubscribeForm() {
       // Get the form element directly
       const formElement = formRef.current as HTMLFormElement;
       
-      // Create a fresh FormData object
-      const form = new FormData();
+      // Create a fresh FormData object from the form element
+      const formDataObj = new FormData(formElement);
       
-      // Add form fields with the correct names
-      form.append("email", formData.email);
-      form.append("first_name", formData.first_name);
-      form.append("last_name", formData.last_name);
-      
-      if (formData.phone) {
-        // Automatically add +1 prefix to phone numbers if not already present
-        const phoneNumber = formData.phone.trim();
+      // Ensure phone has +1 prefix if provided
+      const phone = formDataObj.get("phone") as string;
+      if (phone) {
+        const phoneNumber = phone.trim();
         const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-        form.append("phone", formattedPhone);
+        formDataObj.set("phone", formattedPhone);
       }
       
       // Make sure form_name is properly set
-      form.set("form_name", "Ford Family Newsletter Subscription");
+      formDataObj.set("form_name", "Ford Family Newsletter Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
-        email: form.get("email"),
-        first_name: form.get("first_name"),
-        last_name: form.get("last_name"),
-        phone: form.get("phone"),
-        form_name: form.get("form_name")
+        email: formDataObj.get("email"),
+        first_name: formDataObj.get("first_name"),
+        last_name: formDataObj.get("last_name"),
+        phone: formDataObj.get("phone"),
+        form_name: formDataObj.get("form_name")
       });
       
       console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
@@ -77,7 +73,7 @@ export default function SubscribeForm() {
       // Send the form data directly to the endpoint
       const response = await fetch("https://api.new.website/api/submit-form/", {
         method: "POST",
-        body: form,
+        body: formDataObj,
       });
 
       if (response.ok) {
