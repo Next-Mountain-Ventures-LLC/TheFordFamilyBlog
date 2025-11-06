@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { buttonVariants } from "./ui/button";
 import SubscriptionCategories from "./SubscriptionCategories";
-import { Facebook, Mail, Share, MessageCircle } from "lucide-react";
+import { Facebook, Mail, MessageCircle } from "lucide-react";
 
 export default function TextSubscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -165,54 +165,36 @@ export default function TextSubscribeForm() {
             <p className="text-sm mt-1 mb-3">You'll start receiving updates based on your preferences.</p>
             
             <div className="mt-4">
-              <p className="text-sm font-medium mb-2">Want to invite someone else?</p>
+              <p className="text-sm font-medium mb-3">Do you know anyone who would like to receive updates about the Ford family? Click below to share this sign up page.</p>
               <div className="flex items-center gap-3">
-                {/* Facebook Share */}
+                {/* Facebook Message */}
                 <a 
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  href={`https://www.facebook.com/dialog/send?app_id=741024618086022&link=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                  aria-label="Share on Facebook"
+                  className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                  aria-label="Share on Facebook Messenger"
                 >
-                  <Facebook size={18} />
+                  <Facebook size={22} />
                 </a>
                 
                 {/* SMS Share */}
                 <a 
-                  href={`sms:?body=Hey! I just subscribed to the Ford Family updates. You should check it out too: ${encodeURIComponent(window.location.href)}`}
-                  className="flex items-center justify-center p-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
+                  href={`sms:?body=Hey, this is the sign up for the Ford Family to receive updates about Salicia and the family. You should check it out too: ${encodeURIComponent(window.location.href)}`}
+                  className="flex items-center justify-center p-3 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                   aria-label="Share via SMS"
                 >
-                  <MessageCircle size={18} />
+                  <MessageCircle size={22} />
                 </a>
                 
                 {/* Email Share */}
                 <a 
                   href={`mailto:?subject=Subscribe to the Ford Family Updates&body=Hey,%0A%0AI wanted to invite you to subscribe to the Ford Family blog.%0A%0AYou can sign up here: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
-                  className="flex items-center justify-center p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
+                  className="flex items-center justify-center p-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                   aria-label="Share via Email"
                 >
-                  <Mail size={18} />
+                  <Mail size={22} />
                 </a>
-                
-                {/* General Share (for mobile) */}
-                <button
-                  onClick={() => {
-                    if (navigator.share) {
-                      navigator.share({
-                        title: 'Subscribe to the Ford Family Updates',
-                        text: 'Hey! I just subscribed to the Ford Family updates. You should check it out too!',
-                        url: window.location.href,
-                      })
-                      .catch(err => console.error('Error sharing:', err));
-                    }
-                  }}
-                  className="flex items-center justify-center p-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md transition-colors"
-                  aria-label="Share"
-                >
-                  <Share size={18} />
-                </button>
               </div>
             </div>
           </div>
