@@ -116,19 +116,18 @@ export default function SubscribeForm() {
     } finally {
       setIsSubmitting(false);
       
-      // Scroll to status message if available
+      // Scroll to the top of the page after form submission
       setTimeout(() => {
-        if (statusRef.current) {
-          statusRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
     }
   };
   
-  // Effect to scroll to status message when it appears
+  // Effect to scroll to top of page when status changes
   useEffect(() => {
-    if (submitStatus && statusRef.current) {
-      statusRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (submitStatus) {
+      // Ensure user sees the success/error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [submitStatus]);
 

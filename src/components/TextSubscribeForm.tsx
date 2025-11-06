@@ -115,19 +115,19 @@ export default function TextSubscribeForm() {
     } finally {
       setIsSubmitting(false);
       
-      // Scroll to status message after state updates
+      // Scroll to the top of the page after state updates
       setTimeout(() => {
-        if (statusRef.current) {
-          statusRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+        // Scroll to the very top of the page for maximum visibility of the success message
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
     }
   };
   
-  // Effect to scroll to status message when it changes
+  // Effect to scroll to top of the page when status changes
   useEffect(() => {
-    if (submitStatus && statusRef.current) {
-      statusRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (submitStatus) {
+      // Scroll to the top of the page for maximum visibility of the success/error message
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [submitStatus]);
 
