@@ -42,16 +42,17 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Get the form element directly
-      const formElement = formRef.current as HTMLFormElement;
+      // Instead of using the form element, create a fresh FormData directly
+      const formDataObj = new FormData();
       
-      // Create a fresh FormData object from the form element
-      const formDataObj = new FormData(formElement);
+      // Add all required fields with their correct names
+      formDataObj.set("email", formData.email);
+      formDataObj.set("first_name", formData.first_name);
+      formDataObj.set("last_name", formData.last_name);
       
-      // Ensure phone has +1 prefix if provided
-      const phone = formDataObj.get("phone") as string;
-      if (phone) {
-        const phoneNumber = phone.trim();
+      // Process phone number with +1 prefix
+      if (formData.phone) {
+        const phoneNumber = formData.phone.trim();
         const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
         formDataObj.set("phone", formattedPhone);
       }
@@ -168,16 +169,21 @@ export default function SubscribeForm() {
           </div>
           
           <div className="space-y-1">
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="Phone number (optional)"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
-            />
-            <p className="text-[10px] text-muted-foreground">Providing your phone helps us send updates faster</p>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+                +1
+              </div>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Phone number (optional)"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="w-full pl-9 px-3 py-2 border border-border rounded-md bg-white/50"
+              />
+            </div>
+            <p className="text-[10px] text-muted-foreground">+1 will be automatically added to your phone number</p>
           </div>
           
           <div className="flex justify-between">
