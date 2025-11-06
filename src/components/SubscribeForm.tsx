@@ -10,7 +10,7 @@ export default function SubscribeForm() {
     first_name: "", 
     last_name: "", 
     phone: "", 
-    form_name: "Ford Family Newsletter Subscription" 
+    form_name: "Friends and Family Form" 
   };
   const [formData, setFormData] = useState(defaultFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +27,7 @@ export default function SubscribeForm() {
     // Validate email before proceeding
     if (formData.email) {
       // Make sure to set form_name in case the form is submitted directly
-      setFormData(prev => ({ ...prev, form_name: "Ford Family Newsletter Subscription" }));
+      setFormData(prev => ({ ...prev, form_name: "Friends and Family Form" }));
       
       // If we want to debug form data before step 2, can log it here
       console.log("Moving to step 2 with email:", formData.email);
@@ -58,7 +58,7 @@ export default function SubscribeForm() {
       }
       
       // Make sure form_name is properly set
-      formDataObj.set("form_name", "Ford Family Newsletter Subscription");
+      formDataObj.set("form_name", "Friends and Family Form");
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -111,7 +111,7 @@ export default function SubscribeForm() {
       autoComplete="on"
       id="newsletter-subscribe-form"
       data-form-type="newsletter"
-      name="ford-family-newsletter"
+      name="friends-and-family-form"
     >
       {step === 1 ? (
         <div className="flex flex-col sm:flex-row gap-2">
@@ -126,7 +126,7 @@ export default function SubscribeForm() {
             className="flex-1 px-3 py-2 border border-border rounded-md bg-white/50"
           />
           {/* Include hidden form_name field in step 1 too */}
-          <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
+          <input type="hidden" name="form_name" value="Friends and Family Form" />
           <button 
             type="submit" 
             className={buttonVariants({ 
@@ -143,7 +143,7 @@ export default function SubscribeForm() {
         <div className="space-y-3">
           {/* Hidden fields to ensure critical data is included in the final form */}
           <input type="hidden" name="email" value={formData.email} />
-          <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
+          <input type="hidden" name="form_name" value="Friends and Family Form" />
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input

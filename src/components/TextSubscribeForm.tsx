@@ -12,7 +12,7 @@ export default function TextSubscribeForm() {
     last_name: "", 
     phone: "",
     subscription_categories: ["family_updates"],
-    form_name: "Ford Family Text Subscription" 
+    form_name: "Friends and Family Form" 
   };
   
   const [formData, setFormData] = useState(defaultFormData);
@@ -59,7 +59,7 @@ export default function TextSubscribeForm() {
       });
       
       // Make sure form_name is properly set
-      formDataObj.set("form_name", "Ford Family Text Subscription");
+      formDataObj.set("form_name", "Friends and Family Form");
       
       // Log form data for debugging
       console.log("Form submission data:", {
@@ -112,7 +112,7 @@ export default function TextSubscribeForm() {
       autoComplete="on"
       id="text-subscribe-form"
       data-form-type="newsletter"
-      name="ford-family-text-subscription"
+      name="friends-and-family-form"
     >
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -189,7 +189,7 @@ export default function TextSubscribeForm() {
         </div>
         
         {/* Include hidden form_name field */}
-        <input type="hidden" name="form_name" value="Ford Family Text Subscription" />
+        <input type="hidden" name="form_name" value="Friends and Family Form" />
       </div>
       
       <div className="pt-2">
