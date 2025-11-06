@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import TextSubscribeForm from '@/components/TextSubscribeForm';
+import { Image } from 'astro:assets';
+import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
+---
+
+<BaseLayout title="Subscribe to The Ford Family Updates" description="Sign up to receive updates from the Ford Family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
+  <div class="container max-w-4xl mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+      <div class="order-2 md:order-1">
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold tracking-tight mb-4">Stay Connected with the Ford Family</h1>
+          <p class="text-lg text-muted-foreground mb-6">
+            Sign up to receive updates directly from our family. Choose which topics matter most to you.
+          </p>
+          
+          <div class="bg-blue-50 rounded-lg p-4 border border-blue-100 mb-6">
+            <p class="text-sm text-blue-700">
+              <span class="font-medium">Quick and easy!</span> Enter your information and select your preferences to receive updates via text message.
+            </p>
+          </div>
+        </div>
+        
+        <TextSubscribeForm client:load />
+      </div>
+      
+      <div class="order-1 md:order-2 flex justify-center">
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-transparent rounded-xl transform rotate-6 -z-10"></div>
+          <Image 
+            src={familyImage} 
+            alt="The Ford Family" 
+            width={500}
+            height={700}
+            class="rounded-xl shadow-lg object-cover"
+          />
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-12 pt-8 border-t text-center">
+      <p class="text-sm text-muted-foreground">
+        By subscribing, you agree to receive messages from The Ford Family. Message frequency varies.
+        We respect your privacy and will never share your information with third parties.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

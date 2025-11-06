@@ -1,0 +1,232 @@
+import React, { useState, useRef } from "react";
+import { buttonVariants } from "./ui/button";
+import SubscriptionCategories from "./SubscriptionCategories";
+
+export default function TextSubscribeForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  // Define state for form data with the exact field names expected by the API
+  const defaultFormData = { 
+    email: "", 
+    first_name: "", 
+    last_name: "", 
+    phone: "",
+    subscription_categories: ["family_updates"],
+    form_name: "Ford Family Text Subscription" 
+  };
+  
+  const [formData, setFormData] = useState(defaultFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleCategoriesChange = (selectedCategories: string[]) => {
+    setFormData(prev => ({ ...prev, subscription_categories: selectedCategories }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Get the form element directly
+      const formElement = formRef.current as HTMLFormElement;
+      
+      // Create a new FormData object from the form element
+      const form = new FormData(formElement);
+      
+      // Clear existing form data to avoid duplicates
+      Array.from(form.entries()).forEach(([key]) => {
+        if (key !== 'submit_button') {
+          form.delete(key);
+        }
+      });
+      
+      // Ensure all fields are included in the FormData with the correct names
+      form.append("email", formData.email);
+      form.append("first_name", formData.first_name);
+      form.append("last_name", formData.last_name);
+      
+      if (formData.phone) {
+        // Automatically add +1 prefix to phone numbers if not already present
+        const phoneNumber = formData.phone.trim();
+        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+        form.append("phone", formattedPhone);
+      }
+      
+      // Add selected categories
+      formData.subscription_categories.forEach(category => {
+        form.append("subscription_categories[]", category);
+      });
+      
+      // Make sure form_name is properly set
+      form.append("form_name", "Ford Family Text Subscription");
+      
+      // Log form data for debugging
+      console.log("Form submission data:", {
+        email: form.get("email"),
+        first_name: form.get("first_name"),
+        last_name: form.get("last_name"),
+        phone: form.get("phone"),
+        subscription_categories: formData.subscription_categories,
+        form_name: form.get("form_name")
+      });
+      
+      console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
+      
+      // Send the form data directly to the endpoint
+      const response = await fetch("https://api.new.website/api/submit-form/", {
+        method: "POST",
+        body: form,
+      });
+
+      if (response.ok) {
+        console.log("Form submission successful");
+        setSubmitStatus("success");
+        setFormData(defaultFormData);
+      } else {
+        // Log more details about the failed submission
+        const errorText = await response.text();
+        console.error("Form submission failed:", {
+          status: response.status,
+          statusText: response.statusText,
+          responseText: errorText
+        });
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form 
+      ref={formRef}
+      onSubmit={handleSubmit} 
+      className="space-y-6" 
+      method="POST" 
+      action="https://api.new.website/api/submit-form/"
+      encType="multipart/form-data"
+      autoComplete="on"
+      id="text-subscribe-form"
+      data-form-type="newsletter"
+      name="ford-family-text-subscription"
+    >
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="first_name" className="block text-sm font-medium mb-1">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              placeholder="Your first name"
+              value={formData.first_name}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+            />
+          </div>
+          <div>
+            <label htmlFor="last_name" className="block text-sm font-medium mb-1">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              placeholder="Your last name"
+              value={formData.last_name}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your email address"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+          />
+        </div>
+        
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium mb-1">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Your phone number"
+            value={formData.phone}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+          />
+          <p className="text-[11px] text-muted-foreground mt-1">
+            We'll send updates directly to your phone
+          </p>
+        </div>
+        
+        {/* Include hidden form_name field */}
+        <input type="hidden" name="form_name" value="Ford Family Text Subscription" />
+      </div>
+      
+      <div className="pt-2">
+        <SubscriptionCategories 
+          onChange={handleCategoriesChange}
+          defaultSelected={['family_updates']}
+        />
+      </div>
+
+      <div className="pt-4">
+        <button 
+          type="submit" 
+          className={buttonVariants({ 
+            size: 'lg',
+            disabled: isSubmitting,
+            className: 'w-full'
+          })}
+          name="submit_button"
+        >
+          {isSubmitting ? "Submitting..." : "Subscribe Now"}
+        </button>
+      </div>
+
+      {submitStatus === "success" && (
+        <div className="p-3 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
+          <p className="font-medium">Thank you for subscribing!</p>
+          <p className="text-xs mt-1">You'll start receiving updates based on your preferences.</p>
+        </div>
+      )}
+
+      {submitStatus === "error" && (
+        <div className="p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+          <p className="font-medium">There was an error processing your subscription.</p>
+          <p className="text-xs mt-1">Please try again or contact us directly.</p>
+        </div>
+      )}
+    </form>
+  );
+}
