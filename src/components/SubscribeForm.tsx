@@ -69,6 +69,11 @@ export default function SubscribeForm() {
       // Ensure form_name is set correctly
       formData.set("form_name", "Ford Family Newsletter Subscription");
       
+      // Set subscription_categories as a default (newsletter subscription)
+      formData.append("subscription_categories", "newsletter");
+      formData.append("subscription_category_1", "newsletter");
+      formData.append("subscription_categories_count", "1");
+      
       // Log form data for debugging
       console.log("Form submission data:", {
         email: formData.get("email"),
@@ -76,6 +81,9 @@ export default function SubscribeForm() {
         last_name: formData.get("last_name"),
         phone: formData.get("phone"),
         form_name: formData.get("form_name"),
+        subscription_categories: formData.getAll("subscription_categories"),
+        subscription_category_1: formData.get("subscription_category_1"),
+        subscription_categories_count: formData.get("subscription_categories_count"),
         all_entries: Array.from(formData.entries())
       });
       
@@ -162,8 +170,11 @@ export default function SubscribeForm() {
             required
             className="flex-1 px-3 py-2 border border-border rounded-md bg-white/50"
           />
-          {/* Include hidden form_name field in step 1 too */}
+          {/* Include all required hidden fields in step 1 too */}
           <input type="hidden" name="form_name" value="Ford Family Newsletter Subscription" />
+          <input type="hidden" name="subscription_categories" value="newsletter" />
+          <input type="hidden" name="subscription_category_1" value="newsletter" />
+          <input type="hidden" name="subscription_categories_count" value="1" />
           <button 
             type="submit" 
             className={buttonVariants({ 
