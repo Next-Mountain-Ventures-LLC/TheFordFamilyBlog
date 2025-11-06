@@ -168,21 +168,16 @@ export default function TextSubscribeForm() {
           <label htmlFor="phone" className="block text-sm font-medium mb-1">
             Phone Number
           </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
-              +1
-            </div>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="Your phone number"
-              value={formData.phone}
-              onChange={handleInputChange}
-              required
-              className="w-full pl-9 px-3 py-2 border border-border rounded-md bg-white/50"
-            />
-          </div>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Your phone number"
+            value={formData.phone}
+            onChange={handleInputChange}
+            required
+            className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+          />
           <p className="text-[11px] text-muted-foreground mt-1">
             We'll send updates directly to your phone (+1 will be automatically added)
           </p>
