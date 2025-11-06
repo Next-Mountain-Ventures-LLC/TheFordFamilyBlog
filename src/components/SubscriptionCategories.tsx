@@ -75,18 +75,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
           
           return (
             <React.Fragment key={category.id}>
-              {isSpecial && (
-                <div className="my-8 px-4 py-4 bg-gray-50 rounded-lg border border-gray-200 relative">
-                  <div className="flex justify-center mb-2">
-                    <ArrowDown className="w-6 h-6 text-primary animate-bounce" />
-                  </div>
-                  <p className="text-sm text-gray-700">
-                    To adapt to staying home and caring for Salicia, we have had to completely revamp our income streams. 
-                    We have several products and business ventures that are about to launch, and if you would like to be 
-                    part of helping us establish new sources of income to provide for our family, please join this list.
-                  </p>
-                </div>
-              )}
+              {isSpecial && <div className="h-8" />}
               <button
                 type="button"
                 onClick={() => toggleCategory(category.id)}
@@ -113,7 +102,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
                   )}
                   {category.id === 'business_ventures' && (
                     <div className="text-xs text-primary/80 mt-2">
-                      Please select this category if you would like to be added to our list of friends and family 
+                      Please select this category only if you would like to be a part of our friends and family
                       that want to help share our upcoming business endeavors.
                     </div>
                   )}
