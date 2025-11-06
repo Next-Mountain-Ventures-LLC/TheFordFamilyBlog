@@ -37,44 +37,38 @@ export default function TextSubscribeForm() {
       // Get the form element directly
       const formElement = formRef.current as HTMLFormElement;
       
-      // Create a new FormData object from the form element
-      const form = new FormData(formElement);
-      
-      // Clear existing form data to avoid duplicates
-      Array.from(form.entries()).forEach(([key]) => {
-        if (key !== 'submit_button') {
-          form.delete(key);
-        }
-      });
+      // Create a fresh FormData object
+      const formDataObj = new FormData();
       
       // Ensure all fields are included in the FormData with the correct names
-      form.append("email", formData.email);
-      form.append("first_name", formData.first_name);
-      form.append("last_name", formData.last_name);
+      formDataObj.set("email", formData.email);
+      formDataObj.set("first_name", formData.first_name);
+      formDataObj.set("last_name", formData.last_name);
       
-      if (formData.phone) {
-        // Automatically add +1 prefix to phone numbers if not already present
-        const phoneNumber = formData.phone.trim();
+      // Always process phone number, even if empty
+      const phoneNumber = formData.phone.trim();
+      // If phone is provided, ensure it has +1 prefix
+      if (phoneNumber) {
         const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-        form.append("phone", formattedPhone);
+        formDataObj.set("phone", formattedPhone);
       }
       
       // Add selected categories
       formData.subscription_categories.forEach(category => {
-        form.append("subscription_categories[]", category);
+        formDataObj.append("subscription_categories[]", category);
       });
       
       // Make sure form_name is properly set
-      form.append("form_name", "Ford Family Text Subscription");
+      formDataObj.set("form_name", "Ford Family Text Subscription");
       
       // Log form data for debugging
       console.log("Form submission data:", {
-        email: form.get("email"),
-        first_name: form.get("first_name"),
-        last_name: form.get("last_name"),
-        phone: form.get("phone"),
+        email: formDataObj.get("email"),
+        first_name: formDataObj.get("first_name"),
+        last_name: formDataObj.get("last_name"),
+        phone: formDataObj.get("phone"),
         subscription_categories: formData.subscription_categories,
-        form_name: form.get("form_name")
+        form_name: formDataObj.get("form_name")
       });
       
       console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
@@ -82,7 +76,7 @@ export default function TextSubscribeForm() {
       // Send the form data directly to the endpoint
       const response = await fetch("https://api.new.website/api/submit-form/", {
         method: "POST",
-        body: form,
+        body: formDataObj,
       });
 
       if (response.ok) {
@@ -174,18 +168,23 @@ export default function TextSubscribeForm() {
           <label htmlFor="phone" className="block text-sm font-medium mb-1">
             Phone Number
           </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="Your phone number"
-            value={formData.phone}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
-          />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+              +1
+            </div>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Your phone number"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-9 px-3 py-2 border border-border rounded-md bg-white/50"
+            />
+          </div>
           <p className="text-[11px] text-muted-foreground mt-1">
-            We'll send updates directly to your phone
+            We'll send updates directly to your phone (+1 will be automatically added)
           </p>
         </div>
         
