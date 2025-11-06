@@ -103,7 +103,10 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
                   {category.id === 'business_ventures' && (
                     <div className="text-xs text-primary/80 mt-2">
                       Please select this category only if you would like to be a part of our friends and family
-                      that want to help share our upcoming business endeavors.
+                      that want to help share our upcoming business endeavors. Due to Salicia's health we have had to 
+                      completely re-create income sources. Being a part of these type notifications is a way to help 
+                      if you would like to do so. Prayer list notifications are more important than anything but feel 
+                      free to help in this way too.
                     </div>
                   )}
                 </div>
