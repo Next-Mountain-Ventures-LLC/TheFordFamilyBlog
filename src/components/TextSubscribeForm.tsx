@@ -60,19 +60,28 @@ export default function TextSubscribeForm() {
         formDataObj.set("phone", formattedPhone);
       }
       
-      // Add selected categories - ensure we're using the correct format for multi-value fields
-      // Create an array field that will be properly handled by the API
-      formData.subscription_categories.forEach(category => {
-        formDataObj.append("subscription_categories", category);
-      });
+      // Map the categories to their proper category names
+      const categoryMapping = {
+        family_updates: "family updates",
+        health_updates: "health updates",
+        prayer_request: "prayer requests",
+        business_ventures: "business ventures"
+      };
       
-      // Add each category as an individual hidden field in the form data as well
-      formData.subscription_categories.forEach((category, index) => {
-        formDataObj.append(`subscription_category_${index + 1}`, category);
-      });
+      // Get the selected categories
+      const selectedCategories = formData.subscription_categories;
+      const categoryCount = selectedCategories.length;
       
       // Add the count of categories
-      formDataObj.append("subscription_categories_count", String(formData.subscription_categories.length));
+      formDataObj.append("subscription_categories_count", String(categoryCount));
+      
+      // For each selected category, add it to the subscription_category_N field
+      selectedCategories.forEach((categoryId, index) => {
+        // Only send the properly mapped category name
+        if (categoryMapping[categoryId as keyof typeof categoryMapping]) {
+          formDataObj.append(`subscription_category_${index + 1}`, categoryMapping[categoryId as keyof typeof categoryMapping]);
+        }
+      });
       
       // Make sure form_name is properly set
       formDataObj.set("form_name", "Ford Family Text Subscription");
@@ -83,9 +92,13 @@ export default function TextSubscribeForm() {
         first_name: formDataObj.get("first_name"),
         last_name: formDataObj.get("last_name"),
         phone: formDataObj.get("phone"),
-        subscription_categories: formData.subscription_categories,
-        subscription_categories_count: formData.subscription_categories.length,
-        form_name: formDataObj.get("form_name")
+        subscription_categories_count: formDataObj.get("subscription_categories_count"),
+        form_name: formDataObj.get("form_name"),
+        // Show each category assignment
+        ...Array.from({length: selectedCategories.length}, (_, i) => {
+          const key = `subscription_category_${i + 1}`;
+          return { [key]: formDataObj.get(key) };
+        }).reduce((acc, curr) => ({...acc, ...curr}), {})
       });
       
       console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
