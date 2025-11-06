@@ -40,7 +40,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
     {
       id: 'business_ventures',
       name: 'Business Ventures',
-      description: 'Get updates on our family business endeavors and upcoming launches',
+      description: 'Help',
       icon: Store,
       special: true
     }
