@@ -101,7 +101,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
                   )}
                   {category.id === 'business_ventures' && (
                     <div className="text-xs text-primary/80 mt-2">
-                      Due to Salicia's health we have had to completely re-create our income sources. Being a part of these type  notifications is a way to help share our if you would like to do so.
+                      Due to health challenges, we’ve had to re-create our income sources. If you would like to help by sharing our upcoming endeavors or just want to know more, feel free to subscribe to these notifications too.
                     </div>
                   )}
                 </div>
