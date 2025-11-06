@@ -42,32 +42,38 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Instead of using the form element, create a fresh FormData directly
-      const formDataObj = new FormData();
+      // Get the form element directly and create FormData from it
+      const formElement = formRef.current as HTMLFormElement;
+      const formDataObj = new FormData(formElement);
       
-      // Add all required fields with their correct names
-      formDataObj.set("email", formData.email);
-      formDataObj.set("first_name", formData.first_name);
-      formDataObj.set("last_name", formData.last_name);
-      
-      // Process phone number with +1 prefix
-      if (formData.phone) {
-        const phoneNumber = formData.phone.trim();
-        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-        formDataObj.set("phone", formattedPhone);
+      // Process phone number with +1 prefix if present
+      if (formDataObj.has("phone")) {
+        const phoneNumber = (formDataObj.get("phone") as string || "").trim();
+        if (phoneNumber) {
+          const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+          formDataObj.set("phone", formattedPhone);
+        }
       }
       
-      // Make sure form_name is properly set
+      // Ensure form_name is correctly set
       formDataObj.set("form_name", "Ford Family Newsletter Subscription");
       
-      // Log form data for debugging
-      console.log("Form submission data:", {
+      // Log detailed form data for debugging
+      console.log("Form submission data (SubscribeForm):", {
         email: formDataObj.get("email"),
         first_name: formDataObj.get("first_name"),
         last_name: formDataObj.get("last_name"),
         phone: formDataObj.get("phone"),
-        form_name: formDataObj.get("form_name")
+        form_name: formDataObj.get("form_name"),
+        all_entries: Array.from(formDataObj.entries())
       });
+      
+      // Verify form has required fields
+      const requiredFields = ["email", "first_name", "last_name", "form_name"];
+      const missingFields = requiredFields.filter(field => !formDataObj.has(field));
+      if (missingFields.length > 0) {
+        console.error("Missing required fields:", missingFields);
+      }
       
       console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
       
