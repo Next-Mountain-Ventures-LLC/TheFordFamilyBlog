@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { buttonVariants } from "./ui/button";
 import SubscriptionCategories from "./SubscriptionCategories";
+import { Facebook, Mail, Share, MessageCircle } from "lucide-react";
 
 export default function TextSubscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -146,9 +147,61 @@ export default function TextSubscribeForm() {
     >
       <div ref={statusRef}>
         {submitStatus === "success" && (
-          <div className="p-3 mb-6 bg-green-100 border border-green-400 text-green-700 rounded text-sm">
-            <p className="font-medium">Thank you for subscribing!</p>
-            <p className="text-xs mt-1">You'll start receiving updates based on your preferences.</p>
+          <div className="p-4 mb-6 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+            <p className="font-medium text-base">Thank you for subscribing!</p>
+            <p className="text-sm mt-1 mb-3">You'll start receiving updates based on your preferences.</p>
+            
+            <div className="mt-4">
+              <p className="text-sm font-medium mb-2">Want to invite someone else?</p>
+              <div className="flex items-center gap-3">
+                {/* Facebook Share */}
+                <a 
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                  aria-label="Share on Facebook"
+                >
+                  <Facebook size={18} />
+                </a>
+                
+                {/* SMS Share */}
+                <a 
+                  href={`sms:?body=Hey! I just subscribed to the Ford Family updates. You should check it out too: ${encodeURIComponent(window.location.href)}`}
+                  className="flex items-center justify-center p-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
+                  aria-label="Share via SMS"
+                >
+                  <MessageCircle size={18} />
+                </a>
+                
+                {/* Email Share */}
+                <a 
+                  href={`mailto:?subject=Subscribe to the Ford Family Updates&body=Hey,%0A%0AI wanted to invite you to subscribe to the Ford Family blog.%0A%0AYou can sign up here: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
+                  className="flex items-center justify-center p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
+                  aria-label="Share via Email"
+                >
+                  <Mail size={18} />
+                </a>
+                
+                {/* General Share (for mobile) */}
+                <button
+                  onClick={() => {
+                    if (navigator.share) {
+                      navigator.share({
+                        title: 'Subscribe to the Ford Family Updates',
+                        text: 'Hey! I just subscribed to the Ford Family updates. You should check it out too!',
+                        url: window.location.href,
+                      })
+                      .catch(err => console.error('Error sharing:', err));
+                    }
+                  }}
+                  className="flex items-center justify-center p-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md transition-colors"
+                  aria-label="Share"
+                >
+                  <Share size={18} />
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
