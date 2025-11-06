@@ -6,7 +6,7 @@ import joshuaImage from '../assets/img_9071_nw_c2f17e0f.jpg';
 import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 import jacksonImage from '../assets/jackson_ford_nw_10531fa1.jpg';
 import finleyImage from '../assets/finley-profile-image_nw_40f934be.jpg';
-import { getAuthorFullName } from '../lib/wordpress';
+import { getAuthorFullName, getPosts } from '../lib/wordpress';
 
 interface Props {
   title: string;
@@ -25,6 +25,15 @@ const { title, description, author: rawAuthor, date, category, categorySlug, ima
 
 // Map email usernames to full names if needed
 const author = getAuthorFullName(rawAuthor);
+
+// Get latest WordPress posts for the sidebar
+let latestPosts = [];
+try {
+  latestPosts = await getPosts(3);
+  console.log('Successfully fetched latest posts for blog sidebar');
+} catch (error) {
+  console.error('Error fetching latest posts for sidebar:', error);
+}
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage}>
@@ -164,47 +173,36 @@ const author = getAuthorFullName(rawAuthor);
           <div class="scrapbook-paper bg-white/90">
             <h3 class="font-display font-bold text-xl mb-4">Latest Posts</h3>
             <div class="space-y-4">
-              <div class="flex items-start gap-3">
-                <div class="shrink-0 mt-1">
-                  <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
-                    <img src={saliciaImage.src} alt="Blog post" class="h-full w-full object-cover" />
+              {latestPosts.length > 0 ? (
+                latestPosts.map(post => (
+                  <div class="flex items-start gap-3">
+                    <div class="shrink-0 mt-1">
+                      <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
+                        <img 
+                          src={post.imageUrl || 
+                            (post.author.includes('Salicia') ? saliciaImage.src : 
+                             post.author.includes('Joshua') ? joshuaImage.src : 
+                             post.author.includes('Jackson') ? jacksonImage.src : 
+                             post.author.includes('Finley') ? finleyImage.src : 
+                             saliciaImage.src)} 
+                          alt={post.title} 
+                          class="h-full w-full object-cover" 
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-sm leading-tight mb-1">
+                        <a href={`/blog/${post.slug}`} class="hover:text-primary">
+                          {post.title}
+                        </a>
+                      </h4>
+                      <p class="text-xs text-muted-foreground">{post.date}</p>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  <h4 class="font-medium text-sm leading-tight mb-1">
-                    <a href="/blog/faith-through-health-challenges" class="hover:text-primary">Finding Strength in Faith Through Health Challenges</a>
-                  </h4>
-                  <p class="text-xs text-muted-foreground">June 12, 2025</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start gap-3">
-                <div class="shrink-0 mt-1">
-                  <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
-                    <img src={saliciaImage.src} alt="Blog post" class="h-full w-full object-cover" />
-                  </div>
-                </div>
-                <div>
-                  <h4 class="font-medium text-sm leading-tight mb-1">
-                    <a href="/blog/homeschooling-tips-adhd" class="hover:text-primary">Homeschooling Tips for ADHD Children</a>
-                  </h4>
-                  <p class="text-xs text-muted-foreground">June 5, 2025</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start gap-3">
-                <div class="shrink-0 mt-1">
-                  <div class="h-16 w-16 bg-muted rounded-sm overflow-hidden">
-                    <img src={jacksonImage.src} alt="Blog post" class="h-full w-full object-cover" />
-                  </div>
-                </div>
-                <div>
-                  <h4 class="font-medium text-sm leading-tight mb-1">
-                    <a href="/blog/3d-printing-young-inventors" class="hover:text-primary">3D Printing Projects for Young Inventors</a>
-                  </h4>
-                  <p class="text-xs text-muted-foreground">May 30, 2025</p>
-                </div>
-              </div>
+                ))
+              ) : (
+                <div class="text-sm text-muted-foreground">No posts found</div>
+              )}
             </div>
           </div>
           

@@ -59,10 +59,19 @@ export default function TextSubscribeForm() {
         formDataObj.set("phone", formattedPhone);
       }
       
-      // Add selected categories
+      // Add selected categories - ensure we're using the correct format for multi-value fields
+      // Create an array field that will be properly handled by the API
       formData.subscription_categories.forEach(category => {
-        formDataObj.append("subscription_categories[]", category);
+        formDataObj.append("subscription_categories", category);
       });
+      
+      // Add each category as an individual hidden field in the form data as well
+      formData.subscription_categories.forEach((category, index) => {
+        formDataObj.append(`subscription_category_${index + 1}`, category);
+      });
+      
+      // Add the count of categories
+      formDataObj.append("subscription_categories_count", String(formData.subscription_categories.length));
       
       // Make sure form_name is properly set
       formDataObj.set("form_name", "Ford Family Text Subscription");
@@ -74,6 +83,7 @@ export default function TextSubscribeForm() {
         last_name: formDataObj.get("last_name"),
         phone: formDataObj.get("phone"),
         subscription_categories: formData.subscription_categories,
+        subscription_categories_count: formData.subscription_categories.length,
         form_name: formDataObj.get("form_name")
       });
       
