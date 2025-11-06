@@ -28,10 +28,7 @@ export default function SubscribeForm() {
     if (formData.email) {
       // Make sure to set form_name in case the form is submitted directly
       setFormData(prev => ({ ...prev, form_name: "Ford Family Newsletter Subscription" }));
-      
-      // If we want to debug form data before step 2, can log it here
       console.log("Moving to step 2 with email:", formData.email);
-      
       setStep(2);
     }
   };
@@ -42,45 +39,41 @@ export default function SubscribeForm() {
     setSubmitStatus(null);
 
     try {
-      // Get the form element directly and create FormData from it
-      const formElement = formRef.current as HTMLFormElement;
-      const formDataObj = new FormData(formElement);
+      // Create a simple FormData object
+      const formData = new FormData();
       
-      // Process phone number with +1 prefix if present
-      if (formDataObj.has("phone")) {
-        const phoneNumber = (formDataObj.get("phone") as string || "").trim();
-        if (phoneNumber) {
-          const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
-          formDataObj.set("phone", formattedPhone);
-        }
+      // Add all required fields explicitly with the correct names
+      formData.append("email", e.currentTarget.querySelector<HTMLInputElement>('input[name="email"]')?.value || "");
+      formData.append("first_name", e.currentTarget.querySelector<HTMLInputElement>('input[name="first_name"]')?.value || "");
+      formData.append("last_name", e.currentTarget.querySelector<HTMLInputElement>('input[name="last_name"]')?.value || "");
+      
+      // Process phone number with +1 prefix
+      const phoneInput = e.currentTarget.querySelector<HTMLInputElement>('input[name="phone"]');
+      if (phoneInput && phoneInput.value) {
+        const phoneNumber = phoneInput.value.trim();
+        const formattedPhone = phoneNumber.startsWith("+1") ? phoneNumber : `+1${phoneNumber}`;
+        formData.append("phone", formattedPhone);
       }
       
-      // Ensure form_name is correctly set
-      formDataObj.set("form_name", "Ford Family Newsletter Subscription");
+      // Set the form name explicitly
+      formData.append("form_name", "Ford Family Newsletter Subscription");
       
-      // Log detailed form data for debugging
-      console.log("Form submission data (SubscribeForm):", {
-        email: formDataObj.get("email"),
-        first_name: formDataObj.get("first_name"),
-        last_name: formDataObj.get("last_name"),
-        phone: formDataObj.get("phone"),
-        form_name: formDataObj.get("form_name"),
-        all_entries: Array.from(formDataObj.entries())
+      // Log form data for debugging
+      console.log("Form submission data:", {
+        email: formData.get("email"),
+        first_name: formData.get("first_name"),
+        last_name: formData.get("last_name"),
+        phone: formData.get("phone"),
+        form_name: formData.get("form_name"),
+        all_entries: Array.from(formData.entries())
       });
-      
-      // Verify form has required fields
-      const requiredFields = ["email", "first_name", "last_name", "form_name"];
-      const missingFields = requiredFields.filter(field => !formDataObj.has(field));
-      if (missingFields.length > 0) {
-        console.error("Missing required fields:", missingFields);
-      }
       
       console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
       
       // Send the form data directly to the endpoint
       const response = await fetch("https://api.new.website/api/submit-form/", {
         method: "POST",
-        body: formDataObj,
+        body: formData,
       });
 
       if (response.ok) {
@@ -175,20 +168,15 @@ export default function SubscribeForm() {
           </div>
           
           <div className="space-y-1">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
-                +1
-              </div>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder="Phone number (optional)"
-                value={formData.phone}
-                onChange={handleInputChange}
-                className="w-full pl-9 px-3 py-2 border border-border rounded-md bg-white/50"
-              />
-            </div>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Phone number (optional)"
+              value={formData.phone}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+            />
             <p className="text-[10px] text-muted-foreground">+1 will be automatically added to your phone number</p>
           </div>
           
