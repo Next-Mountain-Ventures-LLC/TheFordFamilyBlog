@@ -76,16 +76,16 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
       icon: HandHeart
     },
     {
-      id: 'family_updates',
-      name: 'Family Updates',
-      description: 'Regular updates about our family',
-      icon: Users
-    },
-    {
       id: 'health_updates',
       name: 'Health Updates',
       description: 'Direct updates concerning family health issues',
       icon: HeartPulse
+    },
+    {
+      id: 'family_updates',
+      name: 'Family Updates',
+      description: 'Regular updates about our family',
+      icon: Users
     },
     {
       id: 'business_ventures',

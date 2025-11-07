@@ -32,8 +32,22 @@ const pageTitle = hasPrayerParam
       const params = new URLSearchParams(window.location.search);
       const clientTypeParam = params.get('type');
       if (clientTypeParam === 'prayer') {
+        // Update heading and title
         document.getElementById('dynamic-heading').textContent = 'Prayer Request from';
         document.title = 'Prayer Request from The Ford Family';
+        
+        // Force image swap to Salicia's image
+        const heroImage = document.querySelector('.hero-image-swap');
+        if (heroImage && heroImage.tagName === 'IMG') {
+          // This assumes the image is using the src attribute directly
+          heroImage.src = heroImage.src.replace('joshua_ford_family_profile', 'salicias-profile');
+        }
+        
+        // Update paragraph text if needed
+        const introParagraph = document.querySelector('.intro-paragraph');
+        if (introParagraph) {
+          introParagraph.innerHTML = "We Believe in the Power of Prayer! So many of you have been praying for our family, and we have seen so many supernatural things come from your prayer. It has been on our hearts for a very long time to create a family blog page where we can share updates and prayer requests to everyone. Not only to send out prayer request directly to all of you but to also communicate back to you with updates as those prayers are answered! Please share this page with anyone who would like to sign up to receive prayer requests or updates from our family. Thank you, everyone!";
+        }
       }
     });
   </script>
@@ -45,7 +59,7 @@ const pageTitle = hasPrayerParam
           <h1 class="text-3xl font-bold font-display tracking-tight mb-4 text-center">
             <span id="dynamic-heading">{headingText}</span><br/><span class="text-4xl">The Ford Family</span>
           </h1>
-          <p class="text-lg text-muted-foreground mb-6">
+          <p class="text-lg text-muted-foreground mb-6 intro-paragraph">
             {hasPrayerParam ? 
               "We Believe in the Power of Prayer! So many of you have been praying for our family, and we have seen so many supernatural things come from your prayer. It has been on our hearts for a very long time to create a family blog page where we can share updates and prayer requests to everyone. Not only to send out prayer request directly to all of you but to also communicate back to you with updates as those prayers are answered! Please share this page with anyone who would like to sign up to receive prayer requests or updates from our family. Thank you, everyone!" 
               : 
@@ -102,7 +116,7 @@ const pageTitle = hasPrayerParam
             alt={hasPrayerParam ? "Salicia Ford" : "The Ford Family"} 
             width={500}
             height={700}
-            class="rounded-xl shadow-lg object-cover"
+            class="rounded-xl shadow-lg object-cover hero-image-swap"
           />
         </div>
       </div>
