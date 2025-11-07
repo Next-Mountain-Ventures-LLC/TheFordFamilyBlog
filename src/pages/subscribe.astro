@@ -203,7 +203,7 @@ const pageTitle = hasPrayerParam
             <div class="flex justify-center gap-3 mb-2">
               <a 
                 href="#"
-                onclick="if(navigator.share) { navigator.share({ title: 'Ford Family Updates', url: window.location.href }); } else { window.open('https://www.facebook.com/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank'); } return false;"
+                onclick="if(navigator.share) { navigator.share({ title: 'Ford Family Updates', url: window.location.href }); } else { window.open('https://www.facebook.com/dialog/send?app_id=741024618086022&link=' + encodeURIComponent(window.location.href) + '&redirect_uri=' + encodeURIComponent(window.location.href), '_blank'); } return false;"
                 class="flex items-center justify-center p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
                 aria-label="Share this page"
               >

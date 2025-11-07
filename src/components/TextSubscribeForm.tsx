@@ -213,7 +213,7 @@ export default function TextSubscribeForm() {
                       })
                       .catch(err => console.error('Error sharing:', err));
                     } else {
-                      window.open('https://www.facebook.com/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank');
+                      window.open('https://www.facebook.com/dialog/send?app_id=741024618086022&link=' + encodeURIComponent(window.location.href) + '&redirect_uri=' + encodeURIComponent(window.location.href), '_blank');
                     }
                   }}
                   className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
