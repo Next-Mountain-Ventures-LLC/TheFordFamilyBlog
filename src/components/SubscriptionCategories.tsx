@@ -61,8 +61,8 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
   return (
     <div className="space-y-6">
       <div className="space-y-3">
-        <h3 className="text-lg font-medium">Please choose what kind of notifications you would like to receive</h3>
-        <p className="text-sm text-muted-foreground">
+        <h3 className="text-xl md:text-2xl font-semibold">Please choose what kind of notifications you would like to receive</h3>
+        <p className="text-base text-muted-foreground">
           Please select one or more categories
         </p>
       </div>
@@ -79,7 +79,7 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
                 type="button"
                 onClick={() => toggleCategory(category.id)}
                 className={cn(
-                  "w-full text-left py-3 px-4 rounded-lg border transition-all duration-200 flex items-center gap-3",
+                  "w-full text-left py-4 px-6 rounded-lg border transition-all duration-200 flex items-center gap-4",
                   isSelected 
                     ? "border-primary bg-primary/5 text-primary" 
                     : "border-border hover:border-gray-300 hover:bg-gray-50",
@@ -88,30 +88,30 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
               >
                 {Icon && (
                   <span className={cn(
-                    "flex-shrink-0 p-1.5 rounded-md", 
+                    "flex-shrink-0 p-2 rounded-md", 
                     isSelected ? "bg-primary/10 text-primary" : "bg-gray-100 text-gray-500"
                   )}>
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-6 h-6" />
                   </span>
                 )}
                 <div className="flex-grow">
-                  <div className="font-medium">{category.name}</div>
+                  <div className="text-lg font-semibold">{category.name}</div>
                   {category.description && (
-                    <div className="text-xs text-muted-foreground mt-0.5">{category.description}</div>
+                    <div className="text-sm text-muted-foreground mt-1">{category.description}</div>
                   )}
                   {category.id === 'business_ventures' && (
-                    <div className="text-xs text-primary/80 mt-2">
+                    <div className="text-sm text-primary/80 mt-2">
                       Due to health challenges, we’ve had to re-create our income sources. If you would like to help by sharing our upcoming endeavors or just want to know more, feel free to subscribe to these notifications too.
                     </div>
                   )}
                 </div>
                 <div className={cn(
-                  "w-5 h-5 rounded-full border flex items-center justify-center flex-shrink-0",
+                  "w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0",
                   isSelected 
                     ? "bg-primary border-primary" 
                     : "bg-white border-gray-300"
                 )}>
-                  {isSelected && <Check className="w-3 h-3 text-white" />}
+                  {isSelected && <Check className="w-4 h-4 text-white" />}
                 </div>
               </button>
             </React.Fragment>

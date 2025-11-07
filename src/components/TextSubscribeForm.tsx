@@ -161,11 +161,11 @@ export default function TextSubscribeForm() {
       <div ref={statusRef}>
         {submitStatus === "success" && (
           <div className="p-4 mb-6 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-            <p className="font-medium text-base">Thank you for subscribing!</p>
-            <p className="text-sm mt-1 mb-3">You'll start receiving updates based on your preferences.</p>
+            <p className="font-medium text-lg">Thank you for subscribing!</p>
+            <p className="text-base mt-1 mb-3">You'll start receiving updates based on your preferences.</p>
             
             <div className="mt-4">
-              <p className="text-sm font-medium mb-3">Do you know anyone who would like to receive updates about the Ford family? Click below to share this sign up page.</p>
+              <p className="text-base font-medium mb-3">Do you know anyone who would like to receive updates about the Ford family? Click below to share this sign up page.</p>
               <div className="flex items-center gap-3">
                 {/* Facebook Message */}
                 <a 
@@ -201,9 +201,9 @@ export default function TextSubscribeForm() {
         )}
 
         {submitStatus === "error" && (
-          <div className="p-3 mb-6 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
-            <p className="font-medium">There was an error processing your subscription.</p>
-            <p className="text-xs mt-1">Please try again or contact us directly.</p>
+          <div className="p-4 mb-6 bg-red-100 border border-red-400 text-red-700 rounded">
+            <p className="font-medium text-base">There was an error processing your subscription.</p>
+            <p className="text-sm mt-1">Please try again or contact us directly.</p>
           </div>
         )}
       </div>
@@ -211,7 +211,7 @@ export default function TextSubscribeForm() {
       <div className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label htmlFor="first_name" className="block text-sm font-medium mb-1">
+            <label htmlFor="first_name" className="block text-base font-medium mb-1">
               First Name
             </label>
             <input
@@ -222,11 +222,11 @@ export default function TextSubscribeForm() {
               value={formData.first_name}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+              className="w-full px-3 py-3 text-base border border-border rounded-md bg-white/50"
             />
           </div>
           <div>
-            <label htmlFor="last_name" className="block text-sm font-medium mb-1">
+            <label htmlFor="last_name" className="block text-base font-medium mb-1">
               Last Name
             </label>
             <input
@@ -237,13 +237,13 @@ export default function TextSubscribeForm() {
               value={formData.last_name}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
+              className="w-full px-3 py-3 text-base border border-border rounded-md bg-white/50"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-1">
+          <label htmlFor="email" className="block text-base font-medium mb-1">
             Email
           </label>
           <input
@@ -259,7 +259,7 @@ export default function TextSubscribeForm() {
         </div>
         
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium mb-1">
+          <label htmlFor="phone" className="block text-base font-medium mb-1">
             Phone Number
           </label>
           <input
@@ -272,7 +272,7 @@ export default function TextSubscribeForm() {
             required
             className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
           />
-          <p className="text-[11px] text-muted-foreground mt-1">
+          <p className="text-base text-muted-foreground mt-1">
             We'll send updates directly to your phone (+1 will be automatically added)
           </p>
         </div>
