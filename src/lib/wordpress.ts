@@ -142,14 +142,32 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
     day: 'numeric'
   });
 
-  // Strip HTML from excerpt
+  // Strip HTML from excerpt and decode entities
   const stripHtml = (html: string) => {
+    let text = html;
+    
+    // First, replace common HTML entities manually
+    text = text.replace(/&nbsp;/g, ' ')
+               .replace(/&amp;/g, '&')
+               .replace(/&lt;/g, '<')
+               .replace(/&gt;/g, '>')
+               .replace(/&quot;/g, '"')
+               .replace(/&#039;/g, "'")
+               .replace(/&#8211;/g, "–") // en dash
+               .replace(/&ndash;/g, "–") // en dash
+               .replace(/&#8212;/g, "—") // em dash
+               .replace(/&mdash;/g, "—") // em dash
+               .replace(/&#8216;/g, "'") // single quote
+               .replace(/&#8217;/g, "'") // single quote
+               .replace(/&#8220;/g, '"') // double quote
+               .replace(/&#8221;/g, '"'); // double quote
+    
     if (typeof DOMParser !== 'undefined') {
-      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const doc = new DOMParser().parseFromString(text, 'text/html');
       return doc.body.textContent || '';
     } else {
       // Simple fallback for server-side rendering
-      return html.replace(/<[^>]*>?/gm, '');
+      return text.replace(/<[^>]*>?/gm, '');
     }
   };
 
