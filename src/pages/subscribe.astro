@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import TextSubscribeForm from '@/components/TextSubscribeForm';
 import { Image } from 'astro:assets';
 import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
+import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 
 // Check for URL parameter 'type=prayer'
 const { searchParams } = Astro.url;
@@ -57,17 +58,17 @@ const pageTitle = hasPrayerParam
           <div class="mb-6">
             <div class="flex justify-center gap-3 mb-2">
               <a 
-                href={`https://www.facebook.com/dialog/send?app_id=741024618086022&link=${encodeURIComponent(Astro.url.href)}&redirect_uri=${encodeURIComponent(Astro.url.href)}`}
+                href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(Astro.url.href)}&redirect_uri=${encodeURIComponent(Astro.url.href)}&quote=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center justify-center p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                aria-label="Share on Facebook Messenger"
+                aria-label="Share on Facebook"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
               </a>
               
               <a 
-                href={`sms:?body=Subscribe to Updates from The Ford Family: ${encodeURIComponent(Astro.url.href)}`}
+                href={`sms:?body=${hasPrayerParam ? "Please pray for The Ford Family: " : "Subscribe to Updates from The Ford Family: "}${encodeURIComponent(Astro.url.href)}`}
                 class="flex items-center justify-center p-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                 aria-label="Share via SMS"
               >
@@ -75,7 +76,7 @@ const pageTitle = hasPrayerParam
               </a>
               
               <a 
-                href={`mailto:?subject=Subscribe to Updates from The Ford Family&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(Astro.url.href)}%0A%0AThanks!`}
+                href={`mailto:?subject=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}&body=Hey,%0A%0A${hasPrayerParam ? "Please pray for Salicia and the Ford family. " : ""}Joshua and Salicia made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(Astro.url.href)}%0A%0AThanks!`}
                 class="flex items-center justify-center p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                 aria-label="Share via Email"
               >
@@ -93,8 +94,8 @@ const pageTitle = hasPrayerParam
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-transparent rounded-xl transform rotate-6 -z-10"></div>
           <Image 
-            src={familyImage} 
-            alt="The Ford Family" 
+            src={hasPrayerParam ? saliciaImage : familyImage} 
+            alt={hasPrayerParam ? "Salicia Ford" : "The Ford Family"} 
             width={500}
             height={700}
             class="rounded-xl shadow-lg object-cover"

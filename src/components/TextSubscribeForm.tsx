@@ -151,8 +151,16 @@ export default function TextSubscribeForm() {
     }
   }, [submitStatus]);
   
-  // Effect to show the intro box when the component mounts or reloads
+  // Check for prayer parameter when the component mounts
+  const [hasPrayerParam, setHasPrayerParam] = useState(false);
+  
+  // Effect to detect URL parameters and show the intro box when the component mounts
   useEffect(() => {
+    // Get URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const typeParam = params.get('type');
+    setHasPrayerParam(typeParam === 'prayer');
+    
     // Only show the intro box if there is no submission status
     if (!submitStatus) {
       const introBox = document.getElementById('intro-box');
@@ -183,20 +191,20 @@ export default function TextSubscribeForm() {
             <div className="mt-4">
               <p className="text-base font-medium mb-3">Please share this page so that others can pray for our family and receive updates.</p>
               <div className="flex items-center gap-3">
-                {/* Facebook Message */}
+                {/* Facebook Share */}
                 <a 
-                  href={`https://www.facebook.com/dialog/send?app_id=741024618086022&link=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}`}
+                  href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}&quote=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                  aria-label="Share on Facebook Messenger"
+                  aria-label="Share on Facebook"
                 >
                   <Facebook size={22} />
                 </a>
                 
                 {/* SMS Share */}
                 <a 
-                  href={`sms:?body=Subscribe to Updates from The Ford Family: ${encodeURIComponent(window.location.href)}`}
+                  href={`sms:?body=${hasPrayerParam ? "Please pray for The Ford Family: " : "Subscribe to Updates from The Ford Family: "}${encodeURIComponent(window.location.href)}`}
                   className="flex items-center justify-center p-3 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                   aria-label="Share via SMS"
                 >
@@ -205,7 +213,7 @@ export default function TextSubscribeForm() {
                 
                 {/* Email Share */}
                 <a 
-                  href={`mailto:?subject=Subscribe to Updates from The Ford Family&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
+                  href={`mailto:?subject=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}&body=Hey,%0A%0A${hasPrayerParam ? "Please pray for Salicia and the Ford family. " : ""}Joshua and Salicia made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
                   className="flex items-center justify-center p-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                   aria-label="Share via Email"
                 >
