@@ -142,8 +142,25 @@ export default function TextSubscribeForm() {
     if (submitStatus) {
       // Scroll to the top of the page for maximum visibility of the success/error message
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Hide the intro box when the form is submitted successfully
+      const introBox = document.getElementById('intro-box');
+      if (introBox) {
+        introBox.style.display = 'none';
+      }
     }
   }, [submitStatus]);
+  
+  // Effect to show the intro box when the component mounts or reloads
+  useEffect(() => {
+    // Only show the intro box if there is no submission status
+    if (!submitStatus) {
+      const introBox = document.getElementById('intro-box');
+      if (introBox) {
+        introBox.style.display = 'block';
+      }
+    }
+  }, []);
 
   return (
     <form 
@@ -162,7 +179,6 @@ export default function TextSubscribeForm() {
         {submitStatus === "success" && (
           <div className="p-4 mb-6 bg-green-100 border border-green-400 text-green-700 rounded-lg">
             <p className="font-medium text-lg">Thank you for subscribing!</p>
-            <p className="text-base mt-1 mb-3">You'll start receiving updates based on your preferences.</p>
             
             <div className="mt-4">
               <p className="text-base font-medium mb-3">Do you know anyone who would like to receive updates about the Ford family? Click below to share this sign up page.</p>
