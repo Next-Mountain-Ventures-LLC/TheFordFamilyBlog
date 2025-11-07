@@ -297,7 +297,7 @@ export default function TextSubscribeForm() {
             className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
           />
           <p className="text-base text-muted-foreground mt-1">
-            We'll send updates directly to your phone
+            {hasPrayerParam ? "We'll send prayer requests directly to your phone" : "We'll send updates directly to your phone"}
           </p>
         </div>
         
@@ -308,7 +308,8 @@ export default function TextSubscribeForm() {
       <div className="pt-2">
         <SubscriptionCategories 
           onChange={handleCategoriesChange}
-          defaultSelected={['family_updates']}
+          defaultSelected={hasPrayerParam ? ['prayer_request'] : ['family_updates']}
+          isPrayerMode={hasPrayerParam}
         />
       </div>
 

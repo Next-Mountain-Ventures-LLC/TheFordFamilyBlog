@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Users, HeartPulse, HandHeart, Store, Check, ArrowDown } from 'lucide-react';
 
@@ -13,12 +13,33 @@ interface Category {
 interface SubscriptionCategoriesProps {
   onChange: (selectedCategories: string[]) => void;
   defaultSelected?: string[];
+  isPrayerMode?: boolean;
 }
 
-export default function SubscriptionCategories({ onChange, defaultSelected = ['family_updates'] }: SubscriptionCategoriesProps) {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(defaultSelected);
+export default function SubscriptionCategories({ onChange, defaultSelected = ['family_updates'], isPrayerMode = false }: SubscriptionCategoriesProps) {
+  // Set initial default selected categories based on prayer mode
+  const initialSelected = isPrayerMode ? ['prayer_request'] : defaultSelected;
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialSelected);
+  
+  // Check URL for prayer parameter on component mount
+  useEffect(() => {
+    // Only do this client-side
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const typeParam = params.get('type');
+      if (typeParam === 'prayer' && !selectedCategories.includes('prayer_request')) {
+        // Add prayer_request to selected categories if not already there
+        setSelectedCategories(prev => {
+          const newSelection = [...prev, 'prayer_request'];
+          onChange(newSelection);
+          return newSelection;
+        });
+      }
+    }
+  }, []);
 
-  const categories: Category[] = [
+  // Define categories in standard order
+  const standardCategories: Category[] = [
     {
       id: 'family_updates',
       name: 'Family Updates',
@@ -45,6 +66,38 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
       special: true
     }
   ];
+  
+  // Define categories in prayer mode order
+  const prayerCategories: Category[] = [
+    {
+      id: 'prayer_request',
+      name: 'Prayer Request',
+      description: 'Received prayer requests from our family',
+      icon: HandHeart
+    },
+    {
+      id: 'family_updates',
+      name: 'Family Updates',
+      description: 'Regular updates about our family',
+      icon: Users
+    },
+    {
+      id: 'health_updates',
+      name: 'Health Updates',
+      description: 'Direct updates concerning family health issues',
+      icon: HeartPulse
+    },
+    {
+      id: 'business_ventures',
+      name: 'Business Ventures',
+      description: 'Get updates on our family business endeavors and upcoming launches',
+      icon: Store,
+      special: true
+    }
+  ];
+
+  // Determine which categories to use based on prayer mode
+  const categories = isPrayerMode ? prayerCategories : standardCategories;
 
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories(prev => {
