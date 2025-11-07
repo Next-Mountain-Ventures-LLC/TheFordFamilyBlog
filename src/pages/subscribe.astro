@@ -7,12 +7,9 @@ import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
 
 <BaseLayout title="Subscribe to Updates from The Ford Family" description="Sign up to receive updates from the Ford family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
 
-<head slot="head">
+<head>
   <meta property="og:title" content="Subscribe to Updates from The Ford Family" />
-  <meta property="og:site_name" content="The Ford Family" />
-  <meta property="og:description" content="Sign up to receive updates from the Ford family" />
   <meta name="twitter:title" content="Subscribe to Updates from The Ford Family" />
-  <title>Subscribe to Updates from The Ford Family</title>
 </head>
   <div class="container max-w-4xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -34,7 +31,7 @@ import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
           <div class="mb-6">
             <div class="flex justify-center gap-3 mb-2">
               <a 
-                href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(Astro.url.href)}&redirect_uri=${encodeURIComponent(Astro.url.href)}&quote=Subscribe to Updates from The Ford Family`}
+                href={`https://www.facebook.com/dialog/send?app_id=741024618086022&link=${encodeURIComponent(Astro.url.href)}&redirect_uri=${encodeURIComponent(Astro.url.href)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center justify-center p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
