@@ -181,7 +181,7 @@ export default function TextSubscribeForm() {
             <p className="font-medium text-lg">Thank you for subscribing!</p>
             
             <div className="mt-4">
-              <p className="text-base font-medium mb-3">Do you know anyone who would like to receive updates about the Ford family? Click below to share this sign up page.</p>
+              <p className="text-base font-medium mb-3">Please share this page so that others can pray for our family and receive updates.</p>
               <div className="flex items-center gap-3">
                 {/* Facebook Message */}
                 <a 
