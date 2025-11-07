@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { buttonVariants } from "./ui/button";
 import SubscriptionCategories from "./SubscriptionCategories";
-import { Facebook, Mail, MessageCircle } from "lucide-react";
+import { Facebook, Mail, MessageCircle, Share2 } from "lucide-react";
 
 export default function TextSubscribeForm() {
   const formRef = useRef<HTMLFormElement>(null);
@@ -219,7 +219,9 @@ export default function TextSubscribeForm() {
                   className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
                   aria-label="Share this page"
                 >
-                  <MessageCircle size={22} />
+                  {typeof window !== 'undefined' && 'share' in navigator ? 
+                    <Share2 size={22} /> : 
+                    <Facebook size={22} />}
                 </a>
                 
                 {/* SMS Share */}
