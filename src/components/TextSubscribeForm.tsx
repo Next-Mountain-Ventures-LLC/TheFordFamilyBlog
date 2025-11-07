@@ -196,7 +196,7 @@ export default function TextSubscribeForm() {
                 
                 {/* SMS Share */}
                 <a 
-                  href={`sms:?body=Hey, this is the sign up for the Ford Family to receive updates about Salicia and the family. You should check it out too: ${encodeURIComponent(window.location.href)}`}
+                  href={`sms:?body=Hey! Joshua and Salicia finally have a page to sign up for updates on Salicia and the rest of the family: ${encodeURIComponent(window.location.href)}`}
                   className="flex items-center justify-center p-3 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                   aria-label="Share via SMS"
                 >
@@ -205,7 +205,7 @@ export default function TextSubscribeForm() {
                 
                 {/* Email Share */}
                 <a 
-                  href={`mailto:?subject=Subscribe to the Ford Family Updates&body=Hey,%0A%0AI wanted to invite you to subscribe to the Ford Family blog.%0A%0AYou can sign up here: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
+                  href={`mailto:?subject=Here's a link to sign up for updates about Salicia&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
                   className="flex items-center justify-center p-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                   aria-label="Share via Email"
                 >
@@ -289,7 +289,7 @@ export default function TextSubscribeForm() {
             className="w-full px-3 py-2 border border-border rounded-md bg-white/50"
           />
           <p className="text-base text-muted-foreground mt-1">
-            We'll send updates directly to your phone (+1 will be automatically added)
+            We'll send updates directly to your phone
           </p>
         </div>
         
