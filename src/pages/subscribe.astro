@@ -22,10 +22,11 @@ const pageTitle = hasPrayerParam
   <meta property="og:title" content={pageTitle} />
   <meta name="twitter:title" content={pageTitle} />
   <!-- Debug information -->
-  <script is:inline define:vars={{ hasPrayerParam, typeParam: searchParams.get('type') }}>
+  <script is:inline define:vars={{ hasPrayerParam, typeParam: searchParams.get('type'), saliciaImageSrc: saliciaImage.src }}>
     console.log('URL parameters:', window.location.search);
     console.log('type parameter:', typeParam);
     console.log('hasPrayerParam:', hasPrayerParam);
+    console.log('Salicia image src:', saliciaImageSrc);
     
     // Client-side detection as fallback
     document.addEventListener('DOMContentLoaded', () => {
@@ -42,33 +43,30 @@ const pageTitle = hasPrayerParam
         
         // Force image swap to Salicia's image - multiple approaches for robustness
         setTimeout(() => {
+          // Use the direct Astro-generated URL for Salicia's image
+          const saliciaDirectUrl = saliciaImageSrc;
+          
           // Approach 1: Direct querySelector
           const heroImage = document.querySelector('.hero-image-swap');
           console.log('Hero image found:', heroImage);
           
           if (heroImage && heroImage.tagName === 'IMG') {
             console.log('Before image swap:', heroImage.src);
-            // Try direct replacement of entire URL
-            const currentSrc = heroImage.src;
-            const newSrc = currentSrc.includes('/joshua_ford_family_profile_') 
-              ? currentSrc.replace('/joshua_ford_family_profile_', '/salicias-profile_') 
-              : '/src/assets/salicias-profile_nw_7fb06e56.jpg';
-            
-            heroImage.src = newSrc;
+            // Use the direct Astro-generated URL
+            heroImage.src = saliciaDirectUrl;
+            heroImage.srcset = ''; // Clear srcset if any
             console.log('After image swap:', heroImage.src);
           }
           
           // Approach 2: Find image by selector and position
-          const allImages = document.querySelectorAll('img');
           const heroContainer = document.querySelector('.order-1.md\\:order-2');
           if (heroContainer) {
             const containerImages = heroContainer.querySelectorAll('img');
             if (containerImages.length > 0) {
               const targetImage = containerImages[0];
               console.log('Container image found:', targetImage);
-              targetImage.src = targetImage.src.includes('/joshua_ford_family_profile_') 
-                ? targetImage.src.replace('/joshua_ford_family_profile_', '/salicias-profile_')
-                : '/src/assets/salicias-profile_nw_7fb06e56.jpg';
+              targetImage.src = saliciaDirectUrl;
+              targetImage.srcset = ''; // Clear srcset if any
             }
           }
         }, 100); // Small delay to ensure DOM is fully loaded
@@ -84,9 +82,15 @@ const pageTitle = hasPrayerParam
 </slot>
 
 <!-- Additional image-specific script to ensure proper loading -->
-<script is:inline>
+<script is:inline define:vars={{ saliciaImageSrc: saliciaImage.src, familyImageSrc: familyImage.src }}>
   // This script runs immediately without waiting for DOMContentLoaded
   (function() {
+    // Get the correct image sources from Astro
+    const saliciaImageUrl = saliciaImageSrc; // This will be the optimized URL from Astro
+    const familyImageUrl = familyImageSrc;   // This will be the optimized URL from Astro
+    
+    console.log("Available image URLs (from Astro):", { saliciaImageUrl, familyImageUrl });
+    
     // Run this script immediately
     function checkAndUpdateImage() {
       const params = new URLSearchParams(window.location.search);
@@ -97,53 +101,53 @@ const pageTitle = hasPrayerParam
         
         // Force image to Salicia
         function replaceImage() {
-          // Try by ID first
-          const heroImage = document.getElementById('hero-image');
-          if (heroImage) {
-            console.log('Found hero image by ID');
-            if (heroImage.classList.contains('family-image')) {
-              console.log('Family image found, needs to be replaced');
-              // Create Salicia image and replace
-              const newImg = document.createElement('img');
-              newImg.src = '/src/assets/salicias-profile_nw_7fb06e56.jpg';
-              newImg.alt = 'Salicia Ford';
-              newImg.width = 500;
-              newImg.height = 700;
-              newImg.className = 'rounded-xl shadow-lg object-cover hero-image-swap prayer-image';
-              newImg.id = 'hero-image';
-              heroImage.parentNode.replaceChild(newImg, heroImage);
-              console.log('Image replaced by dynamic creation');
+          // Find all images in the hero container
+          const heroContainer = document.querySelector('.order-1.md\\:order-2');
+          if (!heroContainer) {
+            console.log('Could not find hero container');
+            return;
+          }
+          
+          // Try to find the image by various methods
+          const images = heroContainer.querySelectorAll('img');
+          console.log(`Found ${images.length} images in hero container`);
+          
+          for (let i = 0; i < images.length; i++) {
+            const img = images[i];
+            console.log(`Image ${i+1}:`, img.src);
+            
+            // Check if this is the family image that needs replacing
+            if (img.src.includes('joshua') || img.src.includes('family') || !img.src.includes('salicia')) {
+              console.log('Found family image, replacing with Salicia image');
+              
+              // Store original dimensions
+              const originalWidth = img.width || 500;
+              const originalHeight = img.height || 700;
+              
+              // Update the source directly to the optimized Salicia image URL
+              img.src = saliciaImageUrl;
+              img.srcset = ''; // Clear any srcset
+              img.alt = 'Salicia Ford';
+              img.width = originalWidth;
+              img.height = originalHeight;
+              
+              console.log('Image updated to:', img.src);
             }
           }
           
-          // Try finding by class
-          const familyImage = document.querySelector('.family-image');
-          if (familyImage) {
-            console.log('Family image found by class, needs to be hidden');
-            familyImage.style.display = 'none';
-            
-            // Check if prayer image already exists
-            let prayerImage = document.querySelector('.prayer-image');
-            if (!prayerImage) {
-              console.log('Creating prayer image');
-              // Create and insert Salicia's image
-              prayerImage = document.createElement('img');
-              prayerImage.src = '/src/assets/salicias-profile_nw_7fb06e56.jpg';
-              prayerImage.alt = 'Salicia Ford';
-              prayerImage.width = 500;
-              prayerImage.height = 700;
-              prayerImage.className = 'rounded-xl shadow-lg object-cover hero-image-swap prayer-image';
-              
-              // Insert it next to family image
-              familyImage.parentNode.insertBefore(prayerImage, familyImage.nextSibling);
-              console.log('Prayer image inserted');
-            } else {
-              prayerImage.style.display = 'block';
+          // If no images found, try to find by ID
+          if (images.length === 0) {
+            const heroImage = document.getElementById('hero-image');
+            if (heroImage) {
+              console.log('Found hero image by ID');
+              heroImage.src = saliciaImageUrl;
+              heroImage.alt = 'Salicia Ford';
+              console.log('Updated image by ID');
             }
           }
         }
         
-        // Try immediately and then with a delay
+        // Try immediately and then with a delay for reliability
         replaceImage();
         setTimeout(replaceImage, 100);
         setTimeout(replaceImage, 500);
