@@ -8,11 +8,11 @@ import saliciaImage from '../assets/salicias-profile_nw_7fb06e56.jpg';
 // Check for URL parameter 'type=prayer'
 const { searchParams } = Astro.url;
 const hasPrayerParam = searchParams.get('type') === 'prayer';
-const headingText = hasPrayerParam ? "Please Pray for" : "Stay Connected with";
+const headingText = hasPrayerParam ? "Prayer Request from" : "Stay Connected with";
 
 // Also adjust page title if prayer parameter is present
 const pageTitle = hasPrayerParam 
-  ? "Please Pray for The Ford Family" 
+  ? "Prayer Request from The Ford Family" 
   : "Subscribe to Updates from The Ford Family";
 ---
 
@@ -32,8 +32,8 @@ const pageTitle = hasPrayerParam
       const params = new URLSearchParams(window.location.search);
       const clientTypeParam = params.get('type');
       if (clientTypeParam === 'prayer') {
-        document.getElementById('dynamic-heading').textContent = 'Please Pray for';
-        document.title = 'Please Pray for The Ford Family';
+        document.getElementById('dynamic-heading').textContent = 'Prayer Request from';
+        document.title = 'Prayer Request from The Ford Family';
       }
     });
   </script>
@@ -46,7 +46,11 @@ const pageTitle = hasPrayerParam
             <span id="dynamic-heading">{headingText}</span><br/><span class="text-4xl">The Ford Family</span>
           </h1>
           <p class="text-lg text-muted-foreground mb-6">
-            We've had a lot of people asking for updates on Salicia and our family. We're trying to do a lot better about being able to update everybody at once so we created this blog with text and email notifications.
+            {hasPrayerParam ? 
+              "We Believe in the Power of Prayer! So many of you have been praying for our family, and we have seen so many supernatural things come from your prayer. It has been on our hearts for a very long time to create a family blog page where we can share updates and prayer requests to everyone. Not only to send out prayer request directly to all of you but to also communicate back to you with updates as those prayers are answered! Please share this page with anyone who would like to sign up to receive prayer requests or updates from our family. Thank you, everyone!" 
+              : 
+              "We've had a lot of people asking for updates on Salicia and our family. We're trying to do a lot better about being able to update everybody at once so we created this blog with text and email notifications."
+            }
           </p>
           
           <div class="bg-blue-50 rounded-lg p-4 border border-blue-100 mb-6" id="intro-box">
@@ -58,7 +62,7 @@ const pageTitle = hasPrayerParam
           <div class="mb-6">
             <div class="flex justify-center gap-3 mb-2">
               <a 
-                href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(Astro.url.href)}&redirect_uri=${encodeURIComponent(Astro.url.href)}&quote=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}`}
+                href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(Astro.url.href)}&redirect_uri=${encodeURIComponent(Astro.url.href)}&quote=${hasPrayerParam ? "Prayer Request from The Ford Family" : "Subscribe to Updates from The Ford Family"}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="flex items-center justify-center p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
@@ -68,7 +72,7 @@ const pageTitle = hasPrayerParam
               </a>
               
               <a 
-                href={`sms:?body=${hasPrayerParam ? "Please pray for The Ford Family: " : "Subscribe to Updates from The Ford Family: "}${encodeURIComponent(Astro.url.href)}`}
+                href={`sms:?body=${hasPrayerParam ? "Prayer Request from The Ford Family: " : "Subscribe to Updates from The Ford Family: "}${encodeURIComponent(Astro.url.href)}`}
                 class="flex items-center justify-center p-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                 aria-label="Share via SMS"
               >
@@ -76,7 +80,7 @@ const pageTitle = hasPrayerParam
               </a>
               
               <a 
-                href={`mailto:?subject=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}&body=Hey,%0A%0A${hasPrayerParam ? "Please pray for Salicia and the Ford family. " : ""}Joshua and Salicia made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(Astro.url.href)}%0A%0AThanks!`}
+                href={`mailto:?subject=${hasPrayerParam ? "Prayer Request from The Ford Family" : "Subscribe to Updates from The Ford Family"}&body=Hey,%0A%0A${hasPrayerParam ? "The Ford Family is sharing prayer requests and updates. " : ""}Joshua and Salicia made a page where you can sign up to receive prayer requests and updates on their family.%0A%0AHere's the link: ${encodeURIComponent(Astro.url.href)}%0A%0AThanks!`}
                 class="flex items-center justify-center p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                 aria-label="Share via Email"
               >
