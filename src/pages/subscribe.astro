@@ -3,20 +3,30 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import TextSubscribeForm from '@/components/TextSubscribeForm';
 import { Image } from 'astro:assets';
 import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
+
+// Check for URL parameter containing "prayer"
+const { searchParams } = Astro.url;
+const hasPrayerParam = searchParams.toString().toLowerCase().includes('prayer');
+const headingText = hasPrayerParam ? "Please Pray for" : "Stay Connected with";
+
+// Also adjust page title if prayer parameter is present
+const pageTitle = hasPrayerParam 
+  ? "Please Pray for The Ford Family" 
+  : "Subscribe to Updates from The Ford Family";
 ---
 
-<BaseLayout title="Subscribe to Updates from The Ford Family" description="Sign up to receive updates from the Ford family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
+<BaseLayout title={pageTitle} description="Sign up to receive updates from the Ford family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
 
 <head>
-  <meta property="og:title" content="Subscribe to Updates from The Ford Family" />
-  <meta name="twitter:title" content="Subscribe to Updates from The Ford Family" />
+  <meta property="og:title" content={pageTitle} />
+  <meta name="twitter:title" content={pageTitle} />
 </head>
   <div class="container max-w-4xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div class="order-2 md:order-1">
         <div class="mb-8">
           <h1 class="text-3xl font-bold font-display tracking-tight mb-4 text-center">
-            Stay Connected with<br/><span class="text-4xl">The Ford Family</span>
+            {headingText}<br/><span class="text-4xl">The Ford Family</span>
           </h1>
           <p class="text-lg text-muted-foreground mb-6">
             We've had a lot of people asking for updates on Salicia and our family. We're trying to do a lot better about being able to update everybody at once so we created this blog with text and email notifications.
