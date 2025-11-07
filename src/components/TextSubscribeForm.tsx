@@ -201,13 +201,23 @@ export default function TextSubscribeForm() {
             <div className="mt-4">
               <p className="text-base font-medium mb-3">Please share this page so that others can pray for our family and receive updates.</p>
               <div className="flex items-center gap-3">
-                {/* Facebook Share */}
+                {/* Share Button */}
                 <a 
-                  href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(window.location.href)}&m2w=1`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (navigator.share) {
+                      navigator.share({
+                        title: hasPrayerParam ? 'Prayer Request from The Ford Family' : 'The Ford Family Updates',
+                        url: window.location.href
+                      })
+                      .catch(err => console.error('Error sharing:', err));
+                    } else {
+                      window.open('https://www.facebook.com/sharer.php?u=' + encodeURIComponent(window.location.href), '_blank');
+                    }
+                  }}
                   className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                  aria-label="Share on Facebook"
+                  aria-label="Share this page"
                 >
                   <MessageCircle size={22} />
                 </a>
