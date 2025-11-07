@@ -17,16 +17,32 @@ const pageTitle = hasPrayerParam
 
 <BaseLayout title={pageTitle} description="Sign up to receive updates from the Ford family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
 
-<head>
+<slot name="head">
   <meta property="og:title" content={pageTitle} />
   <meta name="twitter:title" content={pageTitle} />
-</head>
+  <!-- Debug information -->
+  <script is:inline define:vars={{ hasPrayerParam, typeParam: searchParams.get('type') }}>
+    console.log('URL parameters:', window.location.search);
+    console.log('type parameter:', typeParam);
+    console.log('hasPrayerParam:', hasPrayerParam);
+    
+    // Client-side detection as fallback
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const clientTypeParam = params.get('type');
+      if (clientTypeParam === 'prayer') {
+        document.getElementById('dynamic-heading').textContent = 'Please Pray for';
+        document.title = 'Please Pray for The Ford Family';
+      }
+    });
+  </script>
+</slot>
   <div class="container max-w-4xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div class="order-2 md:order-1">
         <div class="mb-8">
           <h1 class="text-3xl font-bold font-display tracking-tight mb-4 text-center">
-            {headingText}<br/><span class="text-4xl">The Ford Family</span>
+            <span id="dynamic-heading">{headingText}</span><br/><span class="text-4xl">The Ford Family</span>
           </h1>
           <p class="text-lg text-muted-foreground mb-6">
             We've had a lot of people asking for updates on Salicia and our family. We're trying to do a lot better about being able to update everybody at once so we created this blog with text and email notifications.
