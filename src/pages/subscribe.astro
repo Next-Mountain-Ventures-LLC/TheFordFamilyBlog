@@ -4,9 +4,9 @@ import TextSubscribeForm from '@/components/TextSubscribeForm';
 import { Image } from 'astro:assets';
 import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
 
-// Check for URL parameter containing "prayer"
+// Check for URL parameter 'type=prayer'
 const { searchParams } = Astro.url;
-const hasPrayerParam = searchParams.toString().toLowerCase().includes('prayer');
+const hasPrayerParam = searchParams.get('type') === 'prayer';
 const headingText = hasPrayerParam ? "Please Pray for" : "Stay Connected with";
 
 // Also adjust page title if prayer parameter is present
