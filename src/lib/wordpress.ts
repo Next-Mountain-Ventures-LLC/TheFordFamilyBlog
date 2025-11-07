@@ -92,6 +92,12 @@ export function getAuthorFullName(authorName: string): string {
  * Transforms a WordPress post to our blog post format
  */
 export function transformWordPressPost(post: WordPressPost): BlogPost {
+  // Date overrides for specific posts
+  const dateOverrides: Record<string, string> = {
+    'the-yard-sale': 'July 28, 2016',
+    'dont-put-off-until-tomorrow': 'November 15, 2023',
+    'quantifying-god': 'September 25, 2020'
+  };
   // Get the featured image URL if available from WordPress
   let imageUrl: string | null = null;
   
@@ -134,13 +140,20 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
   const authorId = authorData?.id || post.author;
   const authorSlug = authorData?.slug;
 
-  // Format the date
-  const dateObj = new Date(post.date);
-  const formattedDate = dateObj.toLocaleDateString('en-US', {
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric'
-  });
+  // Format the date with possible overrides
+  let formattedDate;
+  // Check if this post has a date override
+  if (dateOverrides[post.slug]) {
+    formattedDate = dateOverrides[post.slug];
+  } else {
+    // Use the default date formatting
+    const dateObj = new Date(post.date);
+    formattedDate = dateObj.toLocaleDateString('en-US', {
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric'
+    });
+  }
 
   // Strip HTML from excerpt and decode entities
   const stripHtml = (html: string) => {

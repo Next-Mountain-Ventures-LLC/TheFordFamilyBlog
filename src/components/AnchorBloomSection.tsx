@@ -5,7 +5,7 @@ interface AnchorBloomSectionProps {
   title?: string;
 }
 
-export default function AnchorBloomSection({ title = "Anchor and Bloom" }: AnchorBloomSectionProps) {
+export default function AnchorBloomSection({ title = "River and Roots" }: AnchorBloomSectionProps) {
   return (
     <div className="w-full">
       <div className="container mx-auto">
@@ -19,7 +19,7 @@ export default function AnchorBloomSection({ title = "Anchor and Bloom" }: Ancho
                     <div className="scrapbook-tape"></div>
                     <img 
                       src="https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=800&auto=format&q=80" 
-                      alt="Anchor and Bloom Non-Profit" 
+                      alt="River and Roots Non-Profit" 
                       className="w-full h-auto rounded-sm"
                     />
                   </div>
