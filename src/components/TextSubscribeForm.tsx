@@ -201,15 +201,15 @@ export default function TextSubscribeForm() {
             <div className="mt-4">
               <p className="text-base font-medium mb-3">Please share this page so that others can pray for our family and receive updates.</p>
               <div className="flex items-center gap-3">
-                {/* Facebook Share */}
+                {/* Facebook Messenger Share */}
                 <a 
-                  href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}&quote=${hasPrayerParam ? "Please Pray for The Ford Family" : "Subscribe to Updates from The Ford Family"}`}
+                  href={`fb-messenger://share/?link=${encodeURIComponent(window.location.href)}&app_id=741024618086022`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                  aria-label="Share on Facebook"
+                  aria-label="Share via Facebook Messenger"
                 >
-                  <Facebook size={22} />
+                  <MessageCircle size={22} />
                 </a>
                 
                 {/* SMS Share */}
