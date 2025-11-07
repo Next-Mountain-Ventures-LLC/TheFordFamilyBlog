@@ -27,10 +27,10 @@ export default function SubscriptionCategories({ onChange, defaultSelected = ['f
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const typeParam = params.get('type');
-      if (typeParam === 'prayer' && !selectedCategories.includes('prayer_request')) {
-        // Add prayer_request to selected categories if not already there
+      if (typeParam === 'prayer') {
+        // REPLACE all categories with ONLY prayer_request when in prayer mode
         setSelectedCategories(prev => {
-          const newSelection = [...prev, 'prayer_request'];
+          const newSelection = ['prayer_request'];
           onChange(newSelection);
           return newSelection;
         });

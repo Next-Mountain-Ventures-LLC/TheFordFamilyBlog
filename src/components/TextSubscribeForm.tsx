@@ -159,7 +159,17 @@ export default function TextSubscribeForm() {
     // Get URL parameters
     const params = new URLSearchParams(window.location.search);
     const typeParam = params.get('type');
-    setHasPrayerParam(typeParam === 'prayer');
+    const isPrayer = typeParam === 'prayer';
+    setHasPrayerParam(isPrayer);
+    
+    // Update subscription categories if in prayer mode
+    if (isPrayer) {
+      // Only select prayer_request when in prayer mode
+      setFormData(prev => ({
+        ...prev,
+        subscription_categories: ['prayer_request']
+      }));
+    }
     
     // Only show the intro box if there is no submission status
     if (!submitStatus) {
