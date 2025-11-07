@@ -196,7 +196,7 @@ export default function TextSubscribeForm() {
                 
                 {/* SMS Share */}
                 <a 
-                  href={`sms:?body=Subscribe to updates from the Ford family: ${encodeURIComponent(window.location.href)}`}
+                  href={`sms:?body=Subscribe to Updates from The Ford Family: ${encodeURIComponent(window.location.href)}`}
                   className="flex items-center justify-center p-3 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                   aria-label="Share via SMS"
                 >
@@ -205,7 +205,7 @@ export default function TextSubscribeForm() {
                 
                 {/* Email Share */}
                 <a 
-                  href={`mailto:?subject=Subscribe to updates from the Ford family&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
+                  href={`mailto:?subject=Subscribe to Updates from The Ford Family&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(window.location.href)}%0A%0AThanks!`}
                   className="flex items-center justify-center p-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                   aria-label="Share via Email"
                 >

@@ -5,7 +5,12 @@ import { Image } from 'astro:assets';
 import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
 ---
 
-<BaseLayout title="Subscribe to updates from the Ford family" description="Sign up to receive updates from the Ford family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
+<BaseLayout title="Subscribe to Updates from The Ford Family" description="Sign up to receive updates from the Ford family" image={new URL('/us_nw_a4501e2a.png', Astro.site)}>
+
+<head>
+  <meta property="og:title" content="Subscribe to Updates from The Ford Family" />
+  <meta name="twitter:title" content="Subscribe to Updates from The Ford Family" />
+</head>
   <div class="container max-w-4xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div class="order-2 md:order-1">
@@ -36,7 +41,7 @@ import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
               </a>
               
               <a 
-                href={`sms:?body=Subscribe to updates from the Ford family: ${encodeURIComponent(Astro.url.href)}`}
+                href={`sms:?body=Subscribe to Updates from The Ford Family: ${encodeURIComponent(Astro.url.href)}`}
                 class="flex items-center justify-center p-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
                 aria-label="Share via SMS"
               >
@@ -44,7 +49,7 @@ import familyImage from '../assets/joshua_ford_family_profile_nw_c781cd7e.jpg';
               </a>
               
               <a 
-                href={`mailto:?subject=Subscribe to updates from the Ford family&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(Astro.url.href)}%0A%0AThanks!`}
+                href={`mailto:?subject=Subscribe to Updates from The Ford Family&body=Hey,%0A%0AJoshua and Salicia finally made a page where you can sign up for updates on her health and their family.%0A%0AHere's the link: ${encodeURIComponent(Astro.url.href)}%0A%0AThanks!`}
                 class="flex items-center justify-center p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md transition-colors"
                 aria-label="Share via Email"
               >
