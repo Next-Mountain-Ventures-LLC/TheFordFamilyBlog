@@ -22,6 +22,7 @@ const defaultDescription = "The Ford Family is sharing their journey through fai
       description={description || defaultDescription} 
       ogImage={ogImage} 
     />
+    <slot name="head" />
   </head>
   <body class="bg-background min-h-screen font-sans antialiased">
     <script is:inline>

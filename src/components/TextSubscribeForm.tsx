@@ -185,7 +185,7 @@ export default function TextSubscribeForm() {
               <div className="flex items-center gap-3">
                 {/* Facebook Message */}
                 <a 
-                  href={`https://www.facebook.com/dialog/send?app_id=741024618086022&link=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}`}
+                  href={`https://www.facebook.com/dialog/share?app_id=741024618086022&display=popup&href=${encodeURIComponent(window.location.href)}&redirect_uri=${encodeURIComponent(window.location.href)}&quote=Subscribe to Updates from The Ford Family`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
