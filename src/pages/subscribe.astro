@@ -31,17 +31,47 @@ const pageTitle = hasPrayerParam
     document.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       const clientTypeParam = params.get('type');
+      console.log('Client-side detection running', clientTypeParam);
+      
       if (clientTypeParam === 'prayer') {
+        console.log('Prayer parameter detected on client side');
+        
         // Update heading and title
         document.getElementById('dynamic-heading').textContent = 'Prayer Request from';
         document.title = 'Prayer Request from The Ford Family';
         
-        // Force image swap to Salicia's image
-        const heroImage = document.querySelector('.hero-image-swap');
-        if (heroImage && heroImage.tagName === 'IMG') {
-          // This assumes the image is using the src attribute directly
-          heroImage.src = heroImage.src.replace('joshua_ford_family_profile', 'salicias-profile');
-        }
+        // Force image swap to Salicia's image - multiple approaches for robustness
+        setTimeout(() => {
+          // Approach 1: Direct querySelector
+          const heroImage = document.querySelector('.hero-image-swap');
+          console.log('Hero image found:', heroImage);
+          
+          if (heroImage && heroImage.tagName === 'IMG') {
+            console.log('Before image swap:', heroImage.src);
+            // Try direct replacement of entire URL
+            const currentSrc = heroImage.src;
+            const newSrc = currentSrc.includes('/joshua_ford_family_profile_') 
+              ? currentSrc.replace('/joshua_ford_family_profile_', '/salicias-profile_') 
+              : '/src/assets/salicias-profile_nw_7fb06e56.jpg';
+            
+            heroImage.src = newSrc;
+            console.log('After image swap:', heroImage.src);
+          }
+          
+          // Approach 2: Find image by selector and position
+          const allImages = document.querySelectorAll('img');
+          const heroContainer = document.querySelector('.order-1.md\\:order-2');
+          if (heroContainer) {
+            const containerImages = heroContainer.querySelectorAll('img');
+            if (containerImages.length > 0) {
+              const targetImage = containerImages[0];
+              console.log('Container image found:', targetImage);
+              targetImage.src = targetImage.src.includes('/joshua_ford_family_profile_') 
+                ? targetImage.src.replace('/joshua_ford_family_profile_', '/salicias-profile_')
+                : '/src/assets/salicias-profile_nw_7fb06e56.jpg';
+            }
+          }
+        }, 100); // Small delay to ensure DOM is fully loaded
         
         // Update paragraph text if needed
         const introParagraph = document.querySelector('.intro-paragraph');
@@ -52,6 +82,89 @@ const pageTitle = hasPrayerParam
     });
   </script>
 </slot>
+
+<!-- Additional image-specific script to ensure proper loading -->
+<script is:inline>
+  // This script runs immediately without waiting for DOMContentLoaded
+  (function() {
+    // Run this script immediately
+    function checkAndUpdateImage() {
+      const params = new URLSearchParams(window.location.search);
+      const isPrayer = params.get('type') === 'prayer';
+      
+      if (isPrayer) {
+        console.log('Immediate image check - prayer mode detected');
+        
+        // Force image to Salicia
+        function replaceImage() {
+          // Try by ID first
+          const heroImage = document.getElementById('hero-image');
+          if (heroImage) {
+            console.log('Found hero image by ID');
+            if (heroImage.classList.contains('family-image')) {
+              console.log('Family image found, needs to be replaced');
+              // Create Salicia image and replace
+              const newImg = document.createElement('img');
+              newImg.src = '/src/assets/salicias-profile_nw_7fb06e56.jpg';
+              newImg.alt = 'Salicia Ford';
+              newImg.width = 500;
+              newImg.height = 700;
+              newImg.className = 'rounded-xl shadow-lg object-cover hero-image-swap prayer-image';
+              newImg.id = 'hero-image';
+              heroImage.parentNode.replaceChild(newImg, heroImage);
+              console.log('Image replaced by dynamic creation');
+            }
+          }
+          
+          // Try finding by class
+          const familyImage = document.querySelector('.family-image');
+          if (familyImage) {
+            console.log('Family image found by class, needs to be hidden');
+            familyImage.style.display = 'none';
+            
+            // Check if prayer image already exists
+            let prayerImage = document.querySelector('.prayer-image');
+            if (!prayerImage) {
+              console.log('Creating prayer image');
+              // Create and insert Salicia's image
+              prayerImage = document.createElement('img');
+              prayerImage.src = '/src/assets/salicias-profile_nw_7fb06e56.jpg';
+              prayerImage.alt = 'Salicia Ford';
+              prayerImage.width = 500;
+              prayerImage.height = 700;
+              prayerImage.className = 'rounded-xl shadow-lg object-cover hero-image-swap prayer-image';
+              
+              // Insert it next to family image
+              familyImage.parentNode.insertBefore(prayerImage, familyImage.nextSibling);
+              console.log('Prayer image inserted');
+            } else {
+              prayerImage.style.display = 'block';
+            }
+          }
+        }
+        
+        // Try immediately and then with a delay
+        replaceImage();
+        setTimeout(replaceImage, 100);
+        setTimeout(replaceImage, 500);
+      }
+    }
+    
+    // Run once immediately 
+    checkAndUpdateImage();
+    
+    // Also run when the DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', checkAndUpdateImage);
+    } else {
+      // DOM already loaded, run now
+      setTimeout(checkAndUpdateImage, 0);
+    }
+    
+    // And again after everything is loaded
+    window.addEventListener('load', checkAndUpdateImage);
+  })();
+</script>
   <div class="container max-w-4xl mx-auto px-4 py-12">
     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div class="order-2 md:order-1">
@@ -111,13 +224,25 @@ const pageTitle = hasPrayerParam
       <div class="order-1 md:order-2 flex justify-center">
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-tr from-primary/30 to-transparent rounded-xl transform rotate-6 -z-10"></div>
-          <Image 
-            src={hasPrayerParam ? saliciaImage : familyImage} 
-            alt={hasPrayerParam ? "Salicia Ford" : "The Ford Family"} 
-            width={500}
-            height={700}
-            class="rounded-xl shadow-lg object-cover hero-image-swap"
-          />
+          {hasPrayerParam ? (
+            <Image 
+              src={saliciaImage} 
+              alt="Salicia Ford" 
+              width={500}
+              height={700}
+              class="rounded-xl shadow-lg object-cover hero-image-swap prayer-image"
+              id="hero-image"
+            />
+          ) : (
+            <Image 
+              src={familyImage} 
+              alt="The Ford Family" 
+              width={500}
+              height={700}
+              class="rounded-xl shadow-lg object-cover hero-image-swap family-image"
+              id="hero-image"
+            />
+          )}
         </div>
       </div>
     </div>
