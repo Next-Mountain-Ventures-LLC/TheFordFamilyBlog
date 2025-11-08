@@ -96,7 +96,7 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
   const dateOverrides: Record<string, string> = {
     'the-yard-sale': 'July 28, 2016',
     'dont-put-off-until-tomorrow': 'November 15, 2023',
-    'quantifying-god': 'September 25, 2020'
+    'quantifying-god': '09/25/2020'
   };
   // Get the featured image URL if available from WordPress
   let imageUrl: string | null = null;
