@@ -187,7 +187,7 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
   // Create formatted blog post
   const blogPost: BlogPost = {
     id: post.id,
-    title: post.title.rendered,
+    title: stripHtml(post.title.rendered),
     excerpt: stripHtml(post.excerpt.rendered),
     content: post.content.rendered,
     date: formattedDate,
