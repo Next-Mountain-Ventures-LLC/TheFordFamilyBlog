@@ -151,8 +151,8 @@ export default function RequestItemForm() {
         form_name: form.get("form_name")
       });
       
-      // Send to the API endpoint
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+      // Send to the local API endpoint which will forward to Zapier
+      const response = await fetch("/api/submit-form", {
         method: "POST",
         body: form,
       });

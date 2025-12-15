@@ -38,7 +38,7 @@ export default function GenericContactForm({
         form.append(key, value);
       });
       
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+      const response = await fetch("/api/submit-form", {
         method: "POST",
         body: form,
       });
