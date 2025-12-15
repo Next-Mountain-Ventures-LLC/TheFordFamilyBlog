@@ -110,6 +110,10 @@ export const post: APIRoute = async ({ request, redirect }) => {
         });
       }
       
+      // Convert result to string if it's an object
+      const resultString = typeof result === 'string' ? result : JSON.stringify(result);
+      const truncatedResult = resultString.substring(0, 500) + (resultString.length > 500 ? '...' : '');
+
       // Return success response
       return new Response(JSON.stringify({
         message: 'WordPress-triggered rebuild initiated successfully',
@@ -117,7 +121,7 @@ export const post: APIRoute = async ({ request, redirect }) => {
           timestamp: new Date().toISOString(),
           success: response.ok,
           status: response.status,
-          responseInfo: result.substring(0, 500) + (result.length > 500 ? '...' : '')
+          responseInfo: truncatedResult
         }
       }), {
         status: 200,

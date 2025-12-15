@@ -117,8 +117,6 @@ export function transformWordPressPost(post: WordPressPost): BlogPost {
   } else {
     console.log(`No featured image found for post ${post.slug}`);
   }
-  
-  console.log(`Featured image for post ${post.slug}:`, imageUrl);
 
   // Get category data
   const categoryData = post._embedded?.['wp:term']?.[0]?.[0];
