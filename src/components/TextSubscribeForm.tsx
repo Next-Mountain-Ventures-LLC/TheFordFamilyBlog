@@ -101,10 +101,11 @@ export default function TextSubscribeForm() {
         }).reduce((acc, curr) => ({...acc, ...curr}), {})
       });
       
-      console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
-      
-      // Send the form data directly to the endpoint
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+      const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
+      console.log("Sending form to Zapier webhook");
+
+      // Send the form data directly to Zapier
+      const response = await fetch(zapierWebhookUrl, {
         method: "POST",
         body: formDataObj,
       });
@@ -181,12 +182,10 @@ export default function TextSubscribeForm() {
   }, []);
 
   return (
-    <form 
+    <form
       ref={formRef}
-      onSubmit={handleSubmit} 
-      className="space-y-6" 
-      method="POST" 
-      action="https://api.new.website/api/submit-form/"
+      onSubmit={handleSubmit}
+      className="space-y-6"
       encType="multipart/form-data"
       autoComplete="on"
       id="text-subscribe-form"

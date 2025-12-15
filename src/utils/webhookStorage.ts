@@ -109,7 +109,7 @@ export function clearWebhookEvents(): void {
  * Generate a simple unique ID
  */
 function generateId(): string {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
 
 /**

@@ -20,7 +20,8 @@ export default function FinleyContactForm() {
         formData.append('form_name', 'Finley Contact Form');
       }
 
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+      const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
+      const response = await fetch(zapierWebhookUrl, {
         method: "POST",
         body: formData, // FormData automatically sets the correct Content-Type
       });

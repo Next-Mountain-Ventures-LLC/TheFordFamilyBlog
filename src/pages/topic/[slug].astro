@@ -3,8 +3,23 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { buttonVariants } from "@/components/ui/button";
 import { getPosts } from '@/lib/wordpress';
 
-// Enable server-side rendering for dynamic routes
-export const prerender = false;
+// Generate static paths for all topics
+export async function getStaticPaths() {
+  const possibleTopics = [
+    'faith',
+    'chronic-illness',
+    'homeschooling',
+    'entrepreneurship',
+    'inventions',
+    'family',
+    'design',
+    'faith-health'
+  ];
+
+  return possibleTopics.map(topic => ({
+    params: { slug: topic }
+  }));
+}
 
 // Get the topic slug from the URL
 const { slug } = Astro.params;
