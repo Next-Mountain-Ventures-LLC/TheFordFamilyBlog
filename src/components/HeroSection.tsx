@@ -49,10 +49,10 @@ export default function HeroSection() {
             <span className="text-primary-foreground">The Ford Family</span>
             <span className="text-accent-foreground text-4xl md:text-6xl">.life</span>
           </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll">
+          <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll" suppressHydrationWarning>
             Our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 animate-on-scroll">
+          <div className="flex flex-wrap justify-center gap-4 animate-on-scroll" suppressHydrationWarning>
             <a href="#family" className={buttonVariants({ size: 'lg' })}>
               Meet Our Family
             </a>
