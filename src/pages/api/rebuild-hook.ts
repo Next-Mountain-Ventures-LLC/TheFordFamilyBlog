@@ -1,4 +1,6 @@
-// API endpoint for webhook-triggered rebuilds
+// DEPRECATED: This endpoint is no longer in use
+// The Ford Family website has migrated away from Vercel deployment hooks
+// This file is kept for backwards compatibility only
 // File: /src/pages/api/rebuild-hook.ts
 
 import type { APIRoute } from 'astro';

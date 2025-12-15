@@ -1,4 +1,7 @@
-// API endpoint specifically for new.website platform webhooks
+// DEPRECATED: This endpoint is no longer in use
+// The Ford Family website has migrated away from the new.website platform
+// Please use /api/submit-form for form submissions and Zapier webhooks instead
+// This file is kept for backwards compatibility only
 // File: /src/pages/api/new-website-hook.ts
 
 import type { APIRoute } from 'astro';
