@@ -75,7 +75,7 @@ export default function SubscribeForm() {
       // Set subscription categories properly
       formData.append("subscription_category_1", "family updates");
       formData.append("subscription_categories_count", "1");
-      
+
       // Log form data for debugging
       console.log("Form submission data:", {
         email: formData.get("email"),
@@ -87,11 +87,11 @@ export default function SubscribeForm() {
         subscription_categories_count: formData.get("subscription_categories_count"),
         all_entries: Array.from(formData.entries())
       });
-      
-      console.log("Sending form to endpoint: https://api.new.website/api/submit-form/");
-      
-      // Send the form data directly to the endpoint
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+
+      console.log("Sending form to endpoint: /api/submit-form");
+
+      // Send the form data to our local API endpoint which will forward to Zapier
+      const response = await fetch("/api/submit-form", {
         method: "POST",
         body: formData,
       });
@@ -133,12 +133,10 @@ export default function SubscribeForm() {
   }, [submitStatus]);
 
   return (
-    <form 
+    <form
       ref={formRef}
-      onSubmit={step === 1 ? handleNext : handleSubmit} 
-      className="space-y-3" 
-      method="POST" 
-      action="https://api.new.website/api/submit-form/"
+      onSubmit={step === 1 ? handleNext : handleSubmit}
+      className="space-y-3"
       encType="multipart/form-data"
       autoComplete="on"
       id="newsletter-subscribe-form"

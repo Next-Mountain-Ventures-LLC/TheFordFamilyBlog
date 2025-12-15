@@ -24,7 +24,7 @@ export default function ContactForm() {
         form.append(key, value);
       });
       
-      const response = await fetch("https://api.new.website/api/submit-form/", {
+      const response = await fetch("/api/submit-form", {
         method: "POST",
         body: form, // FormData automatically sets the correct Content-Type
       });
