@@ -45,7 +45,7 @@ export default function HeroSection() {
 
       <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold font-display mb-6 animate-on-scroll">
+          <h1 className="text-5xl md:text-7xl font-bold font-display mb-6 animate-on-scroll" suppressHydrationWarning>
             <span className="text-primary-foreground">The Ford Family</span>
             <span className="text-accent-foreground text-4xl md:text-6xl">.life</span>
           </h1>
