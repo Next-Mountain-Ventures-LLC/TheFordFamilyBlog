@@ -78,13 +78,15 @@ export default function HeroSection() {
             return (
               <div key={index} className="flex flex-col items-center">
                 {member.imageUrl && (
-                  <div 
-                    className={`scrapbook-photo mb-4 ${animationClass}`} 
+                  <div
+                    className={`scrapbook-photo mb-4 ${animationClass}`}
                     style={{ '--rotate': member.rotate } as React.CSSProperties}
+                    suppressHydrationWarning
                   >
-                    <div 
+                    <div
                       className="scrapbook-tape"
                       style={{ '--rotate': `-${parseInt(member.rotate || '0deg') * 0.5}deg` } as React.CSSProperties}
+                      suppressHydrationWarning
                     ></div>
                     <img 
                       src={member.imageUrl} 
