@@ -151,8 +151,9 @@ export default function RequestItemForm() {
         form_name: form.get("form_name")
       });
       
-      // Send to the local API endpoint which will forward to Zapier
-      const response = await fetch("/api/submit-form", {
+      // Send directly to Zapier webhook
+      const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
+      const response = await fetch(zapierWebhookUrl, {
         method: "POST",
         body: form,
       });

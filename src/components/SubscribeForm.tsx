@@ -88,10 +88,11 @@ export default function SubscribeForm() {
         all_entries: Array.from(formData.entries())
       });
 
-      console.log("Sending form to endpoint: /api/submit-form");
+      const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
+      console.log("Sending form to Zapier webhook");
 
-      // Send the form data to our local API endpoint which will forward to Zapier
-      const response = await fetch("/api/submit-form", {
+      // Send the form data directly to Zapier
+      const response = await fetch(zapierWebhookUrl, {
         method: "POST",
         body: formData,
       });
