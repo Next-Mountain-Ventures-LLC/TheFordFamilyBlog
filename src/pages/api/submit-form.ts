@@ -1,3 +1,9 @@
+// DEPRECATED: This endpoint is no longer used
+// The application has migrated from Vercel to GitHub Pages (static hosting only)
+// GitHub Pages does not support API routes
+// All form components now post directly to the Zapier webhook URL
+// This file is kept for reference only
+
 import type { APIRoute } from 'astro';
 
 const ZAPIER_WEBHOOK_URL = process.env.ZAPIER_WEBHOOK_URL;
