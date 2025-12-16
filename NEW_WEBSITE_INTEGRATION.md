@@ -1,6 +1,6 @@
 # new.website API Integration
 
-This document describes how to integrate your Astro site with the new.website platform for automatic rebuilds and content synchronization.
+This document describes how to integrate your Astro site with the new.website platform for automatic rebuilds and content synchronization via GitHub Pages.
 
 ## Overview
 
@@ -9,13 +9,14 @@ The integration allows for:
 1. Automatic rebuilds when content is updated in WordPress via new.website
 2. Content and media synchronization between WordPress and your Astro site
 3. Manual rebuilds triggered through the new.website dashboard
+4. GitHub Pages deployment via GitHub Actions
 
-## How It Works
+## How It Works with GitHub Pages
 
 1. The new.website platform monitors your WordPress site for changes
 2. When changes are detected, new.website sends a webhook to your Astro site's API endpoint
-3. The API endpoint processes the webhook and triggers appropriate actions
-4. For rebuilds, the endpoint calls the new.website build API
+3. The API endpoint processes the webhook and triggers a GitHub Actions rebuild via GitHub API
+4. GitHub Actions builds your Astro site and deploys to GitHub Pages automatically
 
 ## Configuration
 
