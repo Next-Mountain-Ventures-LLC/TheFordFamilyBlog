@@ -1,21 +1,33 @@
-# Scheduled Rebuilds for new.website
+# Scheduled Rebuilds for GitHub Pages
 
-This document explains how to set up a daily scheduled rebuild of your Astro site at 11:10am.
+This document explains how to set up a daily scheduled rebuild of your Astro site at 11:10am using GitHub Actions.
 
 ## How It Works
 
-1. A scheduled job makes a request to a special endpoint on your site (`/api/scheduled-rebuild`)
-2. This endpoint triggers your Vercel deployment hook to initiate a rebuild
-3. The site is rebuilt and redeployed automatically
+1. GitHub Actions runs a scheduled workflow at the specified time
+2. The workflow checks out your repository, builds the site, and deploys it to GitHub Pages
+3. The site is rebuilt and redeployed automatically on schedule
 
 ## Setup Instructions
 
-### 1. Configure Environment Variables
+### GitHub Actions Scheduled Workflow
 
-Set the following environment variables in your hosting provider's dashboard:
+Your site is configured with a GitHub Actions workflow that:
+- Builds on push to main/quantum-nest branches
+- Can be manually triggered via workflow_dispatch
+- Can be scheduled using GitHub Actions cron syntax
 
-- `VERCEL_DEPLOY_HOOK`: Your Vercel deployment hook URL
-- `SCHEDULE_SECRET`: A secure random string to authorize the scheduled rebuild (default: 'ford-family-schedule-secret')
+To add a scheduled rebuild, update `.github/workflows/build-and-deploy.yml` with a schedule trigger:
+
+```yaml
+on:
+  push:
+    branches: [main, quantum-nest]
+  schedule:
+    # Run at 11:10 AM UTC every day
+    - cron: '10 11 * * *'
+  workflow_dispatch:
+```
 
 ### 2. Set Up a Cron Job or Scheduled Task
 
