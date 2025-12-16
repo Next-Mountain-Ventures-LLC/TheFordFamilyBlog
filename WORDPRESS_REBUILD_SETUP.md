@@ -10,21 +10,29 @@ This document describes how to set up automatic rebuilds of your Astro site when
 
 ## Setup Instructions
 
-### 1. Set Up Your Deployment Hook
+### 1. GitHub Pages Deployment Setup
 
-Since this is a static Astro site, you need to set up a deployment hook with your hosting provider:
+This Astro site uses GitHub Actions for automated builds and deployment to GitHub Pages. When content changes, you can trigger a rebuild in several ways:
 
-1. For Vercel: Go to your project settings → Git → Deploy Hooks and create a new hook
-2. For Netlify: Go to your site settings → Build & deploy → Build hooks and create a new hook
-3. For GitHub Pages or other services: Check your provider's documentation for deployment hook setup
-4. Copy the deployment hook URL for use in your environment variables
+**Option A: Automatic on Git Push** (Recommended)
+- Any push to the main or quantum-nest branch automatically triggers a build and deployment
+- No additional setup needed - already configured in `.github/workflows/build-and-deploy.yml`
 
-### 2. Configure Environment Variables
+**Option B: Manual GitHub Actions Trigger**
+- Go to your GitHub repository → Actions tab
+- Select "Build and Deploy to GitHub Pages"
+- Click "Run workflow"
 
-In your hosting provider's environment variables section, set the following:
+**Option C: Scheduled Rebuilds**
+- Edit `.github/workflows/build-and-deploy.yml` to add a schedule trigger
+- See SCHEDULED_REBUILD.md for detailed instructions
 
-- `WP_WEBHOOK_SECRET`: A secure random string that will be used to authenticate webhook requests (e.g., `67136844`)
-- `VERCEL_DEPLOY_HOOK`: The deployment hook URL from your Vercel project
+### 2. Configure Webhook Secret (Optional)
+
+If you want to authenticate webhook requests from WordPress:
+
+- `WP_WEBHOOK_SECRET`: A secure random string to authenticate webhook requests (e.g., `67136844`)
+- Store this in GitHub repository Settings → Secrets and variables → Actions (or document for your webhook handler)
 
 ### 3. Set Up the WordPress Webhook Plugin
 
