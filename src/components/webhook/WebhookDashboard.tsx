@@ -12,6 +12,10 @@ export default function WebhookDashboard() {
         <div>
           <h1 className="text-2xl font-bold text-primary-foreground">Webhook Testing Dashboard</h1>
           <p className="text-muted-foreground">Monitor, test, and analyze your webhook integrations</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            <strong>Note:</strong> This dashboard is for testing webhooks. For GitHub Pages deployment,
+            pushes to main or quantum-nest branches trigger automatic builds via GitHub Actions.
+          </p>
         </div>
       </div>
       
