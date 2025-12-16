@@ -29,21 +29,23 @@ To keep your static site updated when content changes in WordPress, set up a web
 
 ## Deployment Platform Configuration
 
-### Vercel
+### GitHub Pages
 
-For Vercel deployments:
+This site is deployed to GitHub Pages using GitHub Actions:
 
-1. Set up a Deploy Hook in your Vercel project settings
-2. Configure your WordPress webhook to call this URL
-3. Add `WEBHOOK_SECRET` to your environment variables
+1. **Automatic Deployments**: Any push to main or quantum-nest branch triggers an automatic build and deployment
+2. **Manual Deployments**: Use GitHub Actions UI to manually trigger "Build and Deploy to GitHub Pages" workflow
+3. **Scheduled Deployments**: Edit `.github/workflows/build-and-deploy.yml` to add a cron schedule
+4. **Webhook Secret**: Store `WEBHOOK_SECRET` in GitHub repository Settings → Secrets and variables → Actions if needed
 
-### Netlify
+### Build Workflow Configuration
 
-For Netlify deployments:
+The build workflow is configured in `.github/workflows/build-and-deploy.yml`:
 
-1. Create a Build Hook in your Netlify site settings
-2. Configure your WordPress webhook to call this URL
-3. Add `WEBHOOK_SECRET` to your environment variables
+- Installs dependencies
+- Builds Astro site to static HTML
+- Deploys to GitHub Pages
+- Runs on: push to main/quantum-nest and manual workflow_dispatch
 
 ## Adding New Content Types
 
