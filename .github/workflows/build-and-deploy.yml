@@ -33,7 +33,7 @@ jobs:
       - name: Build Astro site
         run: npm run build
         env:
-          SITE_URL: https://next-mountain-ventures-llc.github.io/TheFordFamilyBlog/
+          SITE_URL: http://thefourfamily.life
           NODE_ENV: production
 
       - name: Setup Pages
