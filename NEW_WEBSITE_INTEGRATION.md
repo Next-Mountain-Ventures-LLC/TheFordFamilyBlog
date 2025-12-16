@@ -22,11 +22,12 @@ The integration allows for:
 
 ### Environment Variables
 
-Set the following environment variables in your new.website project settings:
+Set the following environment variables in your GitHub repository Secrets and in your new.website project settings:
 
 - `NEW_WEBSITE_API_KEY`: Your API key for authentication (default: 'ford-family-new-website-key')
 - `NEW_WEBSITE_SITE_ID`: Your site ID in the new.website platform (default: 'ford-family-site')
-- `NEW_WEBSITE_BUILD_HOOK`: The URL for the build hook (default: 'https://api.new.website/v1/sites/ford-family-site/rebuild')
+- `GITHUB_TOKEN`: Your GitHub Personal Access Token for triggering workflows (for webhook handler)
+- `GITHUB_REPOSITORY`: Your GitHub repository (e.g., 'next-mountain-ventures-llc/TheFordFamilyBlog')
 
 ### Webhook Endpoint
 
