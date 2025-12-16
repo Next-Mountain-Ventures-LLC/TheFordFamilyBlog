@@ -7,7 +7,9 @@ import tailwindcss from "@tailwindcss/vite";
 // In development, serve from root
 const isProduction = process.env.NODE_ENV === 'production';
 
-// https://astro.build/config
+// GitHub Pages configuration
+// Site URL will be set via environment variable in GitHub Actions
+// Local development uses localhost, production uses GitHub Pages URL
 export default defineConfig({
   site: process.env.SITE_URL || "http://localhost:4321",
   base: isProduction ? "/TheFordFamilyBlog/" : "/",
