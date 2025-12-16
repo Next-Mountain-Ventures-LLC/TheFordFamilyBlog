@@ -107,21 +107,32 @@ add_action('delete_post', 'trigger_astro_rebuild', 10, 1);
 2. Check your server logs to confirm that a new build was triggered
 3. Verify that the changes appear on your site once the build completes
 
+## Triggering Builds from WordPress
+
+For automatic rebuilds when WordPress content changes, you have options:
+
+**Option 1: Push to GitHub (Recommended)**
+- Set up a git sync from WordPress to GitHub (via plugins or webhooks)
+- Any changes pushed to main or quantum-nest branch automatically trigger a build
+
+**Option 2: Manual GitHub Actions Trigger**
+- Use GitHub API to trigger the workflow programmatically from WordPress
+- Requires a GitHub Personal Access Token in WordPress
+
+**Option 3: Content Sync Service**
+- Use a service like Zapier or webhooks to connect WordPress to GitHub Actions
+- Configure the service to watch for changes in WordPress and trigger GitHub Actions workflow
+
 ## Troubleshooting
 
 If the rebuild is not being triggered:
 
-1. Check WordPress webhook logs (if using a plugin)
-2. Verify that the secret matches between WordPress and your Astro site
-3. Check your server logs for any errors in the webhook endpoint
-4. Make sure the `VERCEL_DEPLOY_HOOK` environment variable is correctly set
-5. Test the endpoint directly by sending a POST request with tools like Postman or curl:
-
-```bash
-curl -X POST -H "Content-Type: application/json" \
-  -d '{"secret":"67136844","test":true}' \
-  https://your-site-url.com/api/wp-rebuild
-```
+1. Check that your GitHub repository is properly configured
+2. Verify that `.github/workflows/build-and-deploy.yml` is present
+3. Check GitHub Actions → Workflows → "Build and Deploy to GitHub Pages" for workflow runs and logs
+4. Ensure you're pushing to the correct branch (main or quantum-nest)
+5. Check GitHub Deployments tab for deployment status
+6. Verify that your SITE_URL environment variable is correct in the workflow
 
 ## Security Considerations
 
