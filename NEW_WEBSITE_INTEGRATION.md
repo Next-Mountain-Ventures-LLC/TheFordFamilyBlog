@@ -123,11 +123,13 @@ If you encounter issues with the integration:
 2. **Authentication Failures**
    - Confirm that the API key in your environment variables matches the one in your webhook payload
    - Check that the site ID is correct
+   - Verify GITHUB_TOKEN has appropriate permissions for triggering workflows
 
 3. **Rebuilds Not Triggering**
-   - Verify that the build hook URL is correct
-   - Check the logs in your new.website dashboard for any error messages
-   - Ensure your site has enough build minutes available
+   - Check the logs in your new.website dashboard for webhook delivery status
+   - Verify your GitHub Actions workflow is properly configured
+   - Check GitHub Actions logs in your repository for any errors
+   - Ensure your GitHub Personal Access Token hasn't expired
 
 ## Security Considerations
 
