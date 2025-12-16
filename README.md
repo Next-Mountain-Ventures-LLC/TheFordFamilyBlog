@@ -53,14 +53,13 @@ To manually trigger a build and deployment:
 
 ### Custom Domain
 
-To set up a custom domain:
+This site is configured to deploy to **thefourfamily.life**.
 
-1. Go to your GitHub repository Settings → Pages
-2. Under "Custom domain", enter your domain name
-3. Add the necessary DNS records to your domain provider (as instructed by GitHub)
-4. Wait for DNS verification to complete
+- **Current domain:** thefourfamily.life (HTTP)
+- **SSL/HTTPS:** To be configured when SSL certificate is available
+- **Deployment:** Automatic via GitHub Actions
 
-For more details on setting up GitHub Pages, see [GitHub Pages Documentation](https://docs.github.com/en/pages).
+For more details on setting up GitHub Pages with a custom domain, see [GitHub Pages Documentation](https://docs.github.com/en/pages).
 
 ## How to add components
 
