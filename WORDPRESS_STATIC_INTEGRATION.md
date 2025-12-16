@@ -18,14 +18,28 @@ This project uses a statically generated blog from a WordPress backend. The inte
 - `/src/pages/blog/page/[page].astro`: Pagination with `getStaticPaths()`
 - `/src/pages/api/rebuild-hook.ts`: Webhook endpoint for triggering rebuilds
 
-## Setting Up Webhooks
+## Keeping Content Updated
 
-To keep your static site updated when content changes in WordPress, set up a webhook:
+Since this is a static site, content updates require a rebuild. You have several options:
 
+### Option 1: Manual Git Push (Simplest)
+1. Content is updated in WordPress
+2. Export or sync changes to your GitHub repository
+3. Push to main or quantum-nest branch
+4. GitHub Actions automatically triggers a build and deployment
+
+### Option 2: Automated Webhook Trigger
 1. **WordPress Side**: Install a webhook plugin like "WP Webhooks" or "WebHooks for WordPress"
 2. **Configure Trigger Events**: Set up triggers for post publishing, updating, and deleting
-3. **Webhook URL**: Point to your deployment platform's build hook or to `/api/rebuild-hook`
-4. **Secret Token**: Set a secret token in both WordPress and your environment variables
+3. **Webhook Handler**: Implement a webhook handler that triggers GitHub Actions via the GitHub API
+4. **Secret Token**: Set a secret token in both WordPress and GitHub repository Secrets
+
+### Option 3: Content Sync Service
+Use Zapier, IFTTT, or similar services to:
+1. Monitor WordPress for content changes
+2. Sync changes to your GitHub repository
+3. Push to main branch automatically
+4. GitHub Actions builds and deploys automatically
 
 ## Deployment Platform Configuration
 
