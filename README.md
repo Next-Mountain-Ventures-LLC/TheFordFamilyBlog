@@ -8,6 +8,60 @@ This template helps you build apps with Astro, Tailwind CSS, and Shadcn UI.
 - [Tailwind CSS](https://tailwindcss.com): A utility-first CSS framework that provides a set of pre-designed styling classes to rapidly build user interfaces.
 - [shadcn/ui](https://ui.shadcn.com): A collection of reusable UI components for building responsive and accessible interfaces.
 
+## Getting Started
+
+### Development
+
+```bash
+npm install
+npm run dev
+```
+
+Your site will be available at `http://localhost:4321`
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+This generates a static site in the `dist/` directory.
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+This site is configured for **GitHub Pages** deployment.
+
+### Automatic Deployment
+
+The site automatically builds and deploys to GitHub Pages when you push to the `main` or `quantum-nest` branch. This is handled by the GitHub Actions workflow in `.github/workflows/build-and-deploy.yml`.
+
+### Manual Deployment
+
+To manually trigger a build and deployment:
+
+1. Go to your GitHub repository
+2. Click on the "Actions" tab
+3. Select "Build and Deploy to GitHub Pages"
+4. Click "Run workflow"
+5. Choose your branch and click "Run workflow"
+
+### Custom Domain
+
+To set up a custom domain:
+
+1. Go to your GitHub repository Settings → Pages
+2. Under "Custom domain", enter your domain name
+3. Add the necessary DNS records to your domain provider (as instructed by GitHub)
+4. Wait for DNS verification to complete
+
+For more details on setting up GitHub Pages, see [GitHub Pages Documentation](https://docs.github.com/en/pages).
+
 ## How to add components
 
 Shadcn UI is a collection of re-usable components that can be easily integrated into your applications. It is not a component library, but rather a set of components that you can copy and paste into your projects.
