@@ -3,15 +3,10 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://thefordfamily.life",
-
-  // IMPORTANT: no base path when using a custom domain
   output: "static",
-
   integrations: [react()],
-
   vite: {
     plugins: [tailwindcss()],
   },
