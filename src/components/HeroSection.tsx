@@ -50,7 +50,7 @@ export default function HeroSection() {
             <span className="text-accent-foreground text-4xl md:text-6xl">.life</span>
           </h1>
           <p className="text-xl md:text-2xl max-w-2xl mx-auto mb-8 animate-on-scroll">
-            Our journey through faith, health challenges, homeschooling, entrepreneurship, and creativity.
+            Our journey through Faith, health challenges, homeschooling, entrepreneurship, and creativity.
           </p>
           <div className="flex flex-wrap justify-center gap-4 animate-on-scroll">
             <a href="#family" className={buttonVariants({ size: 'lg' })}>
