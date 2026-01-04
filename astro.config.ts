@@ -5,12 +5,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  // Required for GitHub Pages
-  site: "https://next-mountain-ventures-llc.github.io",
+  site: "https://thefordfamily.life",
 
-  // Repo name (NO trailing slash)
-  base: "/TheFordFamilyBlog",
-
+  // IMPORTANT: no base path when using a custom domain
   output: "static",
 
   integrations: [react()],
