@@ -86,10 +86,12 @@ export default function HeroSection() {
                       className="scrapbook-tape"
                       style={{ '--rotate': `-${parseInt(member.rotate || '0deg') * 0.5}deg` } as React.CSSProperties}
                     ></div>
-                    <img 
-                      src={member.imageUrl} 
-                      alt={`${member.name} - family member`} 
+                    <img
+                      src={member.imageUrl}
+                      alt={`${member.name} - family member`}
                       className="w-full h-auto aspect-square object-cover rounded-sm"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                 )}

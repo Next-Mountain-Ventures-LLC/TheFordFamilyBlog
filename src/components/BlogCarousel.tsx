@@ -157,6 +157,8 @@ export default function BlogCarousel({ title, description, posts }: BlogCarousel
                           src={post.imageUrl}
                           alt={post.title}
                           className="w-full h-48 object-cover rounded-sm"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>

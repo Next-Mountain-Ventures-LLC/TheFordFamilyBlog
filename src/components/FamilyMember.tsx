@@ -27,10 +27,12 @@ export default function FamilyMember({
       {imageUrl && (
         <div className="scrapbook-photo" style={{ '--rotate': rotate } as React.CSSProperties}>
           <div className="scrapbook-tape" style={{ '--rotate': `-${parseInt(rotate) * 0.5}deg` } as React.CSSProperties}></div>
-          <img 
-            src={imageUrl} 
-            alt={`${name} - family member`} 
+          <img
+            src={imageUrl}
+            alt={`${name} - family member`}
             className="w-full md:w-80 h-auto rounded-sm object-cover"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       )}
