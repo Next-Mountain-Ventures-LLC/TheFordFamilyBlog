@@ -240,47 +240,45 @@
     transform: translate(0);
   }
   
-  /* Hero photos animations with extra padding to avoid cutoff */
+  /* Hero photos animations */
   .hero-section {
-    padding-bottom: 250px; /* Extra padding to prevent cutoff */
-    margin-bottom: 150px; /* Additional margin for safety */
-    overflow: visible !important; /* Make sure nothing is cut off */
+    overflow: visible;
   }
 
   .hero-photo-1 {
-    transform: translateY(-15px);
-    transition: transform 1.2s ease, opacity 1.2s ease;
+    transform: translateY(-8px);
+    transition: transform 1s ease, opacity 1s ease;
   }
-  
+
   .hero-photo-2 {
-    transform: translateY(15px);
-    transition: transform 1.2s ease, opacity 1.2s ease;
+    transform: translateY(8px);
+    transition: transform 1s ease, opacity 1s ease;
   }
-  
+
   .hero-photo-3 {
-    transform: translateY(-10px);
-    transition: transform 1.2s ease, opacity 1.2s ease;
+    transform: translateY(-8px);
+    transition: transform 1s ease, opacity 1s ease;
   }
-  
+
   .hero-photo-4 {
-    transform: translateY(10px);
-    transition: transform 1.2s ease, opacity 1.2s ease;
+    transform: translateY(8px);
+    transition: transform 1s ease, opacity 1s ease;
   }
-  
+
   .hero-photo-1.animate-visible {
-    transform: translateY(175px);
+    transform: translateY(0);
   }
-  
+
   .hero-photo-2.animate-visible {
-    transform: translateY(-175px);
+    transform: translateY(0);
   }
-  
+
   .hero-photo-3.animate-visible {
-    transform: translateY(175px);
+    transform: translateY(0);
   }
-  
+
   .hero-photo-4.animate-visible {
-    transform: translateY(-175px);
+    transform: translateY(0);
   }
   
   /* Make sure family profiles are visible */
