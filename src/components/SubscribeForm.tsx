@@ -88,7 +88,7 @@ export default function SubscribeForm() {
         all_entries: Array.from(formData.entries())
       });
 
-      const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
+      const zapierWebhookUrl = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_URL || "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
       console.log("Sending form to Zapier webhook");
 
       // Send the form data directly to Zapier

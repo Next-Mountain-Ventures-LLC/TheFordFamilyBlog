@@ -24,7 +24,7 @@ export default function ContactForm() {
         form.append(key, value);
       });
       
-      const zapierWebhookUrl = "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
+      const zapierWebhookUrl = import.meta.env.PUBLIC_ZAPIER_WEBHOOK_URL || "https://hooks.zapier.com/hooks/catch/24996675/uswyw2z/";
       const response = await fetch(zapierWebhookUrl, {
         method: "POST",
         body: form, // FormData automatically sets the correct Content-Type
